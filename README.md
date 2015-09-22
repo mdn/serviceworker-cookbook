@@ -11,6 +11,11 @@ It's online. It's offline. It's a Service Worker!
 - Documented code
 - Tests
 
+## Prior art
+
+- https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker
+- https://github.com/jakearchibald/isserviceworkerready/tree/gh-pages/demos
+
 ## Let's cook
 
 - [ ] Cache on install
