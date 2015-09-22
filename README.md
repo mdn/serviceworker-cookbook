@@ -1,4 +1,4 @@
-# ServiceWorker Kitchen Sink
+# ServiceWorker Cookbook
 
 It's online. It's offline. It's a Service Worker!
 
@@ -6,8 +6,12 @@ It's online. It's offline. It's a Service Worker!
 
 ## Let's build
 
-- [ ] Static cache
-- [ ] Fetch & Cache
+- [ ] Cache on install
+- [ ] Cache on network response
+- [ ] Fetch from cache, falling back to network
+- [ ] Fetch from cache, then network
+- [ ] Generic fallback
+- [ ] ServiceWorker-side templating
 - [ ] Push & Fetch
 - [ ] Push & Notification
 - [ ] Backgroundsync
