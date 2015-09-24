@@ -1,7 +1,6 @@
 after_success:
-- $(npm bin)/update-branch --commands "npm install && npm run build" --commit-message
-  "GitHub Pages" --distribution-branch "gh-pages" --source-branch
-  "master"
+- $(npm bin)/update-branch --commit-message "GitHub Pages" --distribution-branch "gh-pages"
+  --source-branch "master"
 git:
   depth: 10
 language: node_js
@@ -14,3 +13,6 @@ deploy:
   app: serviceworker-cookbook
   on:
     repo: digitarald/serviceworker-cookbook
+env:
+  global:
+    secure: mANLJMma4Db0lUFjxCsH3rD3sITKZ6v6zHlUq14hSwYNCPu5iL8fdI7TP5H88K0iWuFMrzxp4XVw7rIOoRPBEnPokC/r+ofnyScNZV7dCSp8xWkJgk6HbPeCdoBmcavyEIdDCuJe2T4k8ixPrlVFdsEHwPHqGzixKjfdkfaq0MXQJfgUw2/TsGDhAmTBsvQ+zP2mulwoGok2l2Cvis+RZJ8mM5NZdy2ViglmWJGryUc0LLyBtvVP/qbNWb8GZqn2OroI85Bwpi80vpnhaH7AEld7Plga/FWQmI9+p22elOqXem9XQbOfwVViY2WpCDAaHWjmUfNbJgokqohIk+i+8S4Q3xNSyCaooISgltK6gd+dD1fEm28/nU3hoT3ffba53FhKpgrgZYKy+RxbUSbFwQa5Y3HW02StFIFL87eHDryHeTAQoKqn665p+kf14gOHIS7cYzHJ+t4eezBIIziAPvc6WDgHBR1BpRfh5fGSTlmvKwXaD+rWvBu5vTPioymBbURxYATHwKmVv+S3JR2wPdpNkARSL0TORdwnQnbF6wcspAyqb+JzRNcq0e395Hgvs1d+J52y4tkwIAAHyqKJen4PcYhEO+47YYsp7e4CRj7YS+6N0drHwgf29iggDuX12usR6xmhmdoS/fn/xooxz9Z6HsOZl1I6vioOr0on8mU=
