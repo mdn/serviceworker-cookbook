@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "It's online. It's offline. It's a Service Worker!",
   "private": true,
-  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "test": "exit 0",
     "build": "exit 0"
   },
   "repository": {
