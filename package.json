@@ -1,0 +1,30 @@
+{
+  "name": "serviceworker-cookbook",
+  "version": "0.1.0",
+  "description": "It's online. It's offline. It's a Service Worker!",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "build": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digitarald/serviceworker-cookbook.git"
+  },
+  "keywords": [
+    "serviceworker",
+    "cookbook"
+  ],
+  "author": "Harald Kirschner <npm@digitarald.com> (http://digitarald.de/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/digitarald/serviceworker-cookbook/issues"
+  },
+  "homepage": "https://digitarald.github.com/serviceworker-cookbook/",
+  "devDependencies": {
+    "@alrra/travis-scripts": "^1.1.1"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}

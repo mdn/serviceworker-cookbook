@@ -1,0 +1,16 @@
+after_success:
+- $(npm bin)/update-branch --commands "npm install && npm run build" --commit-message
+  "GitHub Pages" --distribution-branch "gh-pages" --source-branch
+  "master"
+git:
+  depth: 10
+language: node_js
+node_js:
+- '4'
+deploy:
+  provider: heroku
+  api_key:
+    secure: bqzvFxg1euAI3ehI1C0QHI9yxjUTGH5fY54ULda5EmkJWM6Wr5/n8DHkvdg/AdH/74RPD6KsT21OkWkTgb6cqfixOV6PeiV1hZQIhIFpCMJQn+ba9DqVwrb0yK77VOWEXR7Y48SQfM0T9EKL/JUYLFOFTUa52GutMZUEucWvRy1ZrK1EYsghX1//pTbq7kWAdKyGxCghy1dEO7HFeGleP8BJ38q72FT25jfeeSC6ijFbyeXPzxA+wLZ0tcJXs5mWGYrOX9w7t40KSmDAJdAgda8PBPwTobtJR79t015KVz8WwiMEVIStMvJ6mra0OerhH1v5Sd2VFOGD1Ba2E9vcQBAbEm/zdVpM0wXawM99z/+S239RwZ8kQsLBLXzM9XtpKFihb7B71siKEdULs9D4YiEyrCDsmm52LB0SuCPbcCAy/4rdHAuqUQ0GdwC2P3LfH9y2bo4470QRhdv3+UTeOsQvWl48IytmF7MYAO82kOn2Dr8HINr9JbabE/2zArYstDvIUrkuUgL81GI7uxX7EeoomrMb4Me+Ujkr/OK69hDZwbPs3m5NS8q231/uOBMmIVTYf8DYfcwpQA8rVA4oECwbt0S6kmOvbMjzsxphu1O2XX8d9TL9RJod8eAX4v6gnA35pg2Mb6dVhi0cwbwUprsOGTi8vQ93ALDxbtD5wwY=
+  app: serviceworker-cookbook
+  on:
+    repo: digitarald/serviceworker-cookbook
