@@ -4,10 +4,18 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 
+app.use(function forceSSL(req, res, next) {
+  const host = req.get('Host');
+  if (!host.startsWith('localhost') && req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect('https://' + host + req.url);
+  }
+  return next();
+});
+
 // http://enable-cors.org/server_expressjs.html
 app.use(function corsify(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
   next();
 });
 
