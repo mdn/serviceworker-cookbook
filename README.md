@@ -18,12 +18,17 @@ It's online. It's offline. It's a Service Worker!
 
 ## Let's cook
 
+- [x] Generic fallback
+- [x] Immediate claim
 - [ ] Cache on install
 - [ ] Cache on network response
 - [ ] Fetch from cache, falling back to network
 - [ ] Fetch from cache, then network
-- [ ] Generic fallback
 - [ ] ServiceWorker-side templating
 - [ ] Push & Fetch
 - [ ] Push & Notification
 - [ ] Backgroundsync
+
+# Attributions
+
+[MealKeeper Icon](https://www.iconfinder.com/icons/51445/cook_book_recipe_group_icon) by [Shlyapnikova](http://shlyapnikova.deviantart.com/), [Creative Commons (Attribution 3.0 Unported)](http://creativecommons.org/licenses/by/3.0/)
