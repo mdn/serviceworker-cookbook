@@ -30,7 +30,6 @@
     "del": "^2.0.2",
     "docco": "^0.7.0",
     "eslint-config-airbnb": "0.0.9",
-    "glob": "^5.0.14",
     "gulp": "^3.9.0",
     "gulp-docco": "0.0.4",
     "gulp-eslint": "^1.0.0",
@@ -39,6 +38,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "glob": "^5.0.14"
   }
 }
