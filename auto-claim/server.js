@@ -13,10 +13,15 @@ module.exports = function autoClaim(app, route) {
     // Replace {{ vefsion }} service-worker.js
     const buffer = tpl({
       version: [
-        nowMinute.getHours(),
-        nowMinute.getMinutes(),
-        nowMinute.getSeconds(),
-      ].join('.'),
+        nowMinute.getFullYear(),
+        nowMinute.getMonth(),
+        nowMinute.getDate(),
+        [
+          nowMinute.getHours(),
+          nowMinute.getMinutes(),
+          nowMinute.getSeconds(),
+        ].join(':'),
+      ].join('-'),
     });
     res.type('js').send(buffer);
   });
