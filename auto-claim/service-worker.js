@@ -3,7 +3,7 @@ const version = '{{ version }}';
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Installed version', version);
   event.waitUntil(
-    fetch('http://lorempixel.com/200/100/').then((response) => {
+    fetch('./random-cached.jpg').then((response) => {
       return caches.open(version).then((cache) => {
         console.log('[ServiceWorker] Cached random.jpg for', version);
         // Important to `return` the promise here to have `skipWaiting()`
@@ -67,5 +67,12 @@ self.addEventListener('fetch', (event) => {
         });
       })
     );
+  }
+  if (event.request.url.includes('/version')) {
+    event.respondWith(new Response(version, {
+      headers: {
+        'content-type': 'text/plain',
+      },
+    }));
   }
 });
