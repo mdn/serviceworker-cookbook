@@ -1,5 +1,5 @@
 after_success:
-- $(npm bin)/update-branch --commit-message "GitHub Pages" --distribution-branch "gh-pages"
+- $(npm bin)/update-branch --commands "npm install && npm run build" --directory "build" --commit-message "GitHub Pages" --distribution-branch "gh-pages"
   --source-branch "master"
 git:
   depth: 10

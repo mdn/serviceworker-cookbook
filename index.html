@@ -1,9 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>ServiceWorker Cookbook</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+  <style media="screen">
+
+  </style>
 </head>
 <body>
-  <h1>ServiceWorker Cookbook <em>0.1.0</em></h1>
+  <div class="row">
+    <div class="small-9 small-centered columns">
+      <header class="hero">
+        <h1>ServiceWorker Cookbook <small>{{ package.version }}</small></h1>
+        <h2 class="subheader">{{ package.description }}</h2>
+      </header>
+      <article>
+        <h3>Recipes</h3>
+        {% for recipe in recipes %}
+        <h4><em></em> <a href="./{{ recipe }}/">{{ recipe }}</a> <a class="label" href="{{ ghBase }}{{ recipe }}/">Source</a><h4>
+        {% endfor %}
+      </article>
+    </div>
+  </div>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Immidiate Claim - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+A random picture by <a href="http://lorempixel.com" target="_blank">lorempixel.com</a>:
+
+  <img src="/random.jpg?7331" id="random" width="200" height="100">
+
+<button id="update">Update ServiceWorker</button>
+
+onLoad:
+  <span id="onload">Pending …</span>
+Registered:
+  <span id="register">Nothing registered</span>
+onControllerchange:
+  <span id="oncontrollerchange">Not fired</span>
+
+<script src="./index.js"></script>
+</body>
+</html>

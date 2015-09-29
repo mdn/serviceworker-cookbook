@@ -1,17 +1,26 @@
 const express = require('express');
+const glob = require('glob');
+const path = require('path');
+const fs = require('fs');
 const app = express();
 
-app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	next();
+// http://enable-cors.org/server_expressjs.html
+app.use(function corsify(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
 
-app.get('/', function(req, res) {
-	res.send('Hello World');
+glob.sync('./*/server.js').map(function requireRecipe(file) {
+  const route = '/' + path.basename(path.dirname(file)) + '/';
+  console.log('require', route);
+  require(file)(app, route);
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const pub = fs.existsSync('./dist') ? './dist' : './';
+app.use(express.static(pub));
+
+const port = process.env.PORT || 3003;
+app.listen(port, function didListen() {
   console.log('app.listen on http://localhost:%d', port);
 });

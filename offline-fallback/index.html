@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Offline Fallback - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+<strong>Yay, you are online!</strong>
+Now go offline and <a href="#" id="refresh">refresh</a>!
+
+Registered ServiceWorker:	<span id="register">Did not register</span>
+Active Controller:	<span id="controller">Did not activate</span>
+
+ServiceWorker logs:
+<div id="log">Here be logs …</div>
+<script src="./index.js"></script>
+</body>
+</html>
