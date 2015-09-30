@@ -15,7 +15,7 @@ function updateView() {
 if (navigator.serviceWorker.controller) {
   const scriptURL = navigator.serviceWorker.controller.scriptURL;
   console.log('serviceWorker.controller', scriptURL);
-  debug(scriptURL, 'onload', true);
+  debug(scriptURL, 'onload');
   updateView();
 } else {
   // Register the ServiceWorker
@@ -30,7 +30,7 @@ if (navigator.serviceWorker.controller) {
 navigator.serviceWorker.addEventListener('controllerchange', () => {
   const scriptURL = navigator.serviceWorker.controller.scriptURL;
   console.log('serviceWorker.onControllerchange', scriptURL);
-  debug(scriptURL, 'oncontrollerchange', true);
+  debug(scriptURL, 'oncontrollerchange');
   updateView();
 });
 
