@@ -2,8 +2,6 @@
 
 It's online. It's offline. It's a Service Worker!
 
-![Service Workers is a great API name to google](http://cmi-yorkrsg.com/images/wc.jpg)
-
 ## What is a recipe
 
 - Single contained use case
