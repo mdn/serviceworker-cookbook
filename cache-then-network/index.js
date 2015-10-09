@@ -3,31 +3,28 @@ const cacheDelayInput = document.getElementById('cache-delay');
 const cacheFailInput = document.getElementById('cache-fail');
 const networkDelayInput = document.getElementById('network-delay');
 const networkFailInput = document.getElementById('network-fail');
-const ctx = document.getElementById('retrievedData').getContext('2d');
+const cacheStatus = document.getElementById('cache-status');
+const networkStatus = document.getElementById('network-status');
 const getDataButton = document.getElementById('getDataButton');
 const dataElement = document.getElementById('data');
+
+var gotNetworkData = false;
 
 if (navigator.serviceWorker.controller) {
   // A ServiceWorker controls the site on load and therefore can handle
   // offline fallbacks.
-  console.log('SW exists at ' + navigator.serviceWorker.controller.scriptURL);
-  console.log('SW state: ' + navigator.serviceWorker.controller.state);
-  navigator.serviceWorker.ready.then(() => {
-    console.log('SW ready');
-  });
 } else {
   // Register the ServiceWorker
-  console.log('Registering SW');
   navigator.serviceWorker.register('sw.js', {
     scope: './',
-  }).then((reg) => {
-    console.log('SW registered, scope=' + reg.scope);
   });
 }
 
 function reset() {
-  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   dataElement.textContent = '';
+  cacheStatus.textContent = '';
+  networkStatus.textContent = '';
+  gotNetworkData = false;
 }
 
 function startTransferUI() {
@@ -47,34 +44,28 @@ function stopTransferUI() {
   networkFailInput.disabled = false;
 }
 
-function startResetTimer() {
-}
-
 function handleFetchCompletion(res) {
   const shouldNetworkError = networkFailInput.checked;
   if (shouldNetworkError) {
     throw new Error('Network error on purpose');
   }
 
-  console.log('Network fetch complete');
   res.json().then((data) => {
     updatePage(data);
+    gotNetworkData = true;
   });
 }
 
 function handleCacheFetchCompletion(res) {
   const shouldCacheError = cacheFailInput.checked;
-  if (shouldCacheError) {
-    throw new Error('Cache error on purpose');
+  if (shouldCacheError || !res) {
+    throw Error('Cache miss');
   }
 
-  if (!res) {
-    throw Error('Cache miss (not on purpose)');
-  }
-
-  console.log('Cache fetch complete');
   res.json().then((data) => {
-    updatePage(data);
+    if (!gotNetworkData) {
+      updatePage(data);
+    }
   });
 }
 
@@ -86,6 +77,7 @@ getDataButton.addEventListener('click', function handleClick() {
   startTransferUI();
 
   // Initiate network fetch
+  networkStatus.textContent = 'Fetching...';
   const networkFetch = fetch(dataUrl, { mode: 'cors', cache: 'no-cache' }).then((res) => {
     const networkDelay = networkDelayInput.value || 0;
 
@@ -99,11 +91,14 @@ getDataButton.addEventListener('click', function handleClick() {
         }
       }, networkDelay);
     });
+  }).then(() => {
+    networkStatus.textContent = 'Success';
   }).catch((err) => {
-    console.log('Network failure: ' + err);
+    networkStatus.textContent = err;
   });
 
   // Get cached data
+  cacheStatus.textContent = 'Fetching...';
   const cacheFetch = caches.open(SW.cacheName).then((cache) => {
     return cache.match(dataUrl).then((res) => {
       const cacheDelay = cacheDelayInput.value || 0;
@@ -118,10 +113,12 @@ getDataButton.addEventListener('click', function handleClick() {
           }
         }, cacheDelay);
       });
+    }).then(() => {
+      cacheStatus.textContent = 'Success';
     }).catch((err) => {
-      console.log('Cache failure: ' + err);
+      cacheStatus.textContent = err;
     });
   });
 
-  Promise.all([networkFetch, cacheFetch]).then(stopTransferUI).then(startResetTimer);
+  Promise.all([networkFetch, cacheFetch]).then(stopTransferUI);
 });

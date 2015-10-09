@@ -14,17 +14,18 @@
 </head>
 <body>
 
-  <label>Current data status:</label><canvas id='retrievedData'></canvas>
   <label>Data: </label><output id='data'></output>
+  <label>Cache: </label><output id='cache-status'></output>
+  <label>Network: </label><output id='network-status'></output>
 
   <form>Cache:
     <input id='cache-fail' type='checkbox'>Fail</input>
-    Delay: <input id='cache-delay' type='number'></input>ms
+    Delay: <input id='cache-delay' type='number' value='3000'></input>ms
   </form>
 
   <form>Network:
     <input id='network-fail' type='checkbox'>Fail</input>
-    Delay: <input id='network-delay' type='number'></input>ms
+    Delay: <input id='network-delay' type='number' value='5000'></input>ms
   </form>
 
   <button id='getDataButton'>Get new data</button>
