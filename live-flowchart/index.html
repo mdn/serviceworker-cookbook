@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<title>workflow-specs</title>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+
+		<a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers">Using Service Workers</a>
+
+		<div style="clear:both" />
+
+		<img alt="sw-flowchart" src="https://mdn.mozillademos.org/files/8241/flowchart-production-version.png" style="float: left" />
+
+		<div class="playground">
+		    <button id="swinstall">Register Service Worker</button>
+		    <button id="reloadapp">Reload application</button>
+		    <button id="swuninstall">Unregister Service Worker</button>
+		    <div id="log"></div> 
+	 	</div>
+
+
+		<script src="logger.js"></script>
+		<script src="sw-util.js"></script>
+		<script src="app.js"></script>
+
+		<script>
+			new App();
+		</script>
+	</body>
+</html>

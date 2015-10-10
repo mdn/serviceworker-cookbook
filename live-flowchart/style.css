@@ -1,0 +1,26 @@
+img {
+	margin-right: 3em;
+	float: left;
+}
+
+div.playground {
+}
+
+#log {
+	overflow: scroll;
+	background: black;
+	color: white;
+	margin-top: 2em;
+	padding: 1em;
+	font-family: monospace;
+	line-height: 150%;
+}
+
+#log .highlight {
+	color: green;
+}
+
+button {
+	width: auto;
+	height: 3em;
+}
