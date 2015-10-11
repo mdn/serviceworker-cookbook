@@ -1,6 +1,6 @@
-'use strict'; // to support classes in Chrome 45
+'use strict'; // to support classes in Chrome (Version 48.0.2527.0 canary (64-bit))
 
-// import Logger from 'logger';
+// import Logger from 'logger'; // not supported in Chrome (Version 48.0.2527.0 canary (64-bit))
 
 class SWUtil {
 

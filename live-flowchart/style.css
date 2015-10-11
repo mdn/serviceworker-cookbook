@@ -1,6 +1,7 @@
-img {
+div.flowchart {
 	margin-right: 3em;
 	float: left;
+	min-width: 500px;
 }
 
 div.playground {
