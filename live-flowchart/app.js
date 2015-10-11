@@ -14,6 +14,7 @@ class App {
 
     if (this.swUtil.areServiceWorkersSupported()) {
       document.querySelector('#swinstall').addEventListener('click', () => {
+        Logger.log('\n-------\n');
         _self.enableCoolFeatures();
       });
 
@@ -22,27 +23,20 @@ class App {
       });
 
       document.querySelector('#swuninstall').addEventListener('click', () => {
+        Logger.log('\n-------\n');
         _self.disableCoolFeatures();
       });
 
-      if (this.swUtil.isServiceWorkerConfigured()) {
-        Logger.log('service worker already configured');
-
-        document.querySelector('#swinstall').disabled = true;
-      } else {
-        document.querySelector('#swuninstall').disabled = false;
-      }
-
       if (this.swUtil.isServiceWorkerControllingThisApp()) {
-        Logger.log('service worker controlling this app');
+        Logger.info('App code run as expected');
 
-        document.querySelector('#swinstall').disabled = true;
+        this.enableServiceWorkerRegistration();
       } else {
-        document.querySelector('#swuninstall').disabled = false;
+        this.enableServiceWorkerUnregistration();
       }
     } else {
-      Logger.log('Service workers are not supported by this browser');
-      Logger.log(navigator.userAgent);
+      Logger.error('Service workers are not supported by this browser');
+      Logger.error(navigator.userAgent);
     }
   }
 
@@ -50,9 +44,9 @@ class App {
     Logger.log('\nApp.enableCoolFeatures()');
 
     if (this.swUtil.isServiceWorkerControllingThisApp()) {
-      Logger.log('a service worker is controlling this app');
+      Logger.log('A service worker is controlling this app');
     } else {
-      Logger.log('configuring service worker');
+      Logger.log('Configuring service worker');
 
       this.swUtil.registerServiceWorker(
         this.coolFeaturesAvailable, // success
@@ -76,7 +70,7 @@ class App {
     document.querySelector('#swinstall').disabled = true;
     document.querySelector('#swuninstall').disabled = false;
 
-    Logger.highlight('Service worker installed: check the browser logs for the oninstall, onactivate and onfetch events');
+    Logger.info('Service worker installed: check the browser logs for the oninstall, onactivate and onfetch events');
   }
 
   coolFeaturesNotAvailable() {
@@ -98,5 +92,15 @@ class App {
 
     document.querySelector('#swinstall').disabled = true;
     document.querySelector('#swuninstall').disabled = false;
+  }
+
+  enableServiceWorkerRegistration() {
+    document.querySelector('#swinstall').disabled = true;
+    document.querySelector('#swuninstall').disabled = false;
+  }
+
+  enableServiceWorkerUnregistration() {
+    document.querySelector('#swinstall').disabled = false;
+    document.querySelector('#swuninstall').disabled = true;
   }
 }

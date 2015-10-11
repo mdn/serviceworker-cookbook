@@ -13,59 +13,55 @@ class SWUtil {
   areServiceWorkersSupported() {
     Logger.log('\nSWUtil.areServiceWorkersSupported()');
 
+    Logger.debug('checking navigator.serviceWorker');
+
     if (navigator.serviceWorker) {
-      Logger.log('service workers supported');
+      Logger.info('Service workers supported by this browser');
       return true;
     }
 
-    Logger.log('NO');
-    return false;
-  }
-
-  isServiceWorkerConfigured() {
-    Logger.log('\nSWUtil.isServiceWorkerConfigured()');
-
-    if (navigator.serviceWorker.current) { // @TODO: what is it?
-      Logger.log('a service worker is already configured');
-      Logger.log('Go to about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
-
-      return true;
-    }
-
-    Logger.log('NO');
+    Logger.warn('No, service workers are NOT supported by this browser');
     return false;
   }
 
   isServiceWorkerControllingThisApp() {
     Logger.log('\nSWUtil.isServiceWorkerControllingThisApp()');
 
+    Logger.debug('checking navigator.serviceWorker.controller');
+
     if (navigator.serviceWorker.controller) {
-      Logger.highlight('SW is in control, once document is reloaded');
-      Logger.log('the following service worker controls this app: ' + navigator.serviceWorker.controller.scriptURL);
-      Logger.log('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+      Logger.info('A service worker controls this app');
+      Logger.debug('The following service worker controls this app: ' + navigator.serviceWorker.controller.scriptURL);
+      Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
       return true;
     }
 
-    Logger.log('NO');
+    Logger.warn('No, there is no service worker controlling this app');
     return false;
   }
 
   registerServiceWorker(serviceWorkerRegistered, serviceWorkerNotRegistered) {
     Logger.log('\nSWUtil.registerServiceWorker()');
 
-    Logger.highlight('Register service worker with serviceWorker.register()');
+    Logger.info('Register service worker with serviceWorker.register()');
+
+    Logger.debug('calling navigator.serviceWorker.register');
 
     navigator.serviceWorker.register(
       './sw.js',
       { scope: './' }
     ).then(
       (swRegistration) => {
-        Logger.highlight('Service worker registered');
-        Logger.log(swRegistration);
-        Logger.log('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+        Logger.debug(swRegistration);
+        Logger.debug('Installing the following service worker: ' + swRegistration.installing.scriptURL);
+        Logger.debug('with scope: ' + swRegistration.scope);
 
         this.swRegistration = swRegistration;
+
+        Logger.info('The service worker has been successfully registered');
+        Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+        Logger.info('SW is in control, once document is reloaded');
 
         serviceWorkerRegistered();
       },
@@ -80,21 +76,26 @@ class SWUtil {
   unregisterServiceWorker(serviceWorkerUnregistered, serviceWorkerNotUnregistered) {
     Logger.log('\nSWUtil.unregisterServiceWorker()');
 
-    Logger.log(this.swRegistration);
+    Logger.debug(this.swRegistration);
 
     if (this.swRegistration) {
+      Logger.debug('Unregistering the following service worker: ' + this.swRegistration.active.scriptURL);
+      Logger.debug('with scope ' + this.swRegistration.scope);
+
       this.swRegistration.unregister()
         .then(
           () => {
+            Logger.info('The service worker has been successfully unregistered');
+            Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
             serviceWorkerUnregistered();
           },
           (why) => {
-            Logger.log(why);
+            Logger.error(why);
             serviceWorkerNotUnregistered();
           }
         );
     } else {
-      console.warn('no active ServiceWorkerRegistration');
+      Logger.warn('No active ServiceWorkerRegistration');
     }
   }
 

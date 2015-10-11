@@ -16,9 +16,22 @@ div.playground {
 	line-height: 150%;
 }
 
-#log .highlight {
+#log .debug {
+	color: gray;
+}
+
+#log .info {
 	color: green;
 }
+
+#log .warning {
+	color: yellow;
+}
+
+#log .error {
+	color: red;
+}
+
 
 button {
 	width: auto;
