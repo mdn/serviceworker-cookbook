@@ -4,10 +4,15 @@ div.flowchart {
 	min-width: 500px;
 }
 
+div.flowchart h1 {
+	margin-left: 15px;
+}
+
+
 div.playground {
 }
 
-#log {
+div.playground .log {
 	overflow: scroll;
 	background: black;
 	color: white;
@@ -17,24 +22,23 @@ div.playground {
 	line-height: 150%;
 }
 
-#log .debug {
+div.playground .log .debug {
 	color: gray;
 }
 
-#log .info {
+div.playground .log .info {
 	color: green;
 }
 
-#log .warning {
+div.playground .log .warning {
 	color: yellow;
 }
 
-#log .error {
+div.playground .log .error {
 	color: red;
 }
 
-
-button {
+div.playground .button {
 	width: auto;
 	height: 3em;
 }
