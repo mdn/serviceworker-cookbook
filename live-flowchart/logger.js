@@ -1,31 +1,32 @@
 
-var Logger = {
+const Logger = {
 
-	logDomObj: document.querySelector('#log'),
+  logDomObj: document.querySelector('#log'),
 
-	log: function(message, highlight) {
-		console.log(message);
+  log: function log(message, highlight) {
+    var logMessage = null;
+    var newLine = null;
 
-		var logMessage = document.createElement('div');
+    console.log(message);
 
-		if (highlight) {
-			logMessage.setAttribute('class', 'highlight');
-		}
+    logMessage = document.createElement('div');
 
-		logMessage.innerHTML = message;
+    if (highlight) {
+      logMessage.setAttribute('class', 'highlight');
+    }
 
-		if (Object.prototype.toString.call(message) === '[object String]'
-			&& message.includes('\n')) {
+    logMessage.innerHTML = message;
 
-			var newLine = document.createElement('div');
-			newLine.innerHTML = "&nbsp;";
-			this.logDomObj.appendChild(newLine);
-		}
+    if (Object.prototype.toString.call(message) === '[object String]' && message.includes('\n')) {
+      newLine = document.createElement('div');
+      newLine.innerHTML = '&nbsp;';
+      this.logDomObj.appendChild(newLine);
+    }
 
-		this.logDomObj.appendChild(logMessage);
-	},
+    this.logDomObj.appendChild(logMessage);
+  },
 
-	highlight: function(message) {
-		this.log(message, true);
-	}
-}
+  highlight: function highlight(message) {
+    this.log(message, true);
+  },
+};

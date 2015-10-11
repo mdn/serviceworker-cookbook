@@ -1,106 +1,102 @@
-"use strict";
+'use strict'; // to support classes in Chrome 45
+
+// import Logger from 'logger';
+// import SWUtil from 'sw-util';
 
 class App {
 
-	constructor() {
-		Logger.log("App()");
+  constructor() {
+    const _self = this;
 
-		this.swUtil = new SWUtil();
+    Logger.log('App()');
 
-		if (this.swUtil.areServiceWorkersSupported()) {
+    this.swUtil = new SWUtil();
 
-			var _self = this;
+    if (this.swUtil.areServiceWorkersSupported()) {
+      document.querySelector('#swinstall').addEventListener('click', () => {
+        _self.enableCoolFeatures();
+      });
 
-			document.querySelector('#swinstall').addEventListener('click', () => {
-				_self.enableCoolFeatures();
-			});
+      document.querySelector('#reloadapp').addEventListener('click', () => {
+        window.location.reload();
+      });
 
-			document.querySelector('#reloadapp').addEventListener('click', () => {
-				window.location.reload();
-			});
+      document.querySelector('#swuninstall').addEventListener('click', () => {
+        _self.disableCoolFeatures();
+      });
 
-			document.querySelector('#swuninstall').addEventListener('click', () => {
-				_self.disableCoolFeatures();
-			});
+      if (this.swUtil.isServiceWorkerConfigured()) {
+        Logger.log('service worker already configured');
 
-			if (this.swUtil.isServiceWorkerConfigured()) {
-				Logger.log("service worker already configured");
+        document.querySelector('#swinstall').disabled = true;
+      } else {
+        document.querySelector('#swuninstall').disabled = false;
+      }
 
-				document.querySelector('#swinstall').disabled = true;
-			} else {
-				document.querySelector('#swuninstall').disabled = false;
-			}
+      if (this.swUtil.isServiceWorkerControllingThisApp()) {
+        Logger.log('service worker controlling this app');
 
-			if (this.swUtil.isServiceWorkerControllingThisApp()) {
-				Logger.log("service worker controlling this app");
+        document.querySelector('#swinstall').disabled = true;
+      } else {
+        document.querySelector('#swuninstall').disabled = false;
+      }
+    } else {
+      Logger.log('Service workers are not supported by this browser');
+      Logger.log(navigator.userAgent);
+    }
+  }
 
-				document.querySelector('#swinstall').disabled = true;
-			} else {
-				document.querySelector('#swuninstall').disabled = false;
-			}
+  enableCoolFeatures() {
+    Logger.log('\nApp.enableCoolFeatures()');
 
-		} else {
+    if (this.swUtil.isServiceWorkerControllingThisApp()) {
+      Logger.log('a service worker is controlling this app');
+    } else {
+      Logger.log('configuring service worker');
 
-			Logger.log("Service workers are not supported by this browser");
-			Logger.log(navigator.userAgent);
+      this.swUtil.registerServiceWorker(
+        this.coolFeaturesAvailable, // success
+        this.coolFeaturesNotAvailable // error
+      );
+    }
+  }
 
-		}
+  disableCoolFeatures() {
+    Logger.log('\nApp.disableCoolFeatures()');
 
-	}
+    this.swUtil.unregisterServiceWorker(
+      this.coolFeaturesDisabled, // success
+      this.coolFeaturesNotDisabled // error
+    );
+  }
 
-	enableCoolFeatures() {
-		Logger.log("\nApp.enableCoolFeatures()");
+  coolFeaturesAvailable() {
+    Logger.log('\nApp.coolFeaturesAvailable()');
 
-		if (this.swUtil.isServiceWorkerControllingThisApp()) {
+    document.querySelector('#swinstall').disabled = true;
+    document.querySelector('#swuninstall').disabled = false;
 
-			Logger.log("a service worker is controlling this app");
+    Logger.highlight('Service worker installed: check the browser logs for the oninstall, onactivate and onfetch events');
+  }
 
-		} else {
-			Logger.log("configuring service worker");
+  coolFeaturesNotAvailable() {
+    Logger.log('\nApp.coolFeaturesNotAvailable()');
 
-			this.swUtil.registerServiceWorker(
-				this.coolFeaturesAvailable, // success
-				this.coolFeaturesNotAvailable // error
-			);
-		}
-	}
+    document.querySelector('#swinstall').disabled = false;
+    document.querySelector('#swuninstall').disabled = true;
+  }
 
-	disableCoolFeatures() {
-		Logger.log("\nApp.disableCoolFeatures()");
+  coolFeaturesDisabled() {
+    Logger.log('\nApp.coolFeaturesDisabled()');
 
-		this.swUtil.unregisterServiceWorker(
-			this.coolFeaturesDisabled, // success
-			this.coolFeaturesNotDisabled // error
-		);
-	}
+    document.querySelector('#swinstall').disabled = false;
+    document.querySelector('#swuninstall').disabled = true;
+  }
 
-	coolFeaturesAvailable() {
-		Logger.log("\nApp.coolFeaturesAvailable()");
+  coolFeaturesNotDisabled() {
+    Logger.log('\nApp.coolFeaturesNotDisabled()');
 
-		document.querySelector('#swinstall').disabled = true;
-		document.querySelector('#swuninstall').disabled = false;
-
-		Logger.highlight("Service worker installed: check the browser logs for the oninstall, onactivate and onfetch events");
-	}
-
-	coolFeaturesNotAvailable() {
-		Logger.log("\nApp.coolFeaturesNotAvailable()");
-		
-		document.querySelector('#swinstall').disabled = false;
-		document.querySelector('#swuninstall').disabled = true;
-	}
-
-	coolFeaturesDisabled() {
-		Logger.log("\nApp.coolFeaturesDisabled()");
-		
-		document.querySelector('#swinstall').disabled = false;
-		document.querySelector('#swuninstall').disabled = true;
-	}
-
-	coolFeaturesNotDisabled() {
-		Logger.log("\nApp.coolFeaturesNotDisabled()");
-		
-		document.querySelector('#swinstall').disabled = true;
-		document.querySelector('#swuninstall').disabled = false;
-	}
+    document.querySelector('#swinstall').disabled = true;
+    document.querySelector('#swuninstall').disabled = false;
+  }
 }

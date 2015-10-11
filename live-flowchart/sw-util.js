@@ -1,99 +1,101 @@
-"use strict";
+'use strict'; // to support classes in Chrome 45
+
+// import Logger from 'logger';
 
 class SWUtil {
-	constructor() {
-		Logger.log("\nSWUtil()");
 
-		this.swRegistration = null;
-	}
+  constructor() {
+    Logger.log('\nSWUtil()');
 
-	areServiceWorkersSupported() {
-		Logger.log("\nSWUtil.areServiceWorkersSupported()");
-		
-		if (navigator.serviceWorker) {
-			Logger.log("service workers supported");
-			return true;
-		}
+    this.swRegistration = null;
+  }
 
-    	Logger.log("NO");
-		return false;
-	}
+  areServiceWorkersSupported() {
+    Logger.log('\nSWUtil.areServiceWorkersSupported()');
 
-	isServiceWorkerConfigured() {
-		Logger.log("\nSWUtil.isServiceWorkerConfigured()");
+    if (navigator.serviceWorker) {
+      Logger.log('service workers supported');
+      return true;
+    }
 
-		if (navigator.serviceWorker.current) { // @TODO: what is it?
-        	Logger.log("a service worker is already configured");
-        	Logger.log("Go to about:serviceworkers (Firefox) or chrome://serviceworker-internals/");
+    Logger.log('NO');
+    return false;
+  }
 
-        	return true;
-      	}
+  isServiceWorkerConfigured() {
+    Logger.log('\nSWUtil.isServiceWorkerConfigured()');
 
-    	Logger.log("NO");
-      	return false;
-	}
+    if (navigator.serviceWorker.current) { // @TODO: what is it?
+      Logger.log('a service worker is already configured');
+      Logger.log('Go to about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
+      return true;
+    }
 
-	isServiceWorkerControllingThisApp() {
-		Logger.log("\nSWUtil.isServiceWorkerControllingThisApp()");
+    Logger.log('NO');
+    return false;
+  }
 
-		if (navigator.serviceWorker.controller) {
-			Logger.highlight('SW is in control, once document is reloaded');
-			Logger.log("the following service worker controls this app: " + navigator.serviceWorker.controller.scriptURL);
-	    	Logger.log("More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/");
-	    	
-			return true;
-		}
+  isServiceWorkerControllingThisApp() {
+    Logger.log('\nSWUtil.isServiceWorkerControllingThisApp()');
 
-    	Logger.log("NO");
-		return false;
-	}
+    if (navigator.serviceWorker.controller) {
+      Logger.highlight('SW is in control, once document is reloaded');
+      Logger.log('the following service worker controls this app: ' + navigator.serviceWorker.controller.scriptURL);
+      Logger.log('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
-	registerServiceWorker(serviceWorkerRegistered, serviceWorkerNotRegistered) {
-		Logger.log("\nSWUtil.registerServiceWorker()");
+      return true;
+    }
 
-		Logger.highlight("Register service worker with serviceWorker.register()");
+    Logger.log('NO');
+    return false;
+  }
 
-		navigator.serviceWorker.register(
-			'./sw.js', 
-			{
-				scope: './' 
-			}
-		).then(
-			(swRegistration) => {
-				Logger.highlight('Service worker registered');
-				Logger.log(swRegistration);
-	        	Logger.log("More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/");
-				this.swRegistration = swRegistration;					
-				serviceWorkerRegistered();
-			},
-			(why) => {
-				Logger.log(why);
-				serviceWorkerNotRegistered();
-			}
-		);
-	}
+  registerServiceWorker(serviceWorkerRegistered, serviceWorkerNotRegistered) {
+    Logger.log('\nSWUtil.registerServiceWorker()');
 
-	unregisterServiceWorker(serviceWorkerUnregistered, serviceWorkerNotUnregistered) {
-		Logger.log("\nSWUtil.unregisterServiceWorker()");
+    Logger.highlight('Register service worker with serviceWorker.register()');
 
-		Logger.log(this.swRegistration);
-		if (this.swRegistration) {
+    navigator.serviceWorker.register(
+      './sw.js',
+      { scope: './' }
+    ).then(
+      (swRegistration) => {
+        Logger.highlight('Service worker registered');
+        Logger.log(swRegistration);
+        Logger.log('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
-			this.swRegistration.unregister()
-				.then(
-					() => {
-						serviceWorkerUnregistered();
-					},
-					(why) => {
-						Logger.log(why);
-						serviceWorkerNotUnregistered();
-					}
-				);
+        this.swRegistration = swRegistration;
 
-		} else {
-			console.warn("no active ServiceWorkerRegistration");
-		}
-	}
+        serviceWorkerRegistered();
+      },
+      (why) => {
+        Logger.log(why);
+
+        serviceWorkerNotRegistered();
+      }
+    );
+  }
+
+  unregisterServiceWorker(serviceWorkerUnregistered, serviceWorkerNotUnregistered) {
+    Logger.log('\nSWUtil.unregisterServiceWorker()');
+
+    Logger.log(this.swRegistration);
+
+    if (this.swRegistration) {
+      this.swRegistration.unregister()
+        .then(
+          () => {
+            serviceWorkerUnregistered();
+          },
+          (why) => {
+            Logger.log(why);
+            serviceWorkerNotUnregistered();
+          }
+        );
+    } else {
+      console.warn('no active ServiceWorkerRegistration');
+    }
+  }
 
 }
