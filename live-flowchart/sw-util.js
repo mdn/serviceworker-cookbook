@@ -95,7 +95,9 @@ class SWUtil {
           }
         );
     } else {
-      Logger.warn('No active ServiceWorkerRegistration');
+      Logger.debug('There is no active ServiceWorkerRegistration');
+      Logger.warn('It is not possibile to unregister the service worker');
+      Logger.debug('Unregister the service worker using about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
     }
   }
 

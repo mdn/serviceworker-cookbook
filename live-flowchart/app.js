@@ -43,16 +43,12 @@ class App {
   enableCoolFeatures() {
     Logger.log('\nApp.enableCoolFeatures()');
 
-    if (this.swUtil.isServiceWorkerControllingThisApp()) {
-      Logger.log('A service worker is controlling this app');
-    } else {
-      Logger.log('Configuring service worker');
+    Logger.log('Configuring service worker');
 
-      this.swUtil.registerServiceWorker(
-        this.coolFeaturesAvailable, // success
-        this.coolFeaturesNotAvailable // error
-      );
-    }
+    this.swUtil.registerServiceWorker(
+      this.coolFeaturesAvailable, // success
+      this.coolFeaturesNotAvailable // error
+    );
   }
 
   disableCoolFeatures() {
