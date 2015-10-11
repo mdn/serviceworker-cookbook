@@ -30,9 +30,9 @@ class App {
       if (this.swUtil.isServiceWorkerControllingThisApp()) {
         Logger.info('App code run as expected');
 
-        this.enableServiceWorkerRegistration();
+        this.disableServiceWorkerRegistration();
       } else {
-        this.enableServiceWorkerUnregistration();
+        this.enableServiceWorkerRegistration();
       }
     } else {
       Logger.error('Service workers are not supported by this browser');
@@ -46,8 +46,14 @@ class App {
     Logger.log('Configuring service worker');
 
     this.swUtil.registerServiceWorker(
-      this.coolFeaturesAvailable, // success
-      this.coolFeaturesNotAvailable // error
+      () => {  // success
+        Logger.info('\nApp code run as expected, cool features enabled');
+        this.disableServiceWorkerRegistration();
+      },
+      () => {  // error
+        Logger.info('\nApp code run as expected, cool features not available');
+        this.enableServiceWorkerRegistration();
+      }
     );
   }
 
@@ -55,48 +61,24 @@ class App {
     Logger.log('\nApp.disableCoolFeatures()');
 
     this.swUtil.unregisterServiceWorker(
-      this.coolFeaturesDisabled, // success
-      this.coolFeaturesNotDisabled // error
+      () => {  // success
+        Logger.info('\nApp code run as expected, cool features disabled');
+        this.enableServiceWorkerRegistration();
+      },
+      () => {  // error
+        Logger.info('\nApp code run as expected, cool features not disabled');
+        this.enableServiceWorkerRegistration();
+      }
     );
   }
 
-  coolFeaturesAvailable() {
-    Logger.log('\nApp.coolFeaturesAvailable()');
-
-    document.querySelector('#swinstall').disabled = true;
-    document.querySelector('#swuninstall').disabled = false;
-
-    Logger.info('Service worker installed: check the browser logs for the oninstall, onactivate and onfetch events');
-  }
-
-  coolFeaturesNotAvailable() {
-    Logger.log('\nApp.coolFeaturesNotAvailable()');
-
-    document.querySelector('#swinstall').disabled = false;
-    document.querySelector('#swuninstall').disabled = true;
-  }
-
-  coolFeaturesDisabled() {
-    Logger.log('\nApp.coolFeaturesDisabled()');
-
-    document.querySelector('#swinstall').disabled = false;
-    document.querySelector('#swuninstall').disabled = true;
-  }
-
-  coolFeaturesNotDisabled() {
-    Logger.log('\nApp.coolFeaturesNotDisabled()');
-
-    document.querySelector('#swinstall').disabled = true;
-    document.querySelector('#swuninstall').disabled = false;
-  }
-
   enableServiceWorkerRegistration() {
-    document.querySelector('#swinstall').disabled = true;
-    document.querySelector('#swuninstall').disabled = false;
-  }
-
-  enableServiceWorkerUnregistration() {
     document.querySelector('#swinstall').disabled = false;
     document.querySelector('#swuninstall').disabled = true;
+  }
+
+  disableServiceWorkerRegistration() {
+    document.querySelector('#swinstall').disabled = true;
+    document.querySelector('#swuninstall').disabled = false;
   }
 }
