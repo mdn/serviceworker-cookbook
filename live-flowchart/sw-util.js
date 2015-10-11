@@ -6,8 +6,6 @@ class SWUtil {
 
   constructor() {
     Logger.log('\nSWUtil()');
-
-    this.swRegistration = null;
   }
 
   areServiceWorkersSupported() {
@@ -55,10 +53,13 @@ class SWUtil {
     ).then(
       (swRegistration) => {
         Logger.debug(swRegistration);
-        Logger.debug('Installing the following service worker: ' + swRegistration.installing.scriptURL);
-        Logger.debug('with scope: ' + swRegistration.scope);
 
-        this.swRegistration = swRegistration;
+        if (navigator.serviceWorker.controller) {
+          Logger.debug('Installing the active service worker again: ' + swRegistration.active.scriptURL);
+        } else {
+          Logger.debug('Installing the following service worker: ' + swRegistration.installing.scriptURL);
+        }        
+        Logger.debug('with scope: ' + swRegistration.scope);
 
         Logger.info('Service worker registered');
         Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
@@ -78,31 +79,33 @@ class SWUtil {
   unregisterServiceWorker(serviceWorkerUnregistered, serviceWorkerNotUnregistered) {
     Logger.log('\nSWUtil.unregisterServiceWorker()');
 
-    Logger.debug(this.swRegistration);
+    navigator.serviceWorker.getRegistration().then(
+      (swRegistration) => {
+        Logger.debug(swRegistration);
+        Logger.debug('Unregistering the following service worker: ' + swRegistration.active.scriptURL);
+        Logger.debug('with scope ' + swRegistration.scope);
 
-    if (this.swRegistration) {
-      Logger.debug('Unregistering the following service worker: ' + this.swRegistration.active.scriptURL);
-      Logger.debug('with scope ' + this.swRegistration.scope);
+        swRegistration.unregister()
+          .then(
+            () => {
+              Logger.info('The service worker has been successfully unregistered');
+              Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
-      this.swRegistration.unregister()
-        .then(
-          () => {
-            Logger.info('The service worker has been successfully unregistered');
-            Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
-            Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+              serviceWorkerUnregistered();
+            },
+            (why) => {
+              Logger.error(why);
 
-            serviceWorkerUnregistered();
-          },
-          (why) => {
-            Logger.error(why);
-
-            serviceWorkerNotUnregistered();
-          }
-        );
-    } else {
-      Logger.warn('It is not possibile to unregister the service worker');
-      Logger.debug('Please unregister the service worker using about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
-    }
+              serviceWorkerNotUnregistered();
+            }
+          );
+      }, 
+      (why) => {
+        Logger.warn('It has been not possibile to unregister the service worker');
+        Logger.debug(why);
+        Logger.debug('Please unregister the service worker using about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+      }
+    );
   }
 
 }
