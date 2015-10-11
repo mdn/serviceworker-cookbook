@@ -32,6 +32,7 @@ class SWUtil {
     if (navigator.serviceWorker.controller) {
       Logger.info('A service worker controls this app');
       Logger.debug('The following service worker controls this app: ' + navigator.serviceWorker.controller.scriptURL);
+      Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
       Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
       return true;
@@ -59,9 +60,10 @@ class SWUtil {
 
         this.swRegistration = swRegistration;
 
-        Logger.info('The service worker has been successfully registered');
-        Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+        Logger.info('Service worker registered');
+        Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
         Logger.info('SW is in control, once document is reloaded');
+        Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
         serviceWorkerRegistered();
       },
@@ -86,18 +88,20 @@ class SWUtil {
         .then(
           () => {
             Logger.info('The service worker has been successfully unregistered');
+            Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
             Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+
             serviceWorkerUnregistered();
           },
           (why) => {
             Logger.error(why);
+
             serviceWorkerNotUnregistered();
           }
         );
     } else {
-      Logger.debug('There is no active ServiceWorkerRegistration');
       Logger.warn('It is not possibile to unregister the service worker');
-      Logger.debug('Unregister the service worker using about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+      Logger.debug('Please unregister the service worker using about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
     }
   }
 

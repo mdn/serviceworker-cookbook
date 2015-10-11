@@ -47,11 +47,9 @@ class App {
 
     this.swUtil.registerServiceWorker(
       () => {  // success
-        Logger.info('\nApp code run as expected, cool features enabled');
         this.disableServiceWorkerRegistration();
       },
       () => {  // error
-        Logger.info('\nApp code run as expected, cool features not available');
         this.enableServiceWorkerRegistration();
       }
     );
@@ -62,11 +60,9 @@ class App {
 
     this.swUtil.unregisterServiceWorker(
       () => {  // success
-        Logger.info('\nApp code run as expected, cool features disabled');
         this.enableServiceWorkerRegistration();
       },
       () => {  // error
-        Logger.info('\nApp code run as expected, cool features not disabled');
         this.enableServiceWorkerRegistration();
       }
     );
