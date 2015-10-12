@@ -20,7 +20,7 @@ if (navigator.serviceWorker.controller) {
 } else {
   // Register the ServiceWorker
   navigator.serviceWorker.register('service-worker.js', {
-    scope: './',
+    scope: './'
   }).then((registration) => {
     debug('Refresh to allow ServiceWorker to control this client', 'onload');
     debug(registration.scope, 'register');
