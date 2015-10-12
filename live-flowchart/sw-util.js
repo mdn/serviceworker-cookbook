@@ -1,14 +1,12 @@
-'use strict'; // to support classes in Chrome (Version 48.0.2533.0 canary (64-bit))
+// import Logger from 'logger';
 
-// import Logger from 'logger'; // not supported in Chrome (Version 48.0.2533.0 canary (64-bit))
+function SWUtil() {
+  Logger.log('\nSWUtil()');
+}
 
-class SWUtil {
+SWUtil.prototype = {
 
-  constructor() {
-    Logger.log('\nSWUtil()');
-  }
-
-  areServiceWorkersSupported() {
+  areServiceWorkersSupported: function areServiceWorkersSupported() {
     Logger.log('\nSWUtil.areServiceWorkersSupported()');
 
     Logger.debug('checking navigator.serviceWorker');
@@ -19,10 +17,11 @@ class SWUtil {
     }
 
     Logger.warn('No, service workers are NOT supported by this browser');
+    Logger.debug(navigator.userAgent);
     return false;
-  }
+  },
 
-  isServiceWorkerControllingThisApp() {
+  isServiceWorkerControllingThisApp: function isServiceWorkerControllingThisApp() {
     Logger.log('\nSWUtil.isServiceWorkerControllingThisApp()');
 
     Logger.debug('checking navigator.serviceWorker.controller');
@@ -39,9 +38,9 @@ class SWUtil {
 
     Logger.warn('No, there is no service worker controlling this app');
     return false;
-  }
+  },
 
-  registerServiceWorker(serviceWorkerRegistered, serviceWorkerNotRegistered) {
+  registerServiceWorker: function registerServiceWorker(serviceWorkerRegistered, serviceWorkerNotRegistered) {
     Logger.log('\nSWUtil.registerServiceWorker()');
 
     Logger.info('Register service worker with serviceWorker.register()');
@@ -79,9 +78,9 @@ class SWUtil {
         serviceWorkerNotRegistered();
       }
     );
-  }
+  },
 
-  unregisterServiceWorker(serviceWorkerUnregistered, serviceWorkerNotUnregistered) {
+  unregisterServiceWorker: function unregisterServiceWorker(serviceWorkerUnregistered, serviceWorkerNotUnregistered) {
     Logger.log('\nSWUtil.unregisterServiceWorker()');
 
     Logger.debug('navigator.serviceWorker.getRegistration().then(success, error)');
@@ -117,6 +116,6 @@ class SWUtil {
         Logger.debug('Please unregister the service worker using about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
       }
     );
-  }
+  },
 
-}
+};

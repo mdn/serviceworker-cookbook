@@ -1,48 +1,46 @@
-'use strict'; // to support classes in Chrome (Version 48.0.2533.0 canary (64-bit))
+// import Logger from 'logger';
+// import SWUtil from 'sw-util';
 
-// import Logger from 'logger'; // not supported in Chrome (Version 48.0.2533.0 canary (64-bit))
-// import SWUtil from 'sw-util'; // not supported in Chrome (Version 48.0.2533.0 canary (64-bit))
+function App() {
+  var _self = this;
 
-class App {
+  Logger.log('App()');
 
-  constructor() {
-    const _self = this;
+  // instatiate a new Service Worker Utility Class
+  this.swUtil = new SWUtil();
 
-    Logger.log('App()');
+  // register click events
+  if (this.swUtil.areServiceWorkersSupported()) {
+    document.querySelector('#swinstall').addEventListener('click', () => {
+      Logger.log('\n-------\n');
+      _self.enableCoolFeatures();
+    });
 
-    // instatiate a new Service Worker Utility Class
-    this.swUtil = new SWUtil();
+    document.querySelector('#reloadapp').addEventListener('click', () => {
+      window.location.reload();
+    });
 
-    // register click events
-    if (this.swUtil.areServiceWorkersSupported()) {
-      document.querySelector('#swinstall').addEventListener('click', () => {
-        Logger.log('\n-------\n');
-        _self.enableCoolFeatures();
-      });
+    document.querySelector('#swuninstall').addEventListener('click', () => {
+      Logger.log('\n-------\n');
+      _self.disableCoolFeatures();
+    });
 
-      document.querySelector('#reloadapp').addEventListener('click', () => {
-        window.location.reload();
-      });
+    // checking whether a service worker is in control
+    if (this.swUtil.isServiceWorkerControllingThisApp()) {
+      Logger.info('App code run as expected');
 
-      document.querySelector('#swuninstall').addEventListener('click', () => {
-        Logger.log('\n-------\n');
-        _self.disableCoolFeatures();
-      });
-
-      if (this.swUtil.isServiceWorkerControllingThisApp()) {
-        Logger.info('App code run as expected');
-
-        this.disableServiceWorkerRegistration();
-      } else {
-        this.enableServiceWorkerRegistration();
-      }
+      this.disableServiceWorkerRegistration();
     } else {
-      Logger.error('Service workers are not supported by this browser');
-      Logger.error(navigator.userAgent);
+      this.enableServiceWorkerRegistration();
     }
+  } else {
+    Logger.error('Service workers are not supported by this browser');
   }
+}
 
-  enableCoolFeatures() {
+App.prototype = {
+
+  enableCoolFeatures: function enableCoolFeatures() {
     Logger.log('\nApp.enableCoolFeatures()');
 
     Logger.log('Configuring service worker');
@@ -55,9 +53,9 @@ class App {
         this.enableServiceWorkerRegistration();
       }
     );
-  }
+  },
 
-  disableCoolFeatures() {
+  disableCoolFeatures: function disableCoolFeatures() {
     Logger.log('\nApp.disableCoolFeatures()');
 
     this.swUtil.unregisterServiceWorker(
@@ -68,15 +66,15 @@ class App {
         this.enableServiceWorkerRegistration();
       }
     );
-  }
+  },
 
-  enableServiceWorkerRegistration() {
+  enableServiceWorkerRegistration: function enableServiceWorkerRegistration() {
     document.querySelector('#swinstall').disabled = false;
     document.querySelector('#swuninstall').disabled = true;
-  }
+  },
 
-  disableServiceWorkerRegistration() {
+  disableServiceWorkerRegistration: function disableServiceWorkerRegistration() {
     document.querySelector('#swinstall').disabled = true;
     document.querySelector('#swuninstall').disabled = false;
-  }
-}
+  },
+};

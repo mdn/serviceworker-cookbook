@@ -1,26 +1,26 @@
 console.log('\nsw.js');
 
 this.addEventListener('install', (event) => {
-  console.warn('\nsw.js: Service worker installed, oninstall fired');
-  console.log(event);
+  console.info('\nService worker installed, oninstall fired');
+  console.debug(event);
 
   // event.waitUntil();
 
-  console.warn('Use oninstall to install app dependencies');
+  console.info('Use oninstall to install app dependencies');
 });
 
 this.addEventListener('activate', (event) => {
-  console.warn('\nsw.js: Service worker activated, onactivate fired');
-  console.log(event);
+  console.info('\nService worker activated, onactivate fired');
+  console.debug(event);
 
-  console.warn('Use onactivate to cleanup old resources');
+  console.info('Use onactivate to cleanup old resources');
 });
 
 this.addEventListener('fetch', (event) => {
-  console.log('\nsw.js: onfecth fired');
-  console.log(event);
+  console.info('\nonfecth fired');
+  console.debug(event);
 
   // event.respondWith();
 
-  console.warn('Modify requests, do whatever you want');
+  console.info('Modify requests, do whatever you want');
 });

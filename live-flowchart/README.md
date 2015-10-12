@@ -1,6 +1,6 @@
 # Recipe: Live Flowchart
 
-This recipe provides a way to learn how to use service workers (SW) through showing [the flow diagram of SW workflow explained on the Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers), and logging on screen the steps taken by a real ES6 Web App.
+This recipe provides a way to learn how to use service workers (SW) through showing [the flow diagram of SW workflow explained on the Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers), and logging on screen the steps taken by a real Web App.
 
 ## Features and usage
 
@@ -45,13 +45,11 @@ Tests has been run on:
 
 - Firefox Nightly 44.0a1 (2015-10-11)
 - Chrome Version 48.0.2533.0 canary (64-bit)
+- Firefox 41.0.1 <= for the 'SW not supported' tests
 
-Note that, in order to support Chrome for ES6, I had to:
+## Notes
 
-- enable strict mode, for classes
-- disable imports
-
-This causes some minor errors in lint, Service Workers work fine.
+- ES5 has been preferred to ES6 to enable testing of browsers not supporting ES6 completely yet, but implementing Service Workers.
 
 ## What's next / contributions
 
