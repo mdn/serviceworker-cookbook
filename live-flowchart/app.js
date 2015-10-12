@@ -2,7 +2,7 @@
 // import SWUtil from 'sw-util';
 
 function App() {
-  var _self = this;
+  var app = this;
 
   Logger.log('App()');
 
@@ -18,12 +18,12 @@ function App() {
   if (this.swUtil.areServiceWorkersSupported()) {
     document.querySelector('#swinstall').addEventListener('click', function() {
       Logger.log('\n-------\n');
-      _self.enableCoolFeatures();
+      app.enableCoolFeatures();
     });
 
     document.querySelector('#swuninstall').addEventListener('click', function() {
       Logger.log('\n-------\n');
-      _self.disableCoolFeatures();
+      app.disableCoolFeatures();
     });
 
     // checking whether a service worker is in control
