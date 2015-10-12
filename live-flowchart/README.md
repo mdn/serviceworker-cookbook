@@ -15,9 +15,29 @@ The features coincide to the buttons at the top of the page, which can be presse
 Usage:
 
 - press buttons
-- read the log
+- read the logs
 - take actions in case (e.g. open about://serviceworkers)
 - hack the code and see what happens
+
+## How to read the logs
+
+There are two logs to read:
+
+- the HTML log
+- the browser log
+
+In the HTML log colors mean different log levels:
+
+- red => error
+- yellow => warn
+- green => info
+- white => log
+- gray => debug
+
+The browser log prints:
+
+- the same messages printed on the HTML log, using the same log level
+- the service worker log (since service workers can't access the DOM)
 
 ## Compatibility
 
