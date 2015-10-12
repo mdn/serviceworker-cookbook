@@ -27,10 +27,8 @@
     "@alrra/travis-scripts": "^1.1.1",
     "babel-eslint": "^4.1.3",
     "browser-sync": "^2.9.6",
-    "eslint-config-airbnb": "0.0.9",
     "eslint-config-airbnb-es5": "^1.0.8",
-    "gulp-eslint": "^1.0.0",
-    "gulp-nodemon": "^2.0.4"
+    "gulp-eslint": "^1.0.0"
   },
   "dependencies": {
     "express": "^4.13.3",
