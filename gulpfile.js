@@ -29,7 +29,7 @@ gulp.task('lint', function lint() {
 gulp.task('build:docs', ['clean'], function buildDocs() {
   return gulp
     .src(srcRecipes, {
-      base: './',
+      base: './'
     })
     .pipe(plugins.docco())
     .pipe(gulp.dest('./dist/docs'));
@@ -42,8 +42,8 @@ gulp.task('build:index', ['clean'], function buildIndex() {
       data: {
         package: require('./package.json'),
         recipes: recipes,
-        ghBase: 'https://github.com/digitarald/serviceworker-cookbook/blob/master/',
-      },
+        ghBase: 'https://github.com/digitarald/serviceworker-cookbook/blob/master/'
+      }
     }))
     .pipe(gulp.dest('./dist'));
 });
@@ -51,7 +51,7 @@ gulp.task('build:index', ['clean'], function buildIndex() {
 gulp.task('build:recipes', ['clean'], function buildRecipes() {
   return gulp
     .src(srcRecipes, {
-      base: './',
+      base: './'
     })
     .pipe(gulp.dest('./dist'));
 });
@@ -67,7 +67,7 @@ gulp.task('watch', ['start-server'], function serve() {
   browserSync.init(null, {
     proxy: 'http://localhost:3003',
     files: './*/*.js',
-    open: false,
+    open: false
   });
   gulp.watch(['./*/*'].concat(ignore), ['build-dev'], browserSync.reload);
 });

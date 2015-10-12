@@ -27,7 +27,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   // Just for debugging, list all controlled clients.
   self.clients.matchAll({
-    includeUncontrolled: true,
+    includeUncontrolled: true
   }).then((clientList) => {
     const urls = clientList.map(client => client.url);
     console.log('[ServiceWorker] Matching clients:', urls.join(', '));
@@ -71,8 +71,8 @@ self.addEventListener('fetch', (event) => {
   if (event.request.url.includes('/version')) {
     event.respondWith(new Response(version, {
       headers: {
-        'content-type': 'text/plain',
-      },
+        'content-type': 'text/plain'
+      }
     }));
   }
 });

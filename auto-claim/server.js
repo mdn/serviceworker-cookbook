@@ -19,9 +19,9 @@ module.exports = function autoClaim(app, route) {
         [
           nowMinute.getHours(),
           nowMinute.getMinutes(),
-          nowMinute.getSeconds(),
-        ].join(':'),
-      ].join('-'),
+          nowMinute.getSeconds()
+        ].join(':')
+      ].join('-')
     });
     res.type('js').send(buffer);
   });

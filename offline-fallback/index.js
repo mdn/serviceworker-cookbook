@@ -5,7 +5,7 @@ if (navigator.serviceWorker.controller) {
 } else {
   // Register the ServiceWorker
   navigator.serviceWorker.register('service-worker.js', {
-    scope: './',
+    scope: './'
   }).then((reg) => {
     debug(reg.scope, 'register');
   });
