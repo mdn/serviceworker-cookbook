@@ -1,7 +1,7 @@
 div.flowchart {
 	margin-right: 3em;
 	float: left;
-	min-width: 500px;
+	width: 500px;
 }
 
 div.flowchart h1 {
@@ -20,6 +20,7 @@ div.playground .log {
 	padding: 1em;
 	font-family: monospace;
 	line-height: 150%;
+	height: 85vh;
 }
 
 div.playground .log .debug {

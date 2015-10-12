@@ -10,8 +10,10 @@ class App {
 
     Logger.log('App()');
 
+    // instatiate a new Service Worker Utility Class
     this.swUtil = new SWUtil();
 
+    // register click events
     if (this.swUtil.areServiceWorkersSupported()) {
       document.querySelector('#swinstall').addEventListener('click', () => {
         Logger.log('\n-------\n');

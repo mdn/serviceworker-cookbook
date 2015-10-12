@@ -25,6 +25,7 @@ const Logger = {
         console.debug(message);
       }
     } else {
+      // log into the browser console
       console.log(message);
     }
 
@@ -34,7 +35,9 @@ const Logger = {
       this.logDomObj.appendChild(newLine);
     }
 
+    // log into the HTML console
     this.logDomObj.appendChild(logMessage);
+    this.logDomObj.scrollTop = this.logDomObj.scrollHeight;
   },
 
   debug: function debug(message) {
