@@ -4,7 +4,7 @@ This recipe provides a way to learn how to use service workers (SW) through show
 
 ## Screenshots
 
-![Screenshot](https://github.com/franciov/serviceworker-cookbook/blob/recipe/live-flowchart/live-flowchart/live-flowchart.png)
+![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/live-flowchart.png)
 
 ## Features and usage
 
