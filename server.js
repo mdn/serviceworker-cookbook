@@ -30,10 +30,22 @@ glob.sync('./*/server.js').map(function requireRecipe(file) {
   require(file)(app, route);
 });
 
-const pub = fs.existsSync('./dist') ? './dist' : './';
-app.use(express.static(pub));
+if (!fs.existsSync('./dist')) {
+  throw new Error('Missing `dist` folder, execute `npm run build` first.');
+}
+app.use(express.static('./dist'));
 
 const port = process.env.PORT || 3003;
-app.listen(port, function didListen() {
-  console.log('app.listen on http://localhost:%d', port);
+const ready = new Promise(function willListen(resolve, reject) {
+  app.listen(port, function didListen(err) {
+    if (err) {
+      reject(err);
+      return;
+    }
+    console.log('app.listen on http://localhost:%d', port);
+    resolve();
+  });
 });
+
+exports.ready = ready;
+exports.app = app;

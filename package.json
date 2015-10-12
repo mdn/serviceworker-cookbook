@@ -4,14 +4,14 @@
   "description": "It's online. It's offline. It's a Service Worker!",
   "private": true,
   "scripts": {
-    "start": "node --harmony server.js",
-    "test": "exit 0",
-    "serve": "gulp serve",
+    "start": "gulp build && node --harmony server.js",
+    "test": "gulp test",
+    "watch": "gulp watch",
     "build": "gulp build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digitarald/serviceworker-cookbook.git"
+    "url": "git+https://github.com/mozilla/serviceworker-cookbook.git"
   },
   "keywords": [
     "serviceworker",
@@ -20,26 +20,27 @@
   "author": "Harald Kirschner <npm@digitarald.com> (http://digitarald.de/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/digitarald/serviceworker-cookbook/issues"
+    "url": "https://github.com/mozilla/serviceworker-cookbook/issues"
   },
-  "homepage": "https://digitarald.github.com/serviceworker-cookbook/",
+  "homepage": "https://mozilla.github.com/serviceworker-cookbook/",
   "devDependencies": {
     "@alrra/travis-scripts": "^1.1.1",
     "babel-eslint": "^4.1.3",
     "browser-sync": "^2.9.6",
-    "del": "^2.0.2",
-    "docco": "^0.7.0",
     "eslint-config-airbnb": "0.0.9",
-    "gulp": "^3.9.0",
-    "gulp-docco": "0.0.4",
     "gulp-eslint": "^1.0.0",
-    "gulp-load-plugins": "^0.10.0",
-    "gulp-swig": "^0.7.4"
+    "gulp-nodemon": "^2.0.4"
   },
   "dependencies": {
     "express": "^4.13.3",
     "glob": "^5.0.14",
     "request": "^2.64.0",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "gulp": "^3.9.0",
+    "del": "^2.0.2",
+    "gulp-docco": "0.0.4",
+    "docco": "^0.7.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-swig": "^0.7.4"
   }
 }
