@@ -8,16 +8,18 @@ const networkStatus = document.getElementById('network-status');
 const getDataButton = document.getElementById('getDataButton');
 const dataElement = document.getElementById('data');
 
+const cacheName = 'cache-then-network';
 var gotNetworkData = false;
 
 if (navigator.serviceWorker.controller) {
-  // A ServiceWorker controls the site on load and therefore can handle
-  // offline fallbacks.
+  console.log('SW already registered');
 } else {
-  // Register the ServiceWorker
+  console.log('registering SW');
   navigator.serviceWorker.register('sw.js', {
     scope: './',
-  });
+  }).then(function(swRegistration) {
+    console.log('SW registered');
+  });;
 }
 
 function reset() {
@@ -99,7 +101,7 @@ getDataButton.addEventListener('click', function handleClick() {
 
   // Get cached data
   cacheStatus.textContent = 'Fetching...';
-  const cacheFetch = caches.open(SW.cacheName).then((cache) => {
+  const cacheFetch = caches.open(cacheName).then((cache) => {
     return cache.match(dataUrl).then((res) => {
       const cacheDelay = cacheDelayInput.value || 0;
 
