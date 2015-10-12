@@ -1,3 +1,7 @@
+a {
+	color: #66CC00;
+}
+
 div.flowchart {
 	margin-right: 3em;
 	float: left;
@@ -28,7 +32,7 @@ div.playground .log .debug {
 }
 
 div.playground .log .info {
-	color: green;
+	color: #66CC00;
 }
 
 div.playground .log .warning {
@@ -42,4 +46,9 @@ div.playground .log .error {
 div.playground .button {
 	width: auto;
 	height: 3em;
+}
+
+div.credits {
+	text-align: right;
+	margin-right: 1em;
 }

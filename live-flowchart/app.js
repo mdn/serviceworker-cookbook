@@ -1,7 +1,7 @@
-'use strict'; // to support classes in Chrome (Version 48.0.2527.0 canary (64-bit))
+'use strict'; // to support classes in Chrome (Version 48.0.2533.0 canary (64-bit))
 
-// import Logger from 'logger'; // not supported in Chrome (Version 48.0.2527.0 canary (64-bit))
-// import SWUtil from 'sw-util'; // not supported in Chrome (Version 48.0.2527.0 canary (64-bit))
+// import Logger from 'logger'; // not supported in Chrome (Version 48.0.2533.0 canary (64-bit))
+// import SWUtil from 'sw-util'; // not supported in Chrome (Version 48.0.2533.0 canary (64-bit))
 
 class App {
 
