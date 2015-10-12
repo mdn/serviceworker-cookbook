@@ -1,6 +1,6 @@
 console.log('\nsw.js');
 
-this.addEventListener('install', function(event) {
+this.addEventListener('install', function oninstallHandler(event) {
   console.info('\nService worker installed, oninstall fired');
   console.debug(event);
 
@@ -9,14 +9,14 @@ this.addEventListener('install', function(event) {
   console.info('Use oninstall to install app dependencies');
 });
 
-this.addEventListener('activate', function(event) {
+this.addEventListener('activate', function onactivateHandler(event) {
   console.info('\nService worker activated, onactivate fired');
   console.debug(event);
 
   console.info('Use onactivate to cleanup old resources');
 });
 
-this.addEventListener('fetch', function(event) {
+this.addEventListener('fetch', function onfetchHandler(event) {
   console.info('\nonfecth fired');
   console.debug(event);
 

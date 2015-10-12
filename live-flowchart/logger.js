@@ -1,5 +1,5 @@
 
-const Logger = {
+var Logger = {
 
   logDomObj: document.querySelector('#log'),
 
@@ -8,8 +8,28 @@ const Logger = {
     var newLine = null;
 
     logMessage = document.createElement('div');
-    logMessage.innerHTML = message;
 
+    if (message) {
+      // add message to the HTML node
+      logMessage.innerHTML = message;
+
+      // new like check
+      if (Object.prototype.toString.call(message) === '[object String]'
+        && message.indexOf('\n') !== -1) { // message.includes('\n')
+        newLine = document.createElement('div');
+        newLine.innerHTML = '&nbsp;';
+        this.logDomObj.appendChild(newLine);
+      }
+    } else {
+      // make sure to log all messages on the HTML log
+      if (message === null) {
+        logMessage.innerHTML = 'null';
+      } else if (message === undefined) {
+        logMessage.innerHTML = 'undefined';
+      }
+    }
+
+    // level check
     if (level) {
       if (level.error) {
         logMessage.setAttribute('class', 'error');
@@ -27,23 +47,6 @@ const Logger = {
     } else {
       // log into the browser console
       console.log(message);
-    }
-
-    if (message) {
-      // new like check
-      if (Object.prototype.toString.call(message) === '[object String]' 
-        && message.indexOf('\n') != -1) { // message.includes('\n')
-        newLine = document.createElement('div');
-        newLine.innerHTML = '&nbsp;';
-        this.logDomObj.appendChild(newLine);
-      }
-    } else {
-      // make sure to log all messages on the HTML log
-      if (message == null) {
-        message = 'null';
-      } else if (message == undefined) {
-        message = 'undefined';
-      }
     }
 
     // log into the HTML console
@@ -67,3 +70,5 @@ const Logger = {
     this.log(message, { error: true });
   },
 };
+
+Logger.debug('Logger initialised');

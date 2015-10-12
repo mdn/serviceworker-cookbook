@@ -1,4 +1,4 @@
-// import Logger from 'logger';
+/* global Logger, SWUtil */
 
 function SWUtil() {
   Logger.log('\nSWUtil()');
@@ -50,7 +50,7 @@ SWUtil.prototype = {
       './sw.js',
       { scope: './' }
     ).then(
-      function(swRegistration) {
+      function registerSuccess(swRegistration) {
         Logger.debug('success(swRegistration)');
         Logger.debug(swRegistration);
 
@@ -71,7 +71,7 @@ SWUtil.prototype = {
 
         serviceWorkerRegistered();
       },
-      function(why) {
+      function registerError(why) {
         Logger.debug('error(why)');
         Logger.log(why);
 
@@ -85,7 +85,7 @@ SWUtil.prototype = {
 
     Logger.debug('navigator.serviceWorker.getRegistration().then(success, error)');
     navigator.serviceWorker.getRegistration().then(
-      function(swRegistration) {
+      function getRegistrationSuccess(swRegistration) {
         Logger.debug('success(swRegistration)');
         Logger.debug(swRegistration);
         Logger.debug('Unregistering the following service worker: ' + swRegistration.active.scriptURL + ' <= swRegistration.active.scriptURL');
@@ -94,14 +94,14 @@ SWUtil.prototype = {
         Logger.debug('swRegistration.unregister().then()');
         swRegistration.unregister()
           .then(
-            function() {
+            function unregisterSuccess() {
               Logger.debug('success()');
               Logger.info('The service worker has been successfully unregistered');
               Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
               serviceWorkerUnregistered();
             },
-            function(why) {
+            function unregisterError(why) {
               Logger.debug('error(why)');
               Logger.error(why);
 
@@ -109,7 +109,7 @@ SWUtil.prototype = {
             }
           );
       },
-      function(why) {
+      function getRegistrationError(why) {
         Logger.debug('error(why)');
         Logger.debug(why);
         Logger.warn('It has been not possibile to unregister the service worker');

@@ -1,5 +1,4 @@
-// import Logger from 'logger';
-// import SWUtil from 'sw-util';
+/* global Logger, SWUtil */
 
 function App() {
   var app = this;
@@ -10,18 +9,18 @@ function App() {
   this.swUtil = new SWUtil();
 
   // register click events
-  document.querySelector('#reloadapp').addEventListener('click', function() {
+  document.querySelector('#reloadapp').addEventListener('click', function onreloadapp() {
     window.location.reload();
   });
 
   // checking whether service workers are supported
   if (this.swUtil.areServiceWorkersSupported()) {
-    document.querySelector('#swinstall').addEventListener('click', function() {
+    document.querySelector('#swinstall').addEventListener('click', function onswinstall() {
       Logger.log('\n-------\n');
       app.enableCoolFeatures();
     });
 
-    document.querySelector('#swuninstall').addEventListener('click', function() {
+    document.querySelector('#swuninstall').addEventListener('click', function onswuninstall() {
       Logger.log('\n-------\n');
       app.disableCoolFeatures();
     });
