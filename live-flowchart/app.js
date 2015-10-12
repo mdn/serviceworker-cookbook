@@ -71,3 +71,6 @@ App.prototype = {
     document.querySelector('#swuninstall').disabled = false;
   },
 };
+
+// starts the application
+new App();
