@@ -29,10 +29,21 @@ const Logger = {
       console.log(message);
     }
 
-    if (Object.prototype.toString.call(message) === '[object String]' && message.includes('\n')) {
-      newLine = document.createElement('div');
-      newLine.innerHTML = '&nbsp;';
-      this.logDomObj.appendChild(newLine);
+    if (message) {
+      // new like check
+      if (Object.prototype.toString.call(message) === '[object String]' 
+        && message.indexOf('\n') != -1) { // message.includes('\n')
+        newLine = document.createElement('div');
+        newLine.innerHTML = '&nbsp;';
+        this.logDomObj.appendChild(newLine);
+      }
+    } else {
+      // make sure to log all messages on the HTML log
+      if (message == null) {
+        message = 'null';
+      } else if (message == undefined) {
+        message = 'undefined';
+      }
     }
 
     // log into the HTML console
