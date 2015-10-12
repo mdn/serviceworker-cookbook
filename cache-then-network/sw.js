@@ -4,7 +4,7 @@ console.log('Running sw.js');
 
 const cacheName = 'cache-then-network';
 
-self.addEventListener('install', () => {
+self.addEventListener('install', (ev) => {
   console.log('SW install event');
   self.skipWaiting();
   ev.waitUntil(self.clients.claim());
@@ -30,8 +30,8 @@ self.addEventListener('fetch', (ev) => {
         cache.put(reqURL, res);
         console.log('SW cached data');
         console.log('Cache keys:');
-        for (var i = 0; i < cache.keys().length; i++) {
-          console.log('\t' + cache.keys()[i]);
+        for (let it = 0; it < cache.keys().length; it++) {
+          console.log('\t' + cache.keys()[it]);
         }
       });
       console.log('SW returning response');

@@ -9,7 +9,7 @@ const getDataButton = document.getElementById('getDataButton');
 const dataElement = document.getElementById('data');
 
 const cacheName = 'cache-then-network';
-var gotNetworkData = false;
+let gotNetworkData = false;
 
 if (navigator.serviceWorker.controller) {
   console.log('SW already registered');
@@ -17,9 +17,9 @@ if (navigator.serviceWorker.controller) {
   console.log('registering SW');
   navigator.serviceWorker.register('sw.js', {
     scope: './',
-  }).then(function(swRegistration) {
+  }).then(function handleRegistered() {
     console.log('SW registered');
-  });;
+  });
 }
 
 function reset() {
@@ -88,8 +88,8 @@ getDataButton.addEventListener('click', function handleClick() {
         try {
           handleFetchCompletion(res);
           resolve();
-        } catch(e) {
-          reject(e);
+        } catch (err) {
+          reject(err);
         }
       }, networkDelay);
     });
@@ -110,8 +110,8 @@ getDataButton.addEventListener('click', function handleClick() {
           try {
             handleCacheFetchCompletion(res);
             resolve();
-          } catch(e) {
-            reject(e);
+          } catch (err) {
+            reject(err);
           }
         }, cacheDelay);
       });
