@@ -1,3 +1,5 @@
+'use strict';
+
 /* global Logger, SWUtil */
 
 // import Logger from 'logger';

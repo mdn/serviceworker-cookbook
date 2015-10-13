@@ -48,8 +48,9 @@ The browser log prints:
 Tests has been run on:
 
 - Firefox Nightly 44.0a1 (2015-10-12)
+- Chrome Canary 48.0.2533.0
 
-Compatibility notes
+Notes:
 
 - the browser has to support ES6
 

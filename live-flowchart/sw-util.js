@@ -1,3 +1,5 @@
+'use strict';
+
 /* global Logger */
 
 // import Logger from 'logger';
