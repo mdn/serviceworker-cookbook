@@ -28,7 +28,7 @@ Features are:
 - Reload document
 - Unregister the service worker
 
-The features coincide to the buttons at the top of the page, which can be pressed in a whatever order.
+The features coincide to the buttons at the top of the page, which can be pressed in a whatever order. You can also specify the SW scriptURL and scope to simulate different test cases.
 
 Usage:
 
