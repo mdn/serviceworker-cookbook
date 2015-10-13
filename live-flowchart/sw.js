@@ -1,26 +1,44 @@
-console.log('\nsw.js');
+/*
+ * This is a service worker
+ */
 
+console.debug('\nsw.js: this is a service worker');
+
+/*
+ * @listens install
+ * Listens to the 'install' event
+ */
 this.addEventListener('install', function oninstallHandler(event) {
   console.info('\nService worker installed, oninstall fired');
   console.debug(event);
 
-  // event.waitUntil();
+  // @PLEASEHACK: e.g. event.waitUntil(...);
 
   console.info('Use oninstall to install app dependencies');
 });
 
+/*
+ * @listens activate
+ * Listens to the 'activate' event
+ */
 this.addEventListener('activate', function onactivateHandler(event) {
   console.info('\nService worker activated, onactivate fired');
   console.debug(event);
 
+  // @PLEASEHACK
+
   console.info('Use onactivate to cleanup old resources');
 });
 
+/*
+ * @listens fetch
+ * Listens to the 'fetch' event
+ */
 this.addEventListener('fetch', function onfetchHandler(event) {
   console.info('\nonfecth fired');
   console.debug(event);
 
-  // event.respondWith();
+  // @PLEASEHACK: e.g. event.respondWith(...);
 
   console.info('Modify requests, do whatever you want');
 });

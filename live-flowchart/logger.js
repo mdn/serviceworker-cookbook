@@ -1,4 +1,8 @@
 
+/*
+ * @global Logger
+ * Logging helper
+ */
 var Logger = {
 
   logDomObj: document.querySelector('#log'),
@@ -71,4 +75,4 @@ var Logger = {
   },
 };
 
-Logger.debug('Logger initialised');
+Logger.log('Logger initialised');
