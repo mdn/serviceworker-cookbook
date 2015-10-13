@@ -1,10 +1,17 @@
+body {
+}
+
+div.container {
+	display: flex;	
+	width: 100%;
+}
+
 a {
 	color: #66CC00;
 }
 
 div.flowchart {
 	margin-right: 3em;
-	float: left;
 	width: 500px;
 }
 
@@ -12,19 +19,63 @@ div.flowchart h1 {
 	margin-left: 15px;
 }
 
-
 div.playground {
+	width: 100%;
+}
+
+div.playground .inputs {
+	margin: 1em 0;
+}
+
+div.playground .inputs span.title {
+	font-weight: bold;
+}
+
+div.playground .inputs span {
+}
+
+div.playground .inputs input {
+	margin-left: 0.5em;
+	margin-right: 1em;
+}
+
+div.playground .actions {
+	margin: 1em 0;
+}
+
+div.playground .actions ul {
+	width: 100%%;
+	margin: 0;
+	padding: 0;
+}
+
+div.playground .actions ul li {
+	display: inline-block;
+	width: 33%;
+	margin: 0;
+	padding: 0;
+}
+
+div.playground .actions ul li button {
+	width: 100%;
+	min-height: 3em;
+	background-color: #66CC00;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+div.playground .actions button:disabled {
+	cursor: auto;
 }
 
 div.playground .log {
 	overflow: scroll;
 	background: black;
 	color: white;
-	margin-top: 2em;
 	padding: 1em;
 	font-family: monospace;
 	line-height: 150%;
-	height: 85vh;
+	height: 80vh;
 }
 
 div.playground .log .debug {
