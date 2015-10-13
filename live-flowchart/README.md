@@ -70,6 +70,8 @@ Notes:
 
 ## What's next / contributions
 
+- responsive to work on mobile
+- have the flowchart build in SVG and visualize the service worker states
 - add specs / automatic tests for existing features
 - add specs / automatic tests for new features in a BDD/TDD fashion
 - do something oninstall
