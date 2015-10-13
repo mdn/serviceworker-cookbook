@@ -45,7 +45,7 @@ App.prototype = {
 
     Logger.log('Configuring service worker');
 
-    this.swUtil.registerServiceWorker(
+    this.swUtil.registerServiceWorker().then(
         this.disableServiceWorkerRegistration, // success
         this.enableServiceWorkerRegistration // error
     );
@@ -54,9 +54,9 @@ App.prototype = {
   disableCoolFeatures: function disableCoolFeatures() {
     Logger.log('\nApp.disableCoolFeatures()');
 
-    this.swUtil.unregisterServiceWorker(
+    this.swUtil.unregisterServiceWorker().then(
         this.enableServiceWorkerRegistration, // success
-        this.enableServiceWorkerRegistration // error
+        this.disableServiceWorkerRegistration // error
     );
   },
 
