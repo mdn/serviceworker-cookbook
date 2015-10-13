@@ -1,15 +1,15 @@
-const dataUrl = 'https://api.github.com/events';
-const cacheDelayInput = document.getElementById('cache-delay');
-const cacheFailInput = document.getElementById('cache-fail');
-const networkDelayInput = document.getElementById('network-delay');
-const networkFailInput = document.getElementById('network-fail');
-const cacheStatus = document.getElementById('cache-status');
-const networkStatus = document.getElementById('network-status');
-const getDataButton = document.getElementById('getDataButton');
-const dataElement = document.getElementById('data');
+var dataUrl = 'https://api.github.com/events';
+var cacheDelayInput = document.getElementById('cache-delay');
+var cacheFailInput = document.getElementById('cache-fail');
+var networkDelayInput = document.getElementById('network-delay');
+var networkFailInput = document.getElementById('network-fail');
+var cacheStatus = document.getElementById('cache-status');
+var networkStatus = document.getElementById('network-status');
+var getDataButton = document.getElementById('getDataButton');
+var dataElement = document.getElementById('data');
 
-const cacheName = 'cache-then-network';
-let gotNetworkData = false;
+var cacheName = 'cache-then-network';
+var gotNetworkData = false;
 
 if (navigator.serviceWorker.controller) {
   console.log('SW already registered');
@@ -47,24 +47,24 @@ function stopTransferUI() {
 }
 
 function handleFetchCompletion(res) {
-  const shouldNetworkError = networkFailInput.checked;
+  var shouldNetworkError = networkFailInput.checked;
   if (shouldNetworkError) {
     throw new Error('Network error on purpose');
   }
 
-  res.json().then((data) => {
+  res.json().then(function(data) {
     updatePage(data);
     gotNetworkData = true;
   });
 }
 
 function handleCacheFetchCompletion(res) {
-  const shouldCacheError = cacheFailInput.checked;
+  var shouldCacheError = cacheFailInput.checked;
   if (shouldCacheError || !res) {
     throw Error('Cache miss');
   }
 
-  res.json().then((data) => {
+  res.json().then(function(data) {
     if (!gotNetworkData) {
       updatePage(data);
     }
@@ -80,11 +80,11 @@ getDataButton.addEventListener('click', function handleClick() {
 
   // Initiate network fetch
   networkStatus.textContent = 'Fetching...';
-  const networkFetch = fetch(dataUrl, { mode: 'cors', cache: 'no-cache' }).then((res) => {
-    const networkDelay = networkDelayInput.value || 0;
+  var networkFetch = fetch(dataUrl, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
+    var networkDelay = networkDelayInput.value || 0;
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
         try {
           handleFetchCompletion(res);
           resolve();
@@ -93,20 +93,20 @@ getDataButton.addEventListener('click', function handleClick() {
         }
       }, networkDelay);
     });
-  }).then(() => {
+  }).then(function() {
     networkStatus.textContent = 'Success';
-  }).catch((err) => {
+  }).catch(function(err) {
     networkStatus.textContent = err;
   });
 
   // Get cached data
   cacheStatus.textContent = 'Fetching...';
-  const cacheFetch = caches.open(cacheName).then((cache) => {
-    return cache.match(dataUrl).then((res) => {
-      const cacheDelay = cacheDelayInput.value || 0;
+  var cacheFetch = caches.open(cacheName).then(function(cache) {
+    return cache.match(dataUrl).then(function(res) {
+      var cacheDelay = cacheDelayInput.value || 0;
 
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
           try {
             handleCacheFetchCompletion(res);
             resolve();
@@ -115,9 +115,9 @@ getDataButton.addEventListener('click', function handleClick() {
           }
         }, cacheDelay);
       });
-    }).then(() => {
+    }).then(function() {
       cacheStatus.textContent = 'Success';
-    }).catch((err) => {
+    }).catch(function(err) {
       cacheStatus.textContent = err;
     });
   });
