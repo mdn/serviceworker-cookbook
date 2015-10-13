@@ -1,11 +1,11 @@
 // This function simulates a simple interface update code, that reflects
 // the current state in the UI, updating an image and a version number.
-function updateView() {
-  const img = document.querySelector('#random');
-  img.src = img.src = `random.jpg?${Date.now()}`;
-  fetch('./version').then((response) => {
+function fetchUpdate() {
+  var img = document.querySelector('#random');
+  img.src = img.src = 'random.jpg?' + Date.now();
+  fetch('./version').then(function(response) {
     return response.text();
-  }).then((text) => {
+  }).then(function(text) {
     debug(text, 'version');
   });
 }
@@ -13,38 +13,38 @@ function updateView() {
 // A ServiceWorker controls the site on load and therefor can handle offline
 // fallbacks.
 if (navigator.serviceWorker.controller) {
-  const scriptURL = navigator.serviceWorker.controller.scriptURL;
-  console.log('serviceWorker.controller', scriptURL);
-  debug(scriptURL, 'onload');
-  updateView();
+  var url = navigator.serviceWorker.controller.scriptURL;
+  console.log('serviceWorker.controller', url);
+  debug(url, 'onload');
+  fetchUpdate();
 } else {
   // Register the ServiceWorker
   navigator.serviceWorker.register('service-worker.js', {
     scope: './'
-  }).then((registration) => {
+  }).then(function(registration) {
     debug('Refresh to allow ServiceWorker to control this client', 'onload');
     debug(registration.scope, 'register');
   });
 }
 
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-  const scriptURL = navigator.serviceWorker.controller.scriptURL;
+navigator.serviceWorker.addEventListener('controllerchange', function() {
+  var scriptURL = navigator.serviceWorker.controller.scriptURL;
   console.log('serviceWorker.onControllerchange', scriptURL);
   debug(scriptURL, 'oncontrollerchange');
-  updateView();
+  fetchUpdate();
 });
 
-document.querySelector('#update').addEventListener('click', () => {
-  navigator.serviceWorker.ready.then((registration) => {
-    registration.update().then(() => {
+document.querySelector('#update').addEventListener('click', function() {
+  navigator.serviceWorker.ready.then(function(registration) {
+    registration.update().then(function() {
       console.log('Checked for update');
-    }).catch((error) => {
+    }).catch(function(error) {
       console.error('Update failed', error);
     });
   });
 });
 
 function debug(message, element) {
-  const target = document.querySelector('#' + element || 'log');
+  var target = document.querySelector('#' + element || 'log');
   target.textContent = message;
 }

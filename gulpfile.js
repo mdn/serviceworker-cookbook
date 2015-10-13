@@ -1,14 +1,14 @@
-const gulp = require('gulp');
-const plugins = require('gulp-load-plugins')();
-const del = require('del');
-const glob = require('glob');
-const path = require('path');
+var gulp = require('gulp');
+var plugins = require('gulp-load-plugins')();
+var del = require('del');
+var glob = require('glob');
+var path = require('path');
 
-const ignore = ['!./dist', '!./dist/**', '!./node_modules', '!./node_modules/**'];
-const recipes = glob.sync('./!(dist|node_modules)/').map(function toBase(dir) {
+var ignore = ['!./dist', '!./dist/**', '!./node_modules', '!./node_modules/**'];
+var recipes = glob.sync('./!(dist|node_modules)/').map(function toBase(dir) {
   return path.basename(dir);
 });
-const srcRecipes = recipes.map(function makePath(name) {
+var srcRecipes = recipes.map(function makePath(name) {
   return './' + name + '/*';
 });
 
@@ -63,7 +63,7 @@ gulp.task('start-server', ['build'], function startServer(cb) {
 
 // Watch files and reloads BrowserSync
 gulp.task('watch', ['start-server'], function serve() {
-  const browserSync = require('browser-sync').create();
+  var browserSync = require('browser-sync').create();
   browserSync.init(null, {
     proxy: 'http://localhost:3003',
     files: './*/*.js',
