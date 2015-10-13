@@ -1,15 +1,69 @@
-
 /*
  * @global Logger
  * Logging helper
  */
-var Logger = {
+const Logger = {
 
+  /*
+   * @readonly logDomObj
+   * The HTML DOM Object to log onto
+   */
   logDomObj: document.querySelector('#log'),
 
-  log: function log(message, level) {
-    var logMessage = null;
-    var newLine = null;
+  /*
+   * @method debug
+   * Debug log
+   * @param {String} message The message to be logged
+   */
+  debug(message) {
+    this.writeLog(message, { debug: true });
+  },
+
+  /*
+   * @method info
+   * Info log
+   * @param {String} message The message to be logged
+   */
+  info(message) {
+    this.writeLog(message, { info: true });
+  },
+
+  /*
+   * @method log
+   * Default log
+   * @param {String} message The message to be logged
+   */
+  log(message) {
+    this.writeLog(message);
+  },
+
+  /*
+   * @method warn
+   * Warning log
+   * @param {String} message The message to be logged
+   */
+  warn(message) {
+    this.writeLog(message, { warn: true });
+  },
+
+  /*
+   * @method error
+   * Error log
+   * @param {String} message The message to be logged
+   */
+  error(message) {
+    this.writeLog(message, { error: true });
+  },
+
+  /*
+   * @method log
+   * Log onto the browser console and the HTML log
+   * @param {String} message The message to be logged
+   * @param {Object} level The log level (error, warn, info, log, debug) Default: level.log
+   */
+  writeLog(message, level) {
+    var logMessage;
+    var newLine;
 
     logMessage = document.createElement('div');
 
@@ -56,22 +110,6 @@ var Logger = {
     // log into the HTML console
     this.logDomObj.appendChild(logMessage);
     this.logDomObj.scrollTop = this.logDomObj.scrollHeight;
-  },
-
-  debug: function debug(message) {
-    this.log(message, { debug: true });
-  },
-
-  info: function info(message) {
-    this.log(message, { info: true });
-  },
-
-  warn: function warn(message) {
-    this.log(message, { warn: true });
-  },
-
-  error: function error(message) {
-    this.log(message, { error: true });
   },
 };
 

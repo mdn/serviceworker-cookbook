@@ -1,56 +1,60 @@
 /* global Logger, SWUtil */
 
+// import Logger from 'logger';
+// import SWUtil from 'sw-util';
+
 /*
  * @class App
  * This application
  */
-function App() {
-  var app = this;
+class App {
 
-  Logger.log('App()');
+  /*
+   * @constructs
+   */
+  constructor() {
+    Logger.log('App()');
 
-  // instatiate a new Service Worker Utility Class
-  this.swUtil = new SWUtil();
+    // instatiate a new Service Worker Utility Class
+    this.swUtil = new SWUtil();
 
-  // register click events
-  document.querySelector('#reloadapp').addEventListener('click', function onreloadapp() {
-    window.location.reload();
-  });
-
-  // checking whether service workers are supported
-  if (this.swUtil.areServiceWorkersSupported()) {
-    document.querySelector('#swinstall').addEventListener('click', function onswinstall() {
-      Logger.log('\n-------\n');
-      app.enableCoolFeatures();
+    // register click events
+    document.querySelector('#reloadapp').addEventListener('click', () => {
+      window.location.reload();
     });
 
-    document.querySelector('#swuninstall').addEventListener('click', function onswuninstall() {
-      Logger.log('\n-------\n');
-      app.disableCoolFeatures();
-    });
+    // checking whether service workers are supported
+    if (this.swUtil.areServiceWorkersSupported()) {
+      document.querySelector('#swinstall').addEventListener('click', () => {
+        Logger.log('\n-------\n');
+        thisApp.enableCoolFeatures();
+      });
 
-    // checking whether a service worker is in control
-    if (this.swUtil.isServiceWorkerControllingThisApp()) {
-      Logger.info('App code run as expected');
+      document.querySelector('#swuninstall').addEventListener('click', () => {
+        Logger.log('\n-------\n');
+        thisApp.disableCoolFeatures();
+      });
 
-      this.disableServiceWorkerRegistration();
+      // checking whether a service worker is in control
+      if (this.swUtil.isServiceWorkerControllingThisApp()) {
+        Logger.info('App code run as expected');
+
+        this.disableServiceWorkerRegistration();
+      } else {
+        this.enableServiceWorkerRegistration();
+      }
     } else {
-      this.enableServiceWorkerRegistration();
+      Logger.error('Service workers are not supported by this browser');
     }
-  } else {
-    Logger.error('Service workers are not supported by this browser');
   }
-}
-
-App.prototype = {
 
   /*
    * @method enableCoolFeatures
    * Try register a service worker in order to enable cool features (e.g. offline navigation)
    */
-  enableCoolFeatures: function enableCoolFeatures() {
-    var scriptURL = null;
-    var scope = null;
+  enableCoolFeatures() {
+    var scriptURL;
+    var scope;
 
     Logger.log('\nApp.enableCoolFeatures()');
 
@@ -78,39 +82,39 @@ App.prototype = {
         this.disableServiceWorkerRegistration, // success
         this.enableServiceWorkerRegistration // error
     );
-  },
+  }
 
   /*
    * @method disableCoolFeatures
    * Try unregister the active service worker in order to disable cool features (e.g. offline navigation)
    */
-  disableCoolFeatures: function disableCoolFeatures() {
+  disableCoolFeatures() {
     Logger.log('\nApp.disableCoolFeatures()');
 
     this.swUtil.unregisterServiceWorker().then(
         this.enableServiceWorkerRegistration, // success
         this.disableServiceWorkerRegistration // error
     );
-  },
+  }
 
   /*
    * @method enableServiceWorkerRegistration
    * Enable the possibility for the user to register a service worker
    */
-  enableServiceWorkerRegistration: function enableServiceWorkerRegistration() {
+  enableServiceWorkerRegistration() {
     document.querySelector('#swinstall').disabled = false;
     document.querySelector('#swuninstall').disabled = true;
-  },
+  }
 
   /*
    * @method disableServiceWorkerRegistration
    * Disable the possibility for the user to unregister a service worker
    */
-  disableServiceWorkerRegistration: function disableServiceWorkerRegistration() {
+  disableServiceWorkerRegistration() {
     document.querySelector('#swinstall').disabled = true;
     document.querySelector('#swuninstall').disabled = false;
-  },
-};
+  }
+}
 
 // starts the application
-new App();
+const thisApp = new App();

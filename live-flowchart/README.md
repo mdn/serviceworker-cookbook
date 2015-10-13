@@ -47,14 +47,11 @@ The browser log prints:
 
 Tests has been run on:
 
-- Firefox Nightly 44.0a1 (2015-10-11)
-- Chrome 48.0.2533.0 canary (64-bit)
-- Firefox 41.0.1 <= for the 'SW not supported' tests
-- Safari 6.0.5 (8536.30.1) <= for the 'SW not supported' tests
+- Firefox Nightly 44.0a1 (2015-10-12)
 
-## Notes
+Compatibility notes
 
-- ES5 has been preferred to ES6 to enable testing of browsers not supporting ES6 completely yet, but implementing Service Workers.
+- the browser has to support ES6
 
 ## What's next / contributions
 

@@ -8,7 +8,7 @@ console.debug('\nsw.js: this is a service worker');
  * @listens install
  * Listens to the 'install' event
  */
-this.addEventListener('install', function oninstallHandler(event) {
+this.addEventListener('install', (event) => {
   console.info('\nService worker installed, oninstall fired');
   console.debug(event);
 
@@ -21,7 +21,7 @@ this.addEventListener('install', function oninstallHandler(event) {
  * @listens activate
  * Listens to the 'activate' event
  */
-this.addEventListener('activate', function onactivateHandler(event) {
+this.addEventListener('activate', (event) => {
   console.info('\nService worker activated, onactivate fired');
   console.debug(event);
 
@@ -34,7 +34,7 @@ this.addEventListener('activate', function onactivateHandler(event) {
  * @listens fetch
  * Listens to the 'fetch' event
  */
-this.addEventListener('fetch', function onfetchHandler(event) {
+this.addEventListener('fetch', (event) => {
   console.info('\nonfecth fired');
   console.debug(event);
 
