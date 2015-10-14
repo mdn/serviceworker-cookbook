@@ -13,15 +13,15 @@ var gotNetworkData = false;
 var networkFetchStartTime;
 var cacheFetchStartTime;
 
-navigator.serviceWorker.ready.then(function () {
+navigator.serviceWorker.ready.then(function() {
   console.log('SW ready');
 });
 
-navigator.serviceWorker.addEventListener('statechange', function () {
+navigator.serviceWorker.addEventListener('statechange', function() {
   console.log('state change');
 });
 
-navigator.serviceWorker.addEventListener('controllerchange', function () {
+navigator.serviceWorker.addEventListener('controllerchange', function() {
   console.log('controller change');
 });
 
@@ -37,10 +37,7 @@ if (navigator.serviceWorker.controller) {
     console.log('registration.installing: ' + registration.installing);
     console.log('registration.waiting: ' + registration.waiting);
     console.log('registration.active: ' + registration.active);
-    //console.log('registration.active.state: ' + registration.active.state);
     registration.update();
-    //console.log('SW state: ' + navigator.serviceWorker.controller.state);
-    //console.log('SW id: ' + navigator.serviceWorker.controller.id);
   });
 }
 
