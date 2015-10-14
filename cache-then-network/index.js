@@ -13,34 +13,6 @@ var gotNetworkData = false;
 var networkFetchStartTime;
 var cacheFetchStartTime;
 
-navigator.serviceWorker.ready.then(function() {
-  console.log('SW ready');
-});
-
-navigator.serviceWorker.addEventListener('statechange', function() {
-  console.log('state change');
-});
-
-navigator.serviceWorker.addEventListener('controllerchange', function() {
-  console.log('controller change');
-});
-
-if (navigator.serviceWorker.controller) {
-  console.log('SW already registered');
-} else {
-  console.log('registering SW');
-  navigator.serviceWorker.register('sw.js', {
-    scope: './',
-  }).then(function handleRegistered(registration) {
-    console.log('SW registered');
-    console.log('registration: ' + registration);
-    console.log('registration.installing: ' + registration.installing);
-    console.log('registration.waiting: ' + registration.waiting);
-    console.log('registration.active: ' + registration.active);
-    registration.update();
-  });
-}
-
 function reset() {
   dataElement.textContent = '';
   cacheStatus.textContent = '';
@@ -70,6 +42,11 @@ function handleFetchCompletion(res) {
   if (shouldNetworkError) {
     throw new Error('Network error');
   }
+
+  var resClone = res.clone();
+  caches.open(cacheName).then(function(cache) {
+    cache.put(dataUrl, resClone);
+  });
 
   res.json().then(function(data) {
     updatePage(data);
