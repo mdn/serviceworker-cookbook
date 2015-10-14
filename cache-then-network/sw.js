@@ -6,8 +6,7 @@ var cacheName = 'cache-then-network';
 
 self.addEventListener('install', function(ev) {
   console.log('SW install event');
-  self.skipWaiting();
-  ev.waitUntil(self.clients.claim());
+  ev.waitUntil(self.skipWaiting());
   console.log('Leaving SW install event');
 });
 
@@ -18,6 +17,8 @@ self.addEventListener('activate', function(ev) {
 });
 
 self.addEventListener('fetch', function(ev) {
+  console.log('Got fetch event');
+
   var req = ev.request;
   var reqURL = new URL(req.url);
 
@@ -29,10 +30,12 @@ self.addEventListener('fetch', function(ev) {
         console.log('SW opened cache');
         cache.put(reqURL, res);
         console.log('SW cached data');
-        console.log('Cache keys:');
-        for (var it = 0; it < cache.keys().length; it++) {
-          console.log('\t' + cache.keys()[it]);
-        }
+        cache.keys().then(function(keys) {
+          console.log('Cache keys:');
+          for (var it = 0; it < keys.length; it++) {
+            console.log('\t' + keys[it]);
+          }
+        });
       });
       console.log('SW returning response');
       return res.clone();

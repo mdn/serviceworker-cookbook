@@ -10,6 +10,20 @@ var dataElement = document.getElementById('data');
 
 var cacheName = 'cache-then-network';
 var gotNetworkData = false;
+var networkFetchStartTime;
+var cacheFetchStartTime;
+
+navigator.serviceWorker.ready.then(function () {
+  console.log('SW ready');
+});
+
+navigator.serviceWorker.addEventListener('statechange', function () {
+  console.log('state change');
+});
+
+navigator.serviceWorker.addEventListener('controllerchange', function () {
+  console.log('controller change');
+});
 
 if (navigator.serviceWorker.controller) {
   console.log('SW already registered');
@@ -17,8 +31,16 @@ if (navigator.serviceWorker.controller) {
   console.log('registering SW');
   navigator.serviceWorker.register('sw.js', {
     scope: './',
-  }).then(function handleRegistered() {
+  }).then(function handleRegistered(registration) {
     console.log('SW registered');
+    console.log('registration: ' + registration);
+    console.log('registration.installing: ' + registration.installing);
+    console.log('registration.waiting: ' + registration.waiting);
+    console.log('registration.active: ' + registration.active);
+    //console.log('registration.active.state: ' + registration.active.state);
+    registration.update();
+    //console.log('SW state: ' + navigator.serviceWorker.controller.state);
+    //console.log('SW id: ' + navigator.serviceWorker.controller.id);
   });
 }
 
@@ -29,7 +51,7 @@ function reset() {
   gotNetworkData = false;
 }
 
-function startTransferUI() {
+function disableUI() {
   getDataButton.disabled = true;
   cacheDelayInput.disabled = true;
   cacheFailInput.disabled = true;
@@ -38,7 +60,7 @@ function startTransferUI() {
   reset();
 }
 
-function stopTransferUI() {
+function enableUI() {
   getDataButton.disabled = false;
   cacheDelayInput.disabled = false;
   cacheFailInput.disabled = false;
@@ -49,7 +71,7 @@ function stopTransferUI() {
 function handleFetchCompletion(res) {
   var shouldNetworkError = networkFailInput.checked;
   if (shouldNetworkError) {
-    throw new Error('Network error on purpose');
+    throw new Error('Network error');
   }
 
   res.json().then(function(data) {
@@ -76,10 +98,11 @@ function updatePage(data) {
 }
 
 getDataButton.addEventListener('click', function handleClick() {
-  startTransferUI();
+  disableUI();
 
   // Initiate network fetch
   networkStatus.textContent = 'Fetching...';
+  networkFetchStartTime = window.performance.now();
   var networkFetch = fetch(dataUrl, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
     var networkDelay = networkDelayInput.value || 0;
 
@@ -94,13 +117,18 @@ getDataButton.addEventListener('click', function handleClick() {
       }, networkDelay);
     });
   }).then(function() {
-    networkStatus.textContent = 'Success';
+    var now = window.performance.now();
+    var elapsed = Math.round(now - networkFetchStartTime);
+    networkStatus.textContent = 'Success after ' + elapsed + 'ms';
   }).catch(function(err) {
-    networkStatus.textContent = err;
+    var now = window.performance.now();
+    var elapsed = Math.round(now - networkFetchStartTime);
+    networkStatus.textContent = err + ' after ' + elapsed + 'ms';
   });
 
   // Get cached data
   cacheStatus.textContent = 'Fetching...';
+  cacheFetchStartTime = window.performance.now();
   var cacheFetch = caches.open(cacheName).then(function(cache) {
     return cache.match(dataUrl).then(function(res) {
       var cacheDelay = cacheDelayInput.value || 0;
@@ -116,11 +144,15 @@ getDataButton.addEventListener('click', function handleClick() {
         }, cacheDelay);
       });
     }).then(function() {
-      cacheStatus.textContent = 'Success';
+      var now = window.performance.now();
+      var elapsed = Math.round(now - cacheFetchStartTime);
+      cacheStatus.textContent = 'Success after ' + elapsed + 'ms';
     }).catch(function(err) {
-      cacheStatus.textContent = err;
+      var now = window.performance.now();
+      var elapsed = Math.round(now - cacheFetchStartTime);
+      cacheStatus.textContent = err + ' after ' + elapsed + 'ms';
     });
   });
 
-  Promise.all([networkFetch, cacheFetch]).then(stopTransferUI);
+  Promise.all([networkFetch, cacheFetch]).then(enableUI);
 });
