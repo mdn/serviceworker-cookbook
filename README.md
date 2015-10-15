@@ -9,12 +9,7 @@ It's online. It's offline. It's a Service Worker!
 - Documented code
 - Tests
 
-## Prior art
-
-- https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker
-- https://github.com/jakearchibald/isserviceworkerready/tree/gh-pages/demos
-
-## Let's cook
+## Ideas for cooking sessions
 
 - [x] Generic fallback
 - [x] Immediate claim
@@ -26,6 +21,12 @@ It's online. It's offline. It's a Service Worker!
 - [ ] Push & Fetch
 - [ ] Push & Notification
 - [ ] Backgroundsync
+
+## Similar projects & prior art
+
+- https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker
+- https://github.com/jakearchibald/isserviceworkerready/tree/gh-pages/demos
+- https://github.com/phamann/embrace-the-network
 
 # Attributions
 
