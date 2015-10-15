@@ -4,7 +4,7 @@
  * @global Logger
  * Logging helper
  */
-const Logger = {
+var Logger = {
 
   /*
    * @readonly logDomObj
@@ -17,7 +17,7 @@ const Logger = {
    * Debug log
    * @param {String} message The message to be logged
    */
-  debug(message) {
+  debug: function debug(message) {
     this.writeLog(message, { debug: true });
   },
 
@@ -26,7 +26,7 @@ const Logger = {
    * Info log
    * @param {String} message The message to be logged
    */
-  info(message) {
+  info: function info(message) {
     this.writeLog(message, { info: true });
   },
 
@@ -35,7 +35,7 @@ const Logger = {
    * Default log
    * @param {String} message The message to be logged
    */
-  log(message) {
+  log: function log(message) {
     this.writeLog(message);
   },
 
@@ -44,7 +44,7 @@ const Logger = {
    * Warning log
    * @param {String} message The message to be logged
    */
-  warn(message) {
+  warn: function warn(message) {
     this.writeLog(message, { warn: true });
   },
 
@@ -53,7 +53,7 @@ const Logger = {
    * Error log
    * @param {String} message The message to be logged
    */
-  error(message) {
+  error: function error(message) {
     this.writeLog(message, { error: true });
   },
 
@@ -63,7 +63,7 @@ const Logger = {
    * @param {String} message The message to be logged
    * @param {Object} level The log level (error, warn, info, log, debug) Default: level.log
    */
-  writeLog(message, level) {
+  writeLog: function writeLog(message, level) {
     var logMessage;
     var newLine;
 
