@@ -36,7 +36,7 @@ SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupporte
   Logger.warn('No, service workers are NOT supported by this browser');
   Logger.debug(navigator.userAgent);
   return false;
-},
+};
 
 /*
  * @method isServiceWorkerControllingThisApp
@@ -87,13 +87,13 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
 
   // return a promise
   return new Promise(
-    (resolve, reject) => {
+    function then(resolve, reject) {
       navigator.serviceWorker.register(
         scriptURL,
         swRegisterSecondParam
       ).then(
-        (swRegistration) => {
-          Logger.debug('success(swRegistration)');
+        function registrationSuccess(swRegistration) {
+          Logger.debug('registrationSuccess(swRegistration)');
           Logger.debug(swRegistration);
 
           if (swRegistration.active) {
@@ -117,8 +117,8 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
 
           resolve();
         },
-        (why) => {
-          Logger.debug('error(why)');
+        function registrationError(why) {
+          Logger.debug('registrationError(why)');
           Logger.error(why);
 
           reject();
@@ -142,11 +142,11 @@ SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
 
   // return a promise
   return new Promise(
-    (resolve, reject) => {
+    function then(resolve, reject) {
       Logger.debug('navigator.serviceWorker.getRegistration().then(success, error)');
       navigator.serviceWorker.getRegistration().then(
-        (swRegistration) => {
-          Logger.debug('success(swRegistration)');
+        function getRegistrationSuccess(swRegistration) {
+          Logger.debug('getRegistrationSuccess(swRegistration)');
           Logger.debug(swRegistration);
           Logger.debug('Unregistering the following service worker: ' + swRegistration.active.scriptURL + ' <= swRegistration.active.scriptURL');
           Logger.debug('with scope ' + swRegistration.scope + ' <= swRegistration.scope');
@@ -154,23 +154,23 @@ SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
           Logger.debug('swRegistration.unregister().then()');
           swRegistration.unregister()
             .then(
-              () => {
-                Logger.debug('success()');
+              function unregisterSuccess() {
+                Logger.debug('unregisterSuccess()');
                 Logger.info('The service worker has been successfully unregistered');
                 Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
                 resolve();
               },
-              (why) => {
-                Logger.debug('error(why)');
+              function unregisterError(why) {
+                Logger.debug('unregisterError(why)');
                 Logger.error(why);
 
                 reject();
               }
             );
         },
-        (why) => {
-          Logger.debug('error(why)');
+        function getRegistrationError(why) {
+          Logger.debug('getRegistrationError(why)');
           Logger.error(why);
           Logger.warn('It has been not possibile to unregister the service worker');
         }

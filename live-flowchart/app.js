@@ -14,26 +14,28 @@ function App() {
  * @constructs
  */
 App.prototype.constructor = function constructor() {
+  var thisapp = this;
+
   Logger.log('new App()');
 
   // instatiate a new Service Worker Utility Class
   this.swUtil = new SWUtil();
 
   // register click events
-  document.querySelector('#reloadapp').addEventListener('click', () => {
+  document.querySelector('#reloadapp').addEventListener('click', function reloadappHandler() {
     window.location.reload();
   });
 
   // checking whether service workers are supported
   if (this.swUtil.areServiceWorkersSupported()) {
-    document.querySelector('#swinstall').addEventListener('click', () => {
+    document.querySelector('#swinstall').addEventListener('click', function swinstallHandler() {
       Logger.log('\n-------\n');
-      this.enableCoolFeatures();
+      thisapp.enableCoolFeatures();
     });
 
-    document.querySelector('#swuninstall').addEventListener('click', () => {
+    document.querySelector('#swuninstall').addEventListener('click', function swuninstallHandler() {
       Logger.log('\n-------\n');
-      this.disableCoolFeatures();
+      thisapp.disableCoolFeatures();
     });
 
     // checking whether a service worker is in control
