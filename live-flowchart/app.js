@@ -118,4 +118,4 @@ App.prototype.disableServiceWorkerRegistration = function disableServiceWorkerRe
 
 
 // starts the application
-new App();
+var app = new App();
