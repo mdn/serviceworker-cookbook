@@ -123,7 +123,7 @@ getDataButton.addEventListener('click', function handleClick() {
 
   // Initiate network fetch
   networkStatus.textContent = 'Fetching...';
-  networkFetchStartTime = window.performance.now();
+  networkFetchStartTime = Date.now();
   // Use the Fetch API to actually request data
   var networkFetch = fetch(dataUrl, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
     var networkDelay = networkDelayInput.value || 0;
@@ -143,18 +143,18 @@ getDataButton.addEventListener('click', function handleClick() {
       }, networkDelay);
     });
   }).then(function() {
-    var now = window.performance.now();
-    var elapsed = Math.round(now - networkFetchStartTime);
+    var now = Date.now();
+    var elapsed = now - networkFetchStartTime;
     networkStatus.textContent = 'Success after ' + elapsed + 'ms';
   }).catch(function(err) {
-    var now = window.performance.now();
-    var elapsed = Math.round(now - networkFetchStartTime);
+    var now = Date.now();
+    var elapsed = now - networkFetchStartTime;
     networkStatus.textContent = err + ' after ' + elapsed + 'ms';
   });
 
   // Get cached data
   cacheStatus.textContent = 'Fetching...';
-  cacheFetchStartTime = window.performance.now();
+  cacheFetchStartTime = Date.now();
   var cacheFetch = caches.open(cacheName).then(function(cache) {
     return cache.match(dataUrl).then(function(res) {
       var cacheDelay = cacheDelayInput.value || 0;
@@ -174,12 +174,12 @@ getDataButton.addEventListener('click', function handleClick() {
         }, cacheDelay);
       });
     }).then(function() {
-      var now = window.performance.now();
-      var elapsed = Math.round(now - cacheFetchStartTime);
+      var now = Date.now();
+      var elapsed = now - cacheFetchStartTime;
       cacheStatus.textContent = 'Success after ' + elapsed + 'ms';
     }).catch(function(err) {
-      var now = window.performance.now();
-      var elapsed = Math.round(now - cacheFetchStartTime);
+      var now = Date.now();
+      var elapsed = now - cacheFetchStartTime;
       cacheStatus.textContent = err + ' after ' + elapsed + 'ms';
     });
   });
