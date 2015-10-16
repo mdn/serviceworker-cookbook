@@ -6,19 +6,19 @@ This recipe provides a way to learn how to use service workers (SW) through show
 
 Register + Unregister
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/screenshots/register-unregister.png)
+![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/register-unregister.png)
 
 Active service worker on page load + unregister
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/screenshots/active-service-worker-unregister.png)
+![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/active-service-worker-unregister.png)
 
 Wrong service worker scriptURL
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/screenshots/wrong-scriptURL.png)
+![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/wrong-scriptURL.png)
 
 Security error
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/screenshots/security-error.png)
+![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/security-error.png)
 
 ## Features and usage
 
