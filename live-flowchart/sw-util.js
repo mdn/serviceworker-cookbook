@@ -4,7 +4,6 @@
  * @class SWUtil
  * Service Worker helper
  */
-// class SWUtil {
 function SWUtil() {
   this.constructor();
 }
