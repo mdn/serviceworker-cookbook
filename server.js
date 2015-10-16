@@ -1,11 +1,11 @@
-const express = require('express');
-const glob = require('glob');
-const path = require('path');
-const fs = require('fs');
-const app = express();
+var express = require('express');
+var glob = require('glob');
+var path = require('path');
+var fs = require('fs');
+var app = express();
 
 app.use(function forceSSL(req, res, next) {
-  const host = req.get('Host');
+  var host = req.get('Host');
   if (!host.startsWith('localhost')) {
     // https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
     res.header('Strict-Transport-Security', 'max-age=15768000');
@@ -25,15 +25,27 @@ app.use(function corsify(req, res, next) {
 });
 
 glob.sync('./*/server.js').map(function requireRecipe(file) {
-  const route = '/' + path.basename(path.dirname(file)) + '/';
+  var route = '/' + path.basename(path.dirname(file)) + '/';
   console.log('require', route);
   require(file)(app, route);
 });
 
-const pub = fs.existsSync('./dist') ? './dist' : './';
-app.use(express.static(pub));
+if (!fs.existsSync('./dist')) {
+  throw new Error('Missing `dist` folder, execute `npm run build` first.');
+}
+app.use(express.static('./dist'));
 
-const port = process.env.PORT || 3003;
-app.listen(port, function didListen() {
-  console.log('app.listen on http://localhost:%d', port);
+var port = process.env.PORT || 3003;
+var ready = new Promise(function willListen(resolve, reject) {
+  app.listen(port, function didListen(err) {
+    if (err) {
+      reject(err);
+      return;
+    }
+    console.log('app.listen on http://localhost:%d', port);
+    resolve();
+  });
 });
+
+exports.ready = ready;
+exports.app = app;

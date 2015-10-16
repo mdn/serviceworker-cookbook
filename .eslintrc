@@ -1,7 +1,10 @@
 {
-  "extends": "airbnb/base",
+  "extends": "airbnb/legacy",
   "rules": {
     "no-console": 0,
+    "comma-dangle": 0,
+    "func-names": 0,
+    "vars-on-top": 0,
     "no-use-before-define": 0
   }
 }
