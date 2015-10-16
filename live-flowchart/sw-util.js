@@ -145,37 +145,36 @@ SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
   return new Promise(
     function then(resolve, reject) {
       Logger.debug('navigator.serviceWorker.getRegistration().then(success, error)');
-      navigator.serviceWorker.getRegistration().then(
-        function getRegistrationSuccess(swRegistration) {
-          Logger.debug('getRegistrationSuccess(swRegistration)');
-          Logger.debug(swRegistration);
-          Logger.debug('Unregistering the following service worker: ' + swRegistration.active.scriptURL + ' <= swRegistration.active.scriptURL');
-          Logger.debug('with scope ' + swRegistration.scope + ' <= swRegistration.scope');
+      navigator.serviceWorker.getRegistration().then(function getRegistrationSuccess(swRegistration) {
+        Logger.debug('getRegistrationSuccess(swRegistration)');
+        Logger.debug(swRegistration);
+        Logger.debug('Unregistering the following service worker: ' + swRegistration.active.scriptURL + ' <= swRegistration.active.scriptURL');
+        Logger.debug('with scope ' + swRegistration.scope + ' <= swRegistration.scope');
 
-          Logger.debug('swRegistration.unregister().then()');
-          swRegistration.unregister()
-            .then(
-              function unregisterSuccess() {
-                Logger.debug('unregisterSuccess()');
-                Logger.info('The service worker has been successfully unregistered');
-                Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+        Logger.debug('swRegistration.unregister().then()');
+        swRegistration.unregister()
+          .then(
+            function unregisterSuccess() {
+              Logger.debug('unregisterSuccess()');
+              Logger.info('The service worker has been successfully unregistered');
+              Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
-                resolve();
-              },
-              function unregisterError(why) {
-                Logger.debug('unregisterError(why)');
-                Logger.error(why);
+              resolve();
+            },
+            function unregisterError(why) {
+              Logger.debug('unregisterError(why)');
+              Logger.error(why);
 
-                reject();
-              }
-            );
-        },
-        function getRegistrationError(why) {
-          Logger.debug('getRegistrationError(why)');
-          Logger.error(why);
-          Logger.warn('It has been not possibile to unregister the service worker');
-        }
-      );
+              reject();
+            }
+          );
+      },
+      function getRegistrationError(why) {
+        Logger.debug('getRegistrationError(why)');
+        Logger.error(why);
+        Logger.warn('It has been not possibile to unregister the service worker');
+      }
+    );
     }
   );
 };
