@@ -5,8 +5,8 @@ if (navigator.serviceWorker.controller) {
 } else {
   // Register the ServiceWorker
   navigator.serviceWorker.register('service-worker.js', {
-    scope: './',
-  }).then((reg) => {
+    scope: './'
+  }).then(function(reg) {
     debug(reg.scope, 'register');
   });
 }
@@ -16,6 +16,6 @@ document.querySelector('#refresh').search = Date.now();
 
 // Debug helper
 function debug(message, element, append) {
-  const target = document.querySelector('#' + element || 'log');
+  var target = document.querySelector('#' + element || 'log');
   target.textContent = message + ((append) ? ('/n' + target.textContent) : '');
 }
