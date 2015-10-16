@@ -27,12 +27,10 @@ App.prototype.constructor = function constructor() {
   // checking whether service workers are supported
   if (this.swUtil.areServiceWorkersSupported()) {
     document.querySelector('#swinstall').addEventListener('click', function swinstallHandler() {
-      Logger.log('\n-------\n');
       thisapp.enableCoolFeatures();
     });
 
     document.querySelector('#swuninstall').addEventListener('click', function swuninstallHandler() {
-      Logger.log('\n-------\n');
       thisapp.disableCoolFeatures();
     });
 
@@ -57,7 +55,8 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
   var scriptURL;
   var scope;
 
-  Logger.log('\nApp.enableCoolFeatures()');
+  Logger.newSection();
+  Logger.log('App.enableCoolFeatures()');
 
   // get params from DOM inputs
   scriptURL = document.querySelector('#swscripturl');
@@ -90,7 +89,8 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
  * Try unregister the active service worker in order to disable cool features (e.g. offline navigation)
  */
 App.prototype.disableCoolFeatures = function disableCoolFeatures() {
-  Logger.log('\nApp.disableCoolFeatures()');
+  Logger.newSection();
+  Logger.log('App.disableCoolFeatures()');
 
   this.swUtil.unregisterServiceWorker().then(
       this.enableServiceWorkerRegistration, // success

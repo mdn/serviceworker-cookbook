@@ -22,7 +22,8 @@ SWUtil.prototype.constructor = function constructor() {
  * @returns {Boolean}
  */
 SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupported() {
-  Logger.log('\nSWUtil.areServiceWorkersSupported()');
+  Logger.newSection();
+  Logger.log('SWUtil.areServiceWorkersSupported()');
 
   Logger.debug('checking navigator.serviceWorker');
 
@@ -42,7 +43,8 @@ SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupporte
  * @returns {Boolean}
  */
 SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerControllingThisApp() {
-  Logger.log('\nSWUtil.isServiceWorkerControllingThisApp()');
+  Logger.newSection();
+  Logger.log('SWUtil.isServiceWorkerControllingThisApp()');
 
   Logger.debug('checking navigator.serviceWorker.controller');
 
@@ -70,7 +72,8 @@ SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerCon
 SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptURL, scope) {
   var swRegisterSecondParam = {};
 
-  Logger.log('\nSWUtil.registerServiceWorker()');
+  Logger.newSection();
+  Logger.log('SWUtil.registerServiceWorker()');
 
   Logger.info('Register service worker with serviceWorker.register()');
 
@@ -132,7 +135,8 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
  * @returns {Promise}
  */
 SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
-  Logger.log('\nSWUtil.unregisterServiceWorker()');
+  Logger.newSection();
+  Logger.log('SWUtil.unregisterServiceWorker()');
 
   Logger.debug('Unregistering the active service worker...');
   Logger.debug('if something goes wrong, please unregister the service worker ');
