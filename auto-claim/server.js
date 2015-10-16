@@ -1,17 +1,17 @@
-const path = require('path');
-const swig = require('swig');
-const request = require('request');
+var path = require('path');
+var swig = require('swig');
+var request = require('request');
 
 module.exports = function autoClaim(app, route) {
-  const tpl = swig.compileFile(path.join(__dirname, './service-worker.js'));
+  var tpl = swig.compileFile(path.join(__dirname, './service-worker.js'));
 
   app.get(route + 'service-worker.js', function getServiceWorker(req, res) {
     // Get current time with 10sec accuracy, so the generated ServiceWorker
     // is updated every 10sec
-    const nowMinute = new Date();
+    var nowMinute = new Date();
     nowMinute.setSeconds(Math.floor(nowMinute.getSeconds() / 5) * 5);
     // Replace {{ vefsion }} service-worker.js
-    const buffer = tpl({
+    var buffer = tpl({
       version: [
         nowMinute.getFullYear(),
         nowMinute.getMonth(),
@@ -19,9 +19,9 @@ module.exports = function autoClaim(app, route) {
         [
           nowMinute.getHours(),
           nowMinute.getMinutes(),
-          nowMinute.getSeconds(),
-        ].join(':'),
-      ].join('-'),
+          nowMinute.getSeconds()
+        ].join(':')
+      ].join('-')
     });
     res.type('js').send(buffer);
   });

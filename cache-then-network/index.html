@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Cache then Network - ServiceWorker Cookbook</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <label>Data: </label><output id='data'></output>
+  <label>Cache: </label><output id='cache-status'></output>
+  <label>Network: </label><output id='network-status'></output>
+
+  <form>Cache:
+    <input id='cache-fail' type='checkbox'>Fail</input>
+    Delay: <input id='cache-delay' type='number' value='500'></input>ms
+  </form>
+
+  <form>Network:
+    <input id='network-fail' type='checkbox'>Fail</input>
+    Delay: <input id='network-delay' type='number' value='1250'></input>ms
+  </form>
+
+  <button id='getDataButton'>Get new data</button>
+
+  <script src='./index.js'></script>
+</body>
+</html>
