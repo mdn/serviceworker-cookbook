@@ -132,7 +132,7 @@ getDataButton.addEventListener('click', function handleClick() {
   // call, but those caching options are not yet implemented
   // in Firefox or Chrome. See bug 1120715 for the Firefox
   // implementation status.
-  var cacheBuster = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+  var cacheBuster = Date.now();
   var networkFetch = fetch(dataUrl + '?cacheBuster=' + cacheBuster, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
     var networkDelay = networkDelayInput.value || 0;
 
