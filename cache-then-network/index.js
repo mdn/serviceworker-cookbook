@@ -124,8 +124,16 @@ getDataButton.addEventListener('click', function handleClick() {
   // Initiate network fetch
   networkStatus.textContent = 'Fetching...';
   networkFetchStartTime = Date.now();
+
   // Use the Fetch API to actually request data
-  var networkFetch = fetch(dataUrl, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
+  //
+  // It should not be necessary to use a cache busting URL param
+  // because we're using the 'no-cache' caching option in the fetch
+  // call, but those caching options are not yet implemented
+  // in Firefox or Chrome. See bug 1120715 for the Firefox
+  // implementation status.
+  var cacheBuster = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+  var networkFetch = fetch(dataUrl + '?cacheBuster=' + cacheBuster, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
     var networkDelay = networkDelayInput.value || 0;
 
     // We simulate network delays by waiting before actually calling
