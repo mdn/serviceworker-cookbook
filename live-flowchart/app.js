@@ -1,22 +1,18 @@
 /* global Logger, SWUtil */
 
-/*
- * @class App
- * This application
- */
+// <h2>App</h2>
+// This recipe
 function App() {
   this.constructor();
 }
 
-/*
- * @constructs
- */
+// <h3>App constructor</h3>
 App.prototype.constructor = function constructor() {
   var thisapp = this;
 
   Logger.log('new App()');
 
-  // instatiate a new Service Worker Utility Class
+  // instatiate a new Service Worker helper
   this.swUtil = new SWUtil();
 
   // register click events
@@ -47,10 +43,8 @@ App.prototype.constructor = function constructor() {
   }
 };
 
-/*
- * @method enableCoolFeatures
- * Try register a service worker in order to enable cool features (e.g. offline navigation)
- */
+// <h3>Enable cool features</h3>
+// Try to register a service worker in order to enable cool features (e.g. cache, offline navigation, ...)
 App.prototype.enableCoolFeatures = function enableCoolFeatures() {
   var scriptURL;
   var scope;
@@ -84,10 +78,8 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
   );
 };
 
-/*
- * @method disableCoolFeatures
- * Try unregister the active service worker in order to disable cool features (e.g. offline navigation)
- */
+// <h3>Disable cool features</h3>
+// Try to unregister the active service worker in order to disable cool features
 App.prototype.disableCoolFeatures = function disableCoolFeatures() {
   Logger.newSection();
   Logger.log('App.disableCoolFeatures()');
@@ -98,24 +90,19 @@ App.prototype.disableCoolFeatures = function disableCoolFeatures() {
   );
 };
 
-/*
- * @method enableServiceWorkerRegistration
- * Enable the possibility for the user to register a service worker
- */
+// <h3>Enable Service Worker Registration</h3>
+// Enable the possibility for the user to register a service worker
 App.prototype.enableServiceWorkerRegistration = function enableServiceWorkerRegistration() {
   document.querySelector('#swinstall').disabled = false;
   document.querySelector('#swuninstall').disabled = true;
 };
 
-/*
- * @method disableServiceWorkerRegistration
- * Disable the possibility for the user to unregister a service worker
- */
+// <h3>Disable Service Worker Registration</h3>
+// Disable the possibility for the user to unregister a service worker
 App.prototype.disableServiceWorkerRegistration = function disableServiceWorkerRegistration() {
   document.querySelector('#swinstall').disabled = true;
   document.querySelector('#swuninstall').disabled = false;
 };
-
 
 // starts the application
 var app = new App();

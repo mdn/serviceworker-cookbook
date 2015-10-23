@@ -1,66 +1,53 @@
-/*
- * @global Logger
- * Logging helper
- */
+
+// <h2>Logger</h2>
+// Helper to log to the browser console and an HTML log
 var Logger = {
 
-  /*
-   * @readonly logDomObj
-   * The HTML DOM Object to log to
-   */
+  // The HTML DOM Object to log to
   logDomObj: document.querySelector('#log'),
 
-  /*
-   * @method debug
-   * Debug log
-   * @param {String} message The message to be logged
-   */
+  // <h3>Debug log</h3>
+  // Log using a <code>debug</code> style
   debug: function debug(message) {
     this.writeLog(message, { debug: true });
   },
 
-  /*
-   * @method info
-   * Info log
-   * @param {String} message The message to be logged
-   */
+  // <h3>Info log</h3>
+  // Log using a <code>info</code> style
   info: function info(message) {
     this.writeLog(message, { info: true });
   },
 
-  /*
-   * @method log
-   * Default log
-   * @param {String} message The message to be logged
-   */
+  // <h3>Default log</h3>
+  // Log using a <code>log</code> style
   log: function log(message) {
     this.writeLog(message);
   },
 
-  /*
-   * @method warn
-   * Warning log
-   * @param {String} message The message to be logged
-   */
+  // <h3>Warning log</h3>
+  // Log using a <code>warning</code> style
   warn: function warn(message) {
     this.writeLog(message, { warn: true });
   },
 
-  /*
-   * @method error
-   * Error log
-   * @param {String} message The message to be logged
-   */
+  // <h3>Error log</h3>
+  // Log using a <code>error</code> style
   error: function error(message) {
     this.writeLog(message, { error: true });
   },
 
-  /*
-   * @method writeLog
-   * Log to the browser console and the HTML log
-   * @param {String} message The message to be logged
-   * @param {Object} level The log level (error, warn, info, log, debug) Default: level.log
-   */
+  // <h3>New section</h3>
+  // Log a section separator to the browser console and the HTML log
+  newSection: function newSection() {
+    var separator = '----------';
+    var newLine = document.createElement('div');
+    newLine.innerHTML = separator;
+    this.logDomObj.appendChild(newLine);
+    console.log(separator);
+  },
+
+  // <h3>Write log</h3>
+  // Internal method to log to the browser console and the HTML log
   writeLog: function writeLog(message, level) {
     var logMessage = document.createElement('div');
 
@@ -101,17 +88,7 @@ var Logger = {
     this.logDomObj.scrollTop = this.logDomObj.scrollHeight;
   },
 
-  /*
-   * @method newSection
-   * Log a section separator to the browser console and the HTML log
-   */
-  newSection: function newSection() {
-    var separator = '----------';
-    var newLine = document.createElement('div');
-    newLine.innerHTML = separator;
-    this.logDomObj.appendChild(newLine);
-    console.log(separator);
-  },
 };
 
+// log a new section
 Logger.newSection();
