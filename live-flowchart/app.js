@@ -10,7 +10,7 @@ function App() {
 App.prototype.constructor = function constructor() {
   var thisapp = this;
 
-  Logger.log('new App()');
+  Logger.log('App started');
 
   // instatiate a new Service Worker helper
   this.swUtil = new SWUtil();
@@ -50,7 +50,7 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
   var scope;
 
   Logger.newSection();
-  Logger.log('App.enableCoolFeatures()');
+  Logger.log('Enabling cool features...');
 
   // get params from DOM inputs
   scriptURL = document.querySelector('#swscripturl');
@@ -82,7 +82,7 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
 // Try to unregister the active service worker in order to disable cool features
 App.prototype.disableCoolFeatures = function disableCoolFeatures() {
   Logger.newSection();
-  Logger.log('App.disableCoolFeatures()');
+  Logger.log('Disabling cool features...');
 
   this.swUtil.unregisterServiceWorker().then(
       this.enableServiceWorkerRegistration, // success

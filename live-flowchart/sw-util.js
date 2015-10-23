@@ -3,19 +3,13 @@
 // <h2>SWUtil</h2>
 // Service Worker helper
 function SWUtil() {
-  this.constructor();
 }
-
-// <h3>SWUtil constructor</h3>
-SWUtil.prototype.constructor = function constructor() {
-  Logger.log('new SWUtil()');
-};
 
 // <h3>Are Service Workers Supported?</h3>
 // Check whether service workers are supported
 SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupported() {
   Logger.newSection();
-  Logger.log('SWUtil.areServiceWorkersSupported()');
+  Logger.log('Are Service Workers Supported?');
 
   Logger.debug('checking navigator.serviceWorker');
 
@@ -33,7 +27,7 @@ SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupporte
 // Check whether a service worker is controlling the application
 SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerControllingThisApp() {
   Logger.newSection();
-  Logger.log('SWUtil.isServiceWorkerControllingThisApp()');
+  Logger.log('Are Service Workers in control?');
 
   Logger.debug('checking navigator.serviceWorker.controller');
 
@@ -66,9 +60,8 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
   var swRegisterSecondParam = {};
 
   Logger.newSection();
-  Logger.log('SWUtil.registerServiceWorker()');
-
-  Logger.info('Register service worker with serviceWorker.register()');
+  Logger.log('Registering service worker...');
+  Logger.info('Registering service worker with serviceWorker.register()');
 
   Logger.debug('navigator.serviceWorker.register(scriptURL, scope)');
   Logger.debug('scriptURL: ' + scriptURL);
@@ -142,9 +135,8 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
 // Unregister the active service worker
 SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
   Logger.newSection();
-  Logger.log('SWUtil.unregisterServiceWorker()');
 
-  Logger.debug('Unregistering the active service worker...');
+  Logger.log('Unregistering the active service worker...');
   Logger.debug('if something goes wrong, please unregister the service worker ');
   Logger.debug('about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
 
@@ -187,7 +179,7 @@ SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
             }
           );
       },
-      // <h4>Error getting a ServiceWorkerRegistration</h4>
+      // <h4>Error getting a Service Worker Registration</h4>
       function getRegistrationError(why) {
         Logger.debug('getRegistrationError(why)');
         Logger.error(why);
