@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Offline Status - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <p>The goal of this recipe is to create an app which can be used both online and offline with the help of a ServiceWorker.  Once the ServiceWorker has cached assets and becomes activated, the user will receive a notification that they can then go offline and use the app!</p>
+
+  <img src="assets/random-1.png" alt="" id="logoImage">
+
+  <button id="randomButton">Show Another Random Logo</button>
+
+  <div class="hidden notification" id="offlineNotification">You are now safe to go offline!</div>
+
+  <script src="./index.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
