@@ -1,0 +1,21 @@
+img {
+	max-width: 200px;
+}
+
+.hidden {
+	display: none;
+	opacity: 0;
+}
+
+.notification {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background: lightgreen;
+	font-weight: bold;
+	padding: 10px 20px;
+	border-radius: 10px;
+	opacity: 1;
+
+	transition: opacity 2s;
+}
