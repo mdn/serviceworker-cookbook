@@ -6,7 +6,9 @@ var app = express();
 
 app.use(function forceSSL(req, res, next) {
   var host = req.get('Host');
-  if (!host.startsWith('localhost')) {
+  var localhost = 'localhost';
+
+  if (host.substring(0, localhost.length) !== localhost) {
     // https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
     res.header('Strict-Transport-Security', 'max-age=15768000');
     // https://github.com/rangle/force-ssl-heroku/blob/master/force-ssl-heroku.js
