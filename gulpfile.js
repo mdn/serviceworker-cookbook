@@ -9,7 +9,10 @@ var recipes = glob.sync('./!(dist|node_modules)/').map(function toBase(dir) {
   return path.basename(dir);
 });
 var srcRecipes = recipes.map(function makePath(name) {
-  return './' + name + '/*';
+  return './' + name + '/**';
+});
+var srcFiles = recipes.map(function makeSourceFile(name) {
+  return './' + name + '/*.js';
 });
 
 gulp.task('clean', function clean(done) {
@@ -28,7 +31,7 @@ gulp.task('lint', function lint() {
 
 gulp.task('build:docs', ['clean'], function buildDocs() {
   return gulp
-    .src(srcRecipes, {
+    .src(srcFiles, {
       base: './'
     })
     .pipe(plugins.docco())
