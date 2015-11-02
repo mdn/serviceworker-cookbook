@@ -10,7 +10,7 @@ document.getElementById('randomButton').addEventListener('click', function() {
     newIndex = getRandomNumber();
   }
 
-  image.src = 'assets/random-' + newIndex + '.png';
+  image.src = 'random-' + newIndex + '.png';
 
   function getRandomNumber() {
     return Math.floor(Math.random() * 6) + 1;
