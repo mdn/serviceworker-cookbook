@@ -40,6 +40,7 @@
     "gulp-load-plugins": "^0.10.0",
     "gulp-swig": "^0.7.4",
     "request": "^2.64.0",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "web-push": "0.0.11"
   }
 }
