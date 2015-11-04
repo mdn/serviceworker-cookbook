@@ -1,8 +1,11 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var glob = require('glob');
 var path = require('path');
 var fs = require('fs');
 var app = express();
+
+app.use(bodyParser.json());
 
 app.use(function forceSSL(req, res, next) {
   var host = req.get('Host');
