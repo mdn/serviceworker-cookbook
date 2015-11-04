@@ -21,7 +21,10 @@ navigator.serviceWorker.register('service-worker.js').then(function(registration
 });
 
 document.getElementById('doIt').onclick = function() {
-  fetch('./sendNotification', {
+  var notificationDelay = document.getElementById('notification-delay').value;
+  var notificationTTL = document.getElementById('notification-ttl').value;
+
+  fetch('./sendNotification?delay=' + notificationDelay + '&ttl=' + notificationTTL, {
     method: 'post',
   });
 };

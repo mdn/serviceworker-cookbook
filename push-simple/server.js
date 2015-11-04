@@ -7,7 +7,9 @@ module.exports = function(app, route) {
     endpoint = req.body.endpoint;
   });
 
-  app.post(route + 'sendNotification', function() {
-    webPush.sendNotification(endpoint);
+  app.post(route + 'sendNotification', function(req) {
+    setTimeout(function() {
+      webPush.sendNotification(endpoint, req.query.ttl);
+    }, req.query.delay * 1000);
   });
 };
