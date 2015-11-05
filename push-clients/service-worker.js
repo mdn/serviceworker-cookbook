@@ -1,12 +1,8 @@
 self.addEventListener('push', function(event) {
-  event.waitUntil(clients.matchAll().then(function(clientList) {
-    var focused = false;
-    for (var i = 0; i < clientList.length; i++) {
-      if (clientList[i].focused) {
-        focused = true;
-        break;
-      }
-    }
+  event.waitUntil(self.clients.matchAll().then(function(clientList) {
+    var focused = clientList.some(function(client) {
+      return client.focused;
+    });
 
     var notificationMessage;
     if (focused) {
@@ -24,11 +20,11 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-  event.waitUntil(clients.matchAll().then(function(clientList) {
+  event.waitUntil(self.clients.matchAll().then(function(clientList) {
     if (clientList.length > 0) {
       return clientList[0].focus();
-    } else {
-      return clients.openWindow('./push-clients/index.html');
     }
+
+    return self.clients.openWindow('./push-clients/index.html');
   }));
 });
