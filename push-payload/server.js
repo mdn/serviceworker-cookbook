@@ -2,7 +2,8 @@ var webPush = require('web-push');
 
 webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 
-var endpoint, key;
+var endpoint;
+var key;
 
 module.exports = function(app, route) {
   app.post(route + 'register', function(req) {
