@@ -1,0 +1,8 @@
+{
+  "name": "RECIPE: Push notifications with subscription management",
+  "short_name": "recipe_push_with_subscription",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "gcm_sender_id": "829371921996",
+  "gcm_user_visible_only": true
+}
