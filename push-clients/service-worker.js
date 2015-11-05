@@ -8,8 +8,17 @@ self.addEventListener('push', function(event) {
       }
     }
 
+    var notificationMessage;
+    if (focused) {
+      notificationMessage = 'You\'re still here, thanks!';
+    } else if (clientList.length > 0) {
+      notificationMessage = 'You haven\'t closed the page, click here to focus it!';
+    } else {
+      notificationMessage = 'You have closed the page, click here to re-open it!';
+    }
+
     return self.registration.showNotification('ServiceWorker Cookbook', {
-      body: focused ? 'You\'re still here, thanks!' : 'Click me, please!',
+      body: notificationMessage,
     });
   }));
 });
