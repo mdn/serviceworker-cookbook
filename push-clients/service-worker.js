@@ -1,3 +1,11 @@
+self.addEventListener('install', function(event) {
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener('activate', function(event) {
+  event.waitUntil(self.clients.claim());
+});
+
 self.addEventListener('push', function(event) {
   event.waitUntil(self.clients.matchAll().then(function(clientList) {
     var focused = clientList.some(function(client) {
