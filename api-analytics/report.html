@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>API analytics - Report - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .counter {
+      text-align: center;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>API report</h1>
+  <p>This is a report about how many times certain operations have been performed on specific URLs</p>
+  <table id="quotations">
+    <tr>
+      <th>url</th>
+      <th>GET</th>
+      <th>POST</th>
+      <th>DELETE</th>
+    </tr>
+    {% for entry in statistics %}
+    <tr>
+      <td>{{ entry.url }}</td>
+      <td class="counter">{{ entry.GET }}</td>
+      <td class="counter">{{ entry.POST }}</td>
+      <td class="counter">{{ entry.DELETE }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
