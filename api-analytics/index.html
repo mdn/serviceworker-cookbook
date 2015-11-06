@@ -14,8 +14,10 @@
 </head>
 <body>
   Try to add and delete some quotations.
-  <input type="text" id="new-quote" placeholder="Add a quote here"/>
-  <input type="text" id="quote-author" placeholder="And its author"/><button id="add">Add</button>
+  <form id="add-form">
+    <input type="text" id="new-quote" placeholder="Add a quote here"/>
+    <input type="text" id="quote-author" placeholder="And its author"/><input type="submit" value="Add" />
+  </form>
   <table id="quotations">
   </table>
   Go to <a href="./report/" target="_blank">report</a>.

@@ -7,7 +7,7 @@ navigator.serviceWorker.register('worker.js').then(function() {
 
 // When clicking add button, get the new quote and author and post to
 // the backend.
-document.getElementById('add').onclick = function() {
+document.getElementById('add-form').onsubmit = function() {
   var newQuote = document.getElementById('new-quote').value.trim();
   // Skip if no quote provided.
   if (!newQuote) { return; }
