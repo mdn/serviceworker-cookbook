@@ -33,6 +33,6 @@ self.addEventListener('notificationclick', function(event) {
       return clientList[0].focus();
     }
 
-    return self.clients.openWindow('./push-clients/index.html');
+    return self.clients.openWindow('./index.html');
   }));
 });
