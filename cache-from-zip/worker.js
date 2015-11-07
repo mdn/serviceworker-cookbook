@@ -81,8 +81,7 @@ function cacheEntry(entry) {
 
 // Return the location for each entry.
 function getLocation(filename) {
-  var name = filename || '';
-  return location.href.replace(/worker\.js$/, name);
+  return location.href.replace(/worker\.js$/, filename || '');
 }
 
 // Opening a cache is an expensive operation. By caching the promise
