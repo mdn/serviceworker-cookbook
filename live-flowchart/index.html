@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Live flowchart</title>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="flowchart">
+				<h1><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank">Using Service Workers</a></h1>
+
+				<img alt="sw-flowchart" src="sw-flowchart.png" />
+			</div>
+
+			<div class="playground">
+				<div class="inputs">
+					<span class="title">Service Worker</span>
+				    <input id="swscripturl" placeholder="SW path" value="./sw.js" />
+				    <span class="title">Options: </span>
+				    <input id="swscope" placeholder="scope (optional)" />
+				    <span>This works: './sw.js' (in scope './')</span>
+				</div>
+				<div class="actions">
+					<ul>
+						<li><button id="swinstall" disabled>Register specified SW</button></li>
+					    <li><button id="reloadapp">Reload document</button></li>
+					    <li><button id="swuninstall" disabled>Unregister active SW</button></li>
+					</ul>
+				</div>
+			    <div id="log" class="log"></div> 
+				<div class="credits">
+				 	<a href="http://www.francesco.iovine.name/" target="_blank">@franciov</a>
+			 	</div>		    
+		 	</div>
+
+			<script src="logger.js"></script>
+			<script src="sw-util.js"></script>
+			<script src="app.js"></script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Message Relay - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+[Version <em id="version">-</em>]
+
+<div>
+  Service Worker Status: <span id="status">not supported</span>
+</div>
+
+Open <a href="./index.html" target="_blank">another window with this page</a> and type some text in below to postMessage it to the ServiceWorker which will forward the message along.
+
+<div id="received"></div>
+
+<textarea id="message" style="width: 100%" rows="10"></textarea>
+
+<script src="./index.js"></script>
+</body>
+</html>

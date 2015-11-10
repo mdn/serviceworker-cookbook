@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JSON Cache - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+
+    img {
+      max-width: 200px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <p>This demo uses a service worker which loads a JSON file representing files to be cached by the Service Worker.  Once the JSON file is loaded and parsed, files are placed into the cache via the Service Worker.</p>
+
+  <h2>Assets to Cache</h2>
+  <img src="random-1.png" alt="">
+  <img src="random-2.png" alt="">
+  <img src="random-3.png" alt="">
+  <img src="random-4.png" alt="">
+  <img src="random-5.png" alt="">
+  <img src="random-6.png" alt="">
+
+
+  <script src="./index.js"></script>
+</body>
+</html>
