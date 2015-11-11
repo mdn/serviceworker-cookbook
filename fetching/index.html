@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fetching - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+    section {
+      display: block;
+    }
+    p {
+      padding-left: 5em;
+      margin-bottom: 0;
+      color: green;
+    }
+    p.error {
+      color: red;
+    }
+    img {
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <section id="img-https-acao">
+    <strong>Receiving via DOM Elements</strong>
+
+    https, Access-Control-Allow-Origin=*
+  </section>
+  <section id="img-https">
+    https, no Access-Control-Allow-Origin
+  </section>
+  <section id="img-http">
+    http
+  </section>
+  <section id="https-acao-cors">
+    <strong>Receiving via Javascript</strong>
+    <strong>request type / source protocol, response header</strong>
+  <!-- TODO: passthrough requests -->
+    cors / https, Access-Control-Allow-Origin=*
+  </section>
+  <section id="https-acao-no-cors">
+    no-cors / https, Access-Control-Allow-Origin=*
+  </section>
+  <section id="https-cors">
+    cors / https, no Access-Control-Allow-Origin
+  </section>
+  <section id="https-no-cors">
+    no-cors / https, no Access-Control-Allow-Origin
+  </section>
+  <section id="http-cors">
+    cors / http
+  </section>
+  <section id="http-no-cors">
+    no-cors / http
+  </section>
+  <script src="./index.js"></script>
+</body>
+</html>
