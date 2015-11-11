@@ -6,10 +6,10 @@
 // TODO: Message handler to respond to service worker when it asks us
 // what CSS file is 'up-to-date'
 //
-// TODO: Upon loading the page, the sw will ask the server for an updated
-// CSS file (in reality we will respond with localstorage data). If the sw
-// finds an udpated CSS file, it will inform us through a postmessage call.
-// We need to have a message handler that informs the user of the situation
-// and optionally refreshes the page.
+// TODO: Upon loading the page, the browser will fetch the CSS file. The
+// SW will intercept the call, ask us what CSS file it should respond with,
+// and initiate a network fetch. When the fetch completes, the SW will tell
+// us (if the file was different) that updated CSS is available. We need
+// a message listener that handles the SW telling us about updated CSS.
 
 window.navigator.serviceWorker.register('sw.js');
