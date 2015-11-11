@@ -4,19 +4,13 @@
   <meta charset='utf-8'>
   <title>Cache CSS - ServiceWorker Cookbook</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <style>
-    body {
-      font-family: monospace;
-      font-size: 1rem;
-      white-space: pre-wrap;
-    }
-  </style>
+  <link rel='stylesheet' href='style.css'>
 </head>
 <body>
-  <label>Output: </label><div id='css-output' width='50px' height='50px'></output>
+  <label>Output: </label><div id='css-output' width='50px' height='50px'>output here</div>
 
   <form>
-    <label>Refresh delay: </label><input id='refresh-delay' type='number' value='3000'></input>ms
+    <label>Refresh delay: </label><input id='refresh-delay' type='number' value='3000'>ms
   </form>
 
   <button id='updateCSSButton'>Make new CSS available</button>
