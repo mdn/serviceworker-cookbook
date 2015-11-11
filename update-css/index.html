@@ -13,22 +13,14 @@
   </style>
 </head>
 <body>
+  <label>Output: </label><div id='css-output' width='50px' height='50px'></output>
 
-  <label>CSS: </label><output id='css-output'>What color should I be?</output>
-  <label>Cache: </label><output id='cache-status'></output>
-  <label>Network: </label><output id='network-status'></output>
-
-  <form>Cache:
-    <input id='cache-fail' type='checkbox'>Fail</input>
-    Delay: <input id='cache-delay' type='number' value='500'></input>ms
+  <form>
+    <label>Refresh delay: </label><input id='refresh-delay' type='number' value='3000'></input>ms
   </form>
 
-  <form>Network:
-    <input id='network-fail' type='checkbox'>Fail</input>
-    Delay: <input id='network-delay' type='number' value='1250'></input>ms
-  </form>
-
-  <button id='getDataButton'>Get new data</button>
+  <button id='updateCSSButton'>Make new CSS available</button>
+  <output id='css-status'></output>
 
   <script src='./main.js'></script>
 </body>
