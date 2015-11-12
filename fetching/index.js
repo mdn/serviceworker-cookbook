@@ -9,8 +9,10 @@ var urls = {
 var fetchMethods = ['cors', 'no-cors'];
 
 if (navigator.serviceWorker.controller) {
+  console.log('DEBUG: serviceWorker.controller is truthy');
   proceed();
 } else {
+  console.log('DEBUG: serviceWorker.controller is falsy');
   // Register the ServiceWorker
   navigator.serviceWorker.register('service-worker.js', {
     scope: './'
