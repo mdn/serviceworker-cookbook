@@ -1,9 +1,5 @@
 // [Working example](/serviceworker-cookbook/fetching/).
 
-self.oninstall = function(event) {
-  console.log('DEBUG: service worker installed');
-};
-
 self.onfetch = function(event) {
   if (event.request.url.contains('cookbook-proxy')) {
     var headers = new Headers();

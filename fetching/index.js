@@ -74,7 +74,7 @@ function makeRequest(fetchMethod, protocol, init) {
     });
     // proxied fetch
     fetch('./cookbook-proxy/' + url, init).then(function(response) {
-      fetchSuccess(response, './proxy/' + url, 'proxy-' + section);
+      fetchSuccess(response, './cookbook-proxy/' + url, 'proxy-' + section);
     }).catch(function(error) {
       fetchCatch(error, './cookbook-proxy/' + url, 'proxy-' + section);
     });
