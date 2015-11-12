@@ -6,7 +6,6 @@ self.oninstall = function(event) {
 
 self.onfetch = function(event) {
   if (event.request.url.contains('cookbook-proxy')) {
-    console.log('DEBUG: service worker proxy', event.request.url);
     var headers = new Headers();
     var init = { method: 'GET',
                  headers: headers,
