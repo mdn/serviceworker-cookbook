@@ -1,16 +1,21 @@
-// [Working example](/serviceworker-cookbook/offline-fallback/).
+// [Working example](/serviceworker-cookbook/fetching/).
 
 self.oninstall = function(event) {
   console.log('DEBUG: service worker installed');
-  event.waitUntil(self.skipWaiting());
-};
-
-self.onactivate = function(event) {
-  console.log('DEBUG: service worker activated');
-  event.waitUntil(self.clients.claim());
 };
 
 self.onfetch = function(event) {
-  console.log('DEBUG: service worker proxy', event.request.url);
-  event.respondWith(fetch(event.request));
+  if (event.request.url.contains('cookbook-proxy')) {
+    console.log('DEBUG: service worker proxy', event.request.url);
+    var headers = new Headers();
+    var init = { method: 'GET',
+                 headers: headers,
+                 mode: event.request.mode,
+                 cache: 'default' };
+    var url = event.request.url.split('cookbook-proxy/')[1];
+    console.log('DEBUG: proxying', url);
+    event.respondWith(fetch(url, init));
+  } else {
+    event.respondWith(fetch(event.request));
+  }
 };

@@ -8,19 +8,17 @@ var urls = {
 
 var fetchMethods = ['cors', 'no-cors'];
 
-if (navigator.serviceWorker.controller) {
-  console.log('DEBUG: serviceWorker.controller is truthy');
-  proceed();
-} else {
-  console.log('DEBUG: serviceWorker.controller is falsy');
-  // Register the ServiceWorker
-  navigator.serviceWorker.register('service-worker.js', {
-    scope: './'
-  }).then(function() {
-    console.log('DEBUG: service worker registered');
+navigator.serviceWorker.getRegistration().then(function (registration) {
+  if (!registration) {
+    navigator.serviceWorker.register('./service-worker.js').then(function () {
+      window.alert('Service worker registered, reloading the page');
+      window.location.reload();
+    });
+  } else {
+    console.log('DEBUG: client is under the control of service worker');
     proceed();
-  });
-}
+  }
+});
 
 function proceed() {
   for (var protocol in urls) {
@@ -47,22 +45,37 @@ function makeImage(protocol, url) {
   document.getElementById(section).appendChild(image);
 }
 
+function fetchSuccess(response, url, section) {
+  if (response.ok) {
+    console.log(section, 'SUCCESS: ', url, response, response.headers);
+    log(section, 'SUCCESS');
+  } else {
+    console.log(section, 'FAIL:', url, response, response.headers);
+    log(section, 'FAIL: response type: ' + response.type + ', response status: ' + response.status, 'error');
+  }
+}
+
+function fetchCatch(error, url, section) {
+  console.log(section, 'ERROR: ', url, error);
+  log(section, 'ERROR: ' + error, 'error');
+}
+
 function makeRequest(fetchMethod, protocol, init) {
   return function() {
     // javascript request
     var section = protocol + '-' + fetchMethod;
     var url = urls[protocol];
+    // standard fetch
     fetch(url, init).then(function(response) {
-      if (response.ok) {
-        console.log(section, 'SUCCESS: ', url, response, response.headers);
-        log(section, 'SUCCESS');
-      } else {
-        console.log(section, 'FAIL:', url, response, response.headers);
-        log(section, 'FAIL: response type: ' + response.type + ', response status: ' + response.status, 'error');
-      }
+      fetchSuccess(response, url, section);
     }).catch(function(error) {
-      console.log(section, 'ERROR: ', url, error);
-      log(section, 'ERROR: ' + error, 'error');
+      fetchCatch(error, url, section);
+    });
+    // proxied fetch
+    fetch('./cookbook-proxy/' + url, init).then(function(response) {
+      fetchSuccess(response, './proxy/' + url, 'proxy-' + section);
+    }).catch(function(error) {
+      fetchCatch(error, './cookbook-proxy/' + url, 'proxy-' + section);
     });
   };
 }

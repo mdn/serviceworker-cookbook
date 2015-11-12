@@ -27,21 +27,25 @@
   </style>
 </head>
 <body>
+  <!-- ##################### IMG.SRC ####################### -->
   <section id="img-https-acao">
     <strong>Receiving via DOM Elements</strong>
 
     https, Access-Control-Allow-Origin=*
+
   </section>
   <section id="img-https">
     https, no Access-Control-Allow-Origin
+
   </section>
   <section id="img-http">
     http
+
   </section>
+  <!-- ##################### STANDARD FETCH ####################### -->
   <section id="https-acao-cors">
-    <strong>Receiving via Javascript</strong>
+    <strong>Receiving via fetch</strong>
     <strong>request type / source protocol, response header</strong>
-  <!-- TODO: passthrough requests -->
     cors / https, Access-Control-Allow-Origin=*
   </section>
   <section id="https-acao-no-cors">
@@ -57,6 +61,28 @@
     cors / http
   </section>
   <section id="http-no-cors">
+    no-cors / http
+  </section>
+
+  <!-- ##################### PROXY FETCH ####################### -->
+  <section id="proxy-https-acao-cors">
+    <strong>Receiving via fetch, with a serviceworker proxy</strong>
+    <strong>request type / source protocol, response header</strong>
+    cors / https, Access-Control-Allow-Origin=*
+  </section>
+  <section id="proxy-https-acao-no-cors">
+    no-cors / https, Access-Control-Allow-Origin=*
+  </section>
+  <section id="proxy-https-cors">
+    cors / https, no Access-Control-Allow-Origin
+  </section>
+  <section id="proxy-https-no-cors">
+    no-cors / https, no Access-Control-Allow-Origin
+  </section>
+  <section id="proxy-http-cors">
+    cors / http
+  </section>
+  <section id="proxy-http-no-cors">
     no-cors / http
   </section>
   <script src="./index.js"></script>
