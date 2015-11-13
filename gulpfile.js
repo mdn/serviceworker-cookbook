@@ -8,8 +8,8 @@ var marked = require('marked');
 var swig = require('swig');
 var through2 = require('through2');
 var promisify = require('es6-promisify');
-var assert = require('assert');
 var mergeStream = require('merge-stream');
+var parseRecipes = require('./parseRecipes.js');
 var renderFile = promisify(swig.renderFile);
 var fsWriteFile = promisify(fs.writeFile);
 var fsReadFile = promisify(fs.readFile);
@@ -22,44 +22,7 @@ var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
 
-var recipes = (function() {
-  var cache;
-  return function() {
-    if (cache) {
-      return cache;
-    }
-    cache = [];
-    recipeSlugs.forEach(function(recipe) {
-      var tokens = marked.lexer(fs.readFileSync(recipe + '/README.md', 'utf8'));
-      if (!tokens.length) {
-        console.warn(recipe + ': is missing title');
-      }
-      var name = tokens[0].text;
-      if (!name.startsWith('Recipe: ')) {
-        console.warn('Recipe should start with "Recipe: "');
-      } else {
-        name = name.substr(8);
-      }
-      var srcs = glob.sync('*.js', { cwd: recipe }).map(function(src) {
-        assert(src.endsWith('.js'));
-        var srcName = src.substr(0, src.length - 3);
-        return {
-          filename: src,
-          name: srcName,
-          ref: recipe + '_' + srcName + '_doc.html'
-        };
-      });
-      cache.push({
-        name: name,
-        slug: recipe,
-        srcs: srcs,
-        demo_ref: recipe + '_demo.html',
-        intro_ref: recipe + '.html',
-      });
-    });
-    return cache;
-  };
-})();
+var recipes = parseRecipes(recipeSlugs);
 
 var template = (function() {
   function renderContent(content, options) {
@@ -67,7 +30,7 @@ var template = (function() {
     return renderFile('./src/tpl/layout.html', {
       content: content,
       package: require('./package.json'),
-      recipes: recipes(),
+      recipes: recipes,
       ghBase: 'https://github.com/digitarald/serviceworker-cookbook/blob/master/',
       currentRecipe: newOptions.currentRecipe,
     });
@@ -127,7 +90,7 @@ gulp.task('lint', function lint() {
 });
 
 gulp.task('build:docs', ['clean'], function buildDocs() {
-  var streams = recipes().map(function(recipe) {
+  var streams = recipes.map(function(recipe) {
     return gulp
     .src(recipe.srcs.map(function(src) {
       return recipe.slug + '/' + src.filename;
@@ -149,21 +112,20 @@ gulp.task('build:docs', ['clean'], function buildDocs() {
 });
 
 gulp.task('build:index', ['clean'], function buildIndex() {
-  var intros = [];
-  recipeSlugs.forEach(function(recipe) {
+  var intros = recipeSlugs.map(function(recipe) {
     var tokens = marked.lexer(fs.readFileSync(recipe + '/README.md', 'utf8'));
     if (tokens.length < 2 || tokens[0].type !== 'heading' || tokens[1].type !== 'paragraph') {
       console.error('Recipe: ' + recipe + ' must have title and summary');
-      return;
+      return null;
     }
     var title = tokens[0].text.substr(8);
     var summary = [tokens[1]];
     summary.links = tokens.links;
-    intros.push({
+    return {
       slug: recipe,
       title: title,
       summary: marked.parser(summary),
-    });
+    };
   });
   return renderFile('./src/tpl/index.html', { recipes: intros })
   .then(function(output) {
@@ -171,8 +133,8 @@ gulp.task('build:index', ['clean'], function buildIndex() {
   });
 });
 
-gulp.task('build:intros', ['clean'], function buildRecipes() {
-  return Promise.all(recipes().map(function(recipe) {
+gulp.task('build:intros', ['clean'], function() {
+  return Promise.all(recipes.map(function(recipe) {
     return fsReadFile(recipe.slug + '/README.md', 'utf8')
     .then(function(readme) {
       return renderFile('./src/tpl/intro.html', { markdown: marked(readme) });
@@ -183,8 +145,8 @@ gulp.task('build:intros', ['clean'], function buildRecipes() {
   }));
 });
 
-gulp.task('build:demos', ['clean'], function buildRecipes() {
-  return Promise.all(recipes().map(function(recipe) {
+gulp.task('build:demos', ['clean'], function() {
+  return Promise.all(recipes.map(function(recipe) {
     return renderFile('./src/tpl/demo.html', { recipe: recipe })
     .then(function(output) {
       return template.writeFile('./dist/' + recipe.slug + '_demo.html', output, { currentRecipe: recipe });
@@ -192,7 +154,7 @@ gulp.task('build:demos', ['clean'], function buildRecipes() {
   }));
 });
 
-gulp.task('build:recipes', ['clean'], function buildRecipes() {
+gulp.task('build:recipes', ['clean'], function() {
   return gulp
     .src(srcRecipes, {
       base: './'
@@ -200,7 +162,7 @@ gulp.task('build:recipes', ['clean'], function buildRecipes() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build:css', ['clean'], function buildRecipes() {
+gulp.task('build:css', ['clean'], function() {
   return gulp
     .src([
       'src/css/foundation.normalize.css',
@@ -213,7 +175,7 @@ gulp.task('build:css', ['clean'], function buildRecipes() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build:js', ['clean'], function buildRecipes() {
+gulp.task('build:js', ['clean'], function() {
   return gulp
     .src('src/js/*.js')
     .pipe(plugins.concat('bundle.js'))
