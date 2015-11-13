@@ -48,10 +48,10 @@ function makeImage(protocol, url) {
 
 function fetchSuccess(response, url, section) {
   if (response.ok) {
-    console.log(section, 'SUCCESS: ', url, response, response.headers);
+    console.log(section, 'SUCCESS: ', url, response);
     log(section, 'SUCCESS');
   } else {
-    console.log(section, 'FAIL:', url, response, response.headers);
+    console.log(section, 'FAIL:', url, response);
     log(section, 'FAIL: response type: ' + response.type + ', response status: ' + response.status, 'error');
   }
 }
