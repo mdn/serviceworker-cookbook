@@ -1,4 +1,6 @@
-# Recipe: Push Subscription
+# Push Subscription
+
+This recipe shows how to use push notifications with subscription management.
 
 Init state
 ----------

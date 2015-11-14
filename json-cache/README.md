@@ -1,4 +1,4 @@
-# Recipe: JSON Cache
+# JSON Cache
 
 This recipe illustrates fetching a JSON file during service worker installation and adding all resources to cache.  This recipe also immediately claims the service worker for faster activation.
 
