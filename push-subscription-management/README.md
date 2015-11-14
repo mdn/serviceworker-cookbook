@@ -1,4 +1,4 @@
-https://github.com/mozilla/serviceworker-cookbook/issues/44
+# Recipe: Push Subscription
 
 Recipe: Push notifications with subscription management
 =======================================================

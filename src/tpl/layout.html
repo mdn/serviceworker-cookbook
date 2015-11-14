@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ServiceWorker Cookbook</title>
+  <link rel="stylesheet" href="bundle.css">
+  <script type="text/javascript" src="bundle.js" defer></script>
+</head>
+<body>
+  <div class="book with-nav">
+    <nav>
+      <ul class="recipes">
+        <li><a href="index.html">Introduction</a></li>
+        {% for recipe in recipes %}
+          <li>
+            <a href="{{ recipe.intro_ref }}">{{ loop.index }}. {{ recipe.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <main>
+      <header>
+        <div class="nav-top">
+          <div class="item">
+            <button id="navToggle" class="fi-list large"></button>
+          </div>
+          {% if currentRecipe %}
+            <div class="item"><a href="{{ currentRecipe.intro_ref }}">Readme</a></div>
+            <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo</a></div>
+            <div class="item" style="flex-grow: 1;"></div>
+            {% for src in currentRecipe.srcs %}
+              <div class="item"><a href="{{ src.ref }}">{{ src.name }}.js</a></div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </header>
+      <div class="main-inner">
+        {% autoescape false %}{{ content }}{% endautoescape %}
+      </div>
+    </main>
+  </div>
+</body>
+</html>
