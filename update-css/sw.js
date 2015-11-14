@@ -75,7 +75,6 @@ self.addEventListener('fetch', function(ev) {
 });
 
 function notifyPageOfCSSUpdate(isUpdated) {
-  console.log('NOTIFYING PAGE OF CSS UPDATE');
   self.clients.matchAll().then(function(clientList) {
     clientList.forEach(function(client) {
       client.postMessage({ msg: 'cssUpdated', val: isUpdated });
