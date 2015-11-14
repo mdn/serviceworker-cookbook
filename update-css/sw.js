@@ -7,8 +7,8 @@ self.addEventListener('install', function(ev) {
 
   ev.waitUntil(caches.open(cacheName).then(function(cache) {
     return cache.addAll([
-        'style-1.css',
-        'style-2.css',
+      'style-1.css',
+      'style-2.css',
     ]).then(getCurrentCSSFilename).then(function(filename) {
       // Cache whichever CSS file we currently want to serve as
       // 'style.css'
@@ -21,9 +21,9 @@ self.addEventListener('install', function(ev) {
   }));
 });
 
-self.addEventListener('activate', function(ev) {
-  if (self.clients && clients.claim) {
-    clients.claim();
+self.addEventListener('activate', function() {
+  if (self.clients && self.clients.claim) {
+    self.clients.claim();
   }
 });
 

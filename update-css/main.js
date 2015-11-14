@@ -26,7 +26,7 @@ navigator.serviceWorker.addEventListener('message', function(ev) {
 });
 
 var updateCSSButton = document.querySelector('#updateCSSButton');
-updateCSSButton.addEventListener('click', function(ev) {
+updateCSSButton.addEventListener('click', function() {
   updateCSSButton.disabled = true;
   caches.open(cacheName).then(function(cache) {
     cache.match('current-css-filename').then(function(response) {
