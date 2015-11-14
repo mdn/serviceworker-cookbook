@@ -7,14 +7,30 @@
   <link rel='stylesheet' href='style.css'>
 </head>
 <body>
-  <label>Output: </label><div id='css-output' width='50px' height='50px'>output here</div>
+  <p>This page uses a ServiceWorker to make CSS assets available from a local cache; the browser does not have to wait for a response to a network request for the CSS assets before it displays the page.
+  </p>
 
-  <form>
-    <label>Refresh delay: </label><input id='refresh-delay' type='number' value='3000'>ms
-  </form>
+  <p>This page also demonstrates what happens when a new CSS file becomes available.
+  </p>
 
-  <button id='updateCSSButton'>Make new CSS available</button>
-  <output id='css-status'></output>
+  <p>The box below indicates what the SW served to this page in response to the request for 'style.css'. There are 2 styles available; yellow and blue. The button on this page can be used to simulate pushing an updated CSS file on the server. It will cycle between the yellow and blue styles. A black box below indicates that there was no SW installed when the page was loaded. Refresh the page to see a styled box appear.
+  </p>
+
+  <p>This example does not poll the server for new CSS files, but that could optionally be accomplished by sending Fetch Events from time to time from this page.
+  </p>
+
+  <p>This page does not auto-refresh the page when it discovers that a new CSS file is available; it simply displays a message to illustrate what is happening.
+  </p>
+
+  <label>Output: </label>
+  <div id='css-output' width='50px' height='50px'></div>
+  <output id='new-css-msg'></output>
+
+  <p><button id='updateCSSButton'>Update CSS on "server"</button>
+  </p>
+
+  <p><output id='css-status'></output>
+  </p>
 
   <script src='./main.js'></script>
 </body>
