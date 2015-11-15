@@ -14,14 +14,22 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-<p>This demo allows you to experiment with the quota management rules enforced by browsers.</p>
+<p>This demo allows you to experiment with the quota management rules enforced by browsers.
+
+The browser will likely reduce the quota assigned to you if you send too many notifications not visible to the user.
+Try closing this page after selecting one of the two options ("visible" or "invisible") with a high number of notifications.</p>
+
+<ul>
+  <li>If you selected visible notifications, you will see them appear one after another on your screen. The quota will not be enforced;</li>
+  <li>If you selected invisible notifications, you will see logs in the browser console, but they will stop once reaching the quota.</li>
+</ul>
 
 <form>
-Number of notifications to send: <input id='notification-num' type='number' value='5'></input>
+Number of notifications to send: <input id='notification-num' type='number' value='50'></input>
 </form>
 
-<button id="visible">Visible notification</button>
-<button id="invisible">Invisible notification</button>
+<button id="visible">Visible notifications</button>
+<button id="invisible">Invisible notifications</button>
 
 <script src="./index.js"></script>
 </body>
