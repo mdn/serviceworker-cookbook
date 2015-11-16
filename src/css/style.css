@@ -135,12 +135,25 @@ nav ul.recipes li {
   left: 0;
   bottom: 0;
   overflow-y: auto;
-  color: #000;
   background: #fff;
 }
 
 .book main .main-inner {
-  padding: 0 40px;
+  padding: 40px 40px 40px 20px;
+}
+
+.book main .main-inner ul {
+  margin-left: 40px;
+}
+
+h1 {
+  color: #78ba91;  
+  line-height: 1;
+}
+
+h2 {
+  margin: 40px 0 0 0;
+  color: #c17878;
 }
 
 iframe {
@@ -167,18 +180,29 @@ iframe {
   width: 100%;
   display: flex;
   align-items: center;
+  padding-right: 20px;
 }
 
 .nav-top .item {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .nav-top a {
-  padding: .8rem;
+  padding: .4rem .8rem;
   color: #999;
 }
 
-.nav-top .active, .nav-top a:hover {
-  border-bottom: 2px solid #364149;
+.nav-top a:hover:not(.active) {
+  border-bottom: 2px solid #ccc;
   color: inherit;
+  background: #eee;
+}
+
+.nav-top .active, nav a.active {
+  color: inherit;
+  background: rgba(120, 186, 145, 0.4);
+}
+
+.nav-top .active {
+  border-bottom: 2px solid rgb(120, 186, 145);
 }
