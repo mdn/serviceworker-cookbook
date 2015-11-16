@@ -22,7 +22,9 @@ var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
 
-var recipes = parseRecipes(recipeSlugs);
+var recipes = parseRecipes(recipeSlugs).sort(function(a, b) {
+  return a.name < b.name ? -1 : 1;
+});
 
 var template = (function() {
   function renderContent(content, options) {
@@ -112,19 +114,13 @@ gulp.task('build:docs', ['clean'], function buildDocs() {
 });
 
 gulp.task('build:index', ['clean'], function buildIndex() {
-  var intros = recipeSlugs.map(function(recipe) {
-    var tokens = marked.lexer(fs.readFileSync(recipe + '/README.md', 'utf8'));
-    if (tokens.length < 2 || tokens[0].type !== 'heading' || tokens[1].type !== 'paragraph') {
-      console.error('Recipe: ' + recipe + ' must have title and summary');
-      return null;
-    }
-    var title = tokens[0].text.substr(8);
-    var summary = [tokens[1]];
-    summary.links = tokens.links;
+  var intros = recipes.map(function(recipe) {
+    var title = recipe.name;
+    var summary = marked(recipe.summary);
     return {
-      slug: recipe,
+      slug: recipe.slug,
       title: title,
-      summary: marked.parser(summary),
+      summary: summary,
     };
   });
   return renderFile('./src/tpl/index.html', { recipes: intros })
