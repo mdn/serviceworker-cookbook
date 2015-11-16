@@ -38,3 +38,39 @@ document.getElementById('visible').onclick = function() {
 document.getElementById('invisible').onclick = function() {
   askForNotifications(false);
 };
+
+document.getElementById('clear').onclick = function() {
+  window.caches.open('notifications').then(function(cache) {
+    Promise.all([
+      cache.put(new Request('invisible'), new Response('0', {
+        headers: {
+          'content-type': 'application/json'
+        }
+      })),
+      cache.put(new Request('visible'), new Response('0', {
+        headers: {
+          'content-type': 'application/json'
+        }
+      })),
+    ]).then(function() {
+      updateNumbers();
+    });
+  });
+}
+
+function updateNumbers() {
+  window.caches.open('notifications').then(function(cache) {
+    ['visible', 'invisible'].forEach(function(type) {
+      cache.match(type).then(function(response) {
+        response.text().then(function(text) {
+          document.getElementById('sent-' + type).textContent = text;
+        });
+      });
+    });
+  });
+}
+
+window.onload = function() {
+  updateNumbers();
+  setInterval(updateNumbers, 1000);
+};

@@ -10,6 +10,10 @@
       font-size: 1rem;
       white-space: pre-wrap;
     }
+
+    span {
+      color: red;
+    }
   </style>
   <link rel="manifest" href="manifest.json">
 </head>
@@ -21,15 +25,18 @@ Try closing this page after selecting one of the two options ("visible" or "invi
 
 <ul>
   <li>If you selected visible notifications, you will see them appear one after another on your screen. The quota will not be enforced;</li>
-  <li>If you selected invisible notifications, you will see logs in the browser console, but they will stop once reaching the quota.</li>
+  <li>If you selected invisible notifications, you won't see them on your screen, but you will see the number at the bottom of this page updated once you re-open the page to indicate how many invisible notifications were sent before reaching the quota.</li>
 </ul>
 
 <form>
-Number of notifications to send: <input id='notification-num' type='number' value='50'></input>
+Number of notifications to send: <input id="notification-num" type="number" value="50"></input>
 </form>
 
-<button id="visible">Visible notifications</button>
-<button id="invisible">Invisible notifications</button>
+<button id="visible">Visible notifications</button> <button id="invisible">Invisible notifications</button>
+
+<p>Received <span id="sent-visible">0</span> visible notifications
+Received <span id="sent-invisible">0</span> invisible notifications</p>
+<button id="clear">Clear</button>
 
 <script src="./index.js"></script>
 </body>
