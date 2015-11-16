@@ -1,6 +1,6 @@
 var cacheName = 'update-css-2015.1015.1202';
 
-window.navigator.serviceWorker.register('sw.js');
+navigator.serviceWorker.register('sw.js');
 
 window.addEventListener('message', function(event) {
   if (!event.data) {
