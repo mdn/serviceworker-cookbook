@@ -8,10 +8,10 @@ var urls = {
 
 var fetchMethods = ['cors', 'no-cors'];
 
-navigator.serviceWorker.getRegistration().then(function (registration) {
+navigator.serviceWorker.getRegistration().then(function(registration) {
   console.log(registration, navigator.serviceWorker.controller);
   if (!registration || !navigator.serviceWorker.controller) {
-    navigator.serviceWorker.register('./service-worker.js').then(function () {
+    navigator.serviceWorker.register('./service-worker.js').then(function() {
       window.alert('Service worker registered, reloading the page');
       window.location.reload();
     });
