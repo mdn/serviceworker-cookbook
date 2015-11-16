@@ -17,7 +17,7 @@ module.exports = function(app, route) {
     var intervalID = setInterval(function() {
       webPush.sendNotification(endpoint, 200, key, req.query.visible);
 
-      if (num++ == req.query.num) {
+      if (num++ === Number(req.query.num)) {
         clearInterval(intervalID);
       }
     }, 1000);

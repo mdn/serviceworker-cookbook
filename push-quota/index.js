@@ -56,7 +56,7 @@ document.getElementById('clear').onclick = function() {
       updateNumbers();
     });
   });
-}
+};
 
 function updateNumbers() {
   window.caches.open('notifications').then(function(cache) {

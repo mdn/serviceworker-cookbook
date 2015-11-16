@@ -27,25 +27,15 @@ function updateNumber(type) {
   return caches.open(CACHE_NAME).then(function(cache) {
     return cache.match(type).then(function(response) {
       return response.json().then(function(notificationNum) {
-        notificationNum++;
+        var newNotificationNum = notificationNum + 1;
 
-        return cache.put(new Request(type), new Response(JSON.stringify(notificationNum), {
+        return cache.put(new Request(type), new Response(JSON.stringify(newNotificationNum), {
           headers: {
             'content-type': 'application/json'
           }
         })).then(function() {
-          return notificationNum;
+          return newNotificationNum;
         });
-      });
-    });
-  });
-}
-
-function getNumber(type) {
-  return caches.open(CACHE_NAME).then(function(cache) {
-    return cache.match(type).then(function(response) {
-      return response.json().then(function(notificationNum) {
-        return notificationNum;
       });
     });
   });
