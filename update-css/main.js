@@ -2,20 +2,20 @@ var cacheName = 'update-css-2015.1015.1202';
 
 window.navigator.serviceWorker.register('sw.js');
 
-window.addEventListener('message', function(ev) {
-  if (!ev.data) {
+window.addEventListener('message', function(event) {
+  if (!event.data) {
     return;
   }
 
-  if (ev.data.msg === 'toggleCSSFilename') {
+  if (event.data.msg === 'toggleCSSFilename') {
     document.querySelector('#css-status').textContent = 'The next time this page is loaded, the SW will discover updated CSS on the server after serving the cached CSS';
     return;
   }
 });
 
-navigator.serviceWorker.addEventListener('message', function(ev) {
-  if (ev.data.msg === 'cssUpdated') {
-    if (ev.data.val) {
+navigator.serviceWorker.addEventListener('message', function(event) {
+  if (event.data.msg === 'cssUpdated') {
+    if (event.data.val) {
       document.querySelector('#new-css-msg').textContent = 'The server has a new CSS file available! If you refresh the page you should see updated CSS. In production, a site might decide to automatically refresh at this point';
     } else {
       document.querySelector('#new-css-msg').textContent = 'The latest CSS has been served';

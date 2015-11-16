@@ -1,11 +1,11 @@
 var cacheName = 'update-css-2015.1015.1202';
 
-self.addEventListener('install', function(ev) {
+self.addEventListener('install', function(event) {
   self.skipWaiting();
 
   // TODO: Comment explaining what would happen here in a real site
 
-  ev.waitUntil(caches.open(cacheName).then(function(cache) {
+  event.waitUntil(caches.open(cacheName).then(function(cache) {
     return cache.addAll([
       'style-1.css',
       'style-2.css',
@@ -27,16 +27,16 @@ self.addEventListener('activate', function() {
   }
 });
 
-self.addEventListener('fetch', function(ev) {
+self.addEventListener('fetch', function(event) {
   // Only process fetch requests for 'style.css'. Let everything
   // else be handled normally.
-  if (ev.request.url.lastIndexOf('style.css') === -1) {
+  if (event.request.url.lastIndexOf('style.css') === -1) {
     return;
   }
 
   // Respond with the cached version of 'style.css' after initiating
   // a network fetch to update our cache if necessary.
-  ev.respondWith(caches.open(cacheName).then(function(cache) {
+  event.respondWith(caches.open(cacheName).then(function(cache) {
     // Perform a network fetch of 'style.css' to see if there's an updated
     // version available. If there is, replace our cached version with the
     // updated one and use `postMessage` to notify the page that there
