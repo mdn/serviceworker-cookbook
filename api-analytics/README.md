@@ -1,4 +1,7 @@
-# Recipe: API analytics
+# API analytics
+
+Perform API usage logging without interfering with the UI layer by adding a service worker to gather the usage and use the sync API to upload gathered data from time to time.
+
 ## Use case
 As a web app developer, I want to add API tracking capabilities to my web application trying to not modify client code nor server code at all.
 
