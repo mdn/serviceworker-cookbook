@@ -1,8 +1,5 @@
 # Recipe: Push Subscription
 
-Recipe: Push notifications with subscription management
-=======================================================
-
 Init state
 ----------
 After service worker is registered, client is checking if it is already subscribed to the notificiation service. Button's contents is set depending on this.
