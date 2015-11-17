@@ -2,25 +2,32 @@
 
 It's online. It's offline. It's a Service Worker!
 
-## What is a recipe
+Service workers are a new technology to aid developers in:
 
-- Single contained use case
-- Simple interface for output
-- Documented code
-- Tests
+	- creating realistic, reliable offline experiences
+	- vastly improving performance when online
+	- logically and dynamically caching files for any purpose
 
-## Ideas for cooking sessions
+The ServiceWorker API, which has recently made its way into Firefox Developer Edition, will change the way web and mobile app developers make their websites fast and functional!
 
-- [x] Generic fallback
-- [x] Immediate claim
-- [ ] Cache on install
-- [ ] Cache on network response
-- [ ] Fetch from cache, falling back to network
-- [ ] Fetch from cache, then network
-- [ ] ServiceWorker-side templating
-- [ ] Push & Fetch
-- [ ] Push & Notification
-- [ ] Backgroundsync
+## What is in this cookbook?
+
+This cookbook contains dozens of practical, detailed, and working examples of service worker usage.  These examples are for developers from beginner to expert and illustrate a number of APIs:
+
+- [navigator.serviceWorker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+- [fetch](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch)
+- [cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
+- [push](https://developer.mozilla.org/en-US/docs/Web/API/Simple_Push_API)
+- [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification)
+- [BackgroundSync](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/sync)
+
+## How to contribute
+
+1.  Clone this repository
+2.  `cd serviceworker-cookbook && npm install`
+3.  Create a directory structure similiar to the other recipes
+3.  `gulp watch`
+4.  Navigate to http://localhost:3000
 
 ## Similar projects & prior art
 
