@@ -2,6 +2,9 @@
 
 This recipe provides a way to learn how to use service workers (SW) through showing [the flow diagram of SW workflow explained on the Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers), and logging on screen the steps taken by a real Web App running service workers.
 
+## Difficulty
+Advanced
+
 ## Screenshots
 
 Register + Unregister
@@ -59,7 +62,7 @@ The browser log prints:
 
 ## Compatibility
 
-Tests has been run on:
+Tests have been run in:
 
 - Firefox Nightly 44.0a1 (2015-10-12)
 - Chrome Canary 48.0.2533.0
