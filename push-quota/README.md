@@ -1,1 +1,3 @@
-# Recipe: Push Quota
+# Push Quota
+
+Experiment with the quota management policies of different browsers. Try sending many notifications (visible or invisible) and see what happens if you keep the tab open vs close it, or if you click on some notifications vs you click on none of them.
