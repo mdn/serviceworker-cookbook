@@ -1,6 +1,6 @@
 {
-  "name": "Web Push Demo",
-  "short_name": "webpushdemo",
+  "name": "Push Simple - Service Worker Cookbook",
+  "short_name": "push-simple",
   "start_url": "./index.html",
   "display": "standalone",
   "gcm_sender_id": "829371921996",
