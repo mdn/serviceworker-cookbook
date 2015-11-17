@@ -1,4 +1,4 @@
-# Recipe: Offline Status
+# Offline Status
 
 This basic recipe illustrates caching critical resources for offline use and then notifying the user that they may go offline and enjoy the same experience.
 
