@@ -60,6 +60,12 @@ body {
   height:100%;
 }
 
+.tip {
+  background: #fffea1;
+  padding: 10px;
+  border-left: #fc0;
+}
+
 .book {
   position: relative;
   width: 100%;
