@@ -2,6 +2,13 @@
 
 This recipe shows how to use push notifications with subscription management.
 
+## Difficulty
+Advanced
+
+## Use case
+Allowing users to subscribe to features of your app allows you to keep in touch with and convert visitors!
+
+
 Init state
 ----------
 After service worker is registered, client is checking if it is already subscribed to the notificiation service. Button's contents is set depending on this.

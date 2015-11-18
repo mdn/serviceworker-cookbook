@@ -1,6 +1,6 @@
 {
-  "name": "Push Payload - Service Worker Cookbook",
-  "short_name": "push-payload",
+  "name": "Web Push Demo",
+  "short_name": "webpushdemo",
   "start_url": "./index.html",
   "display": "standalone",
   "gcm_sender_id": "829371921996",
