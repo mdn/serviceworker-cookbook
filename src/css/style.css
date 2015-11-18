@@ -48,7 +48,7 @@ html {
 }
 
 a {
-  color: #000;
+  color: #a87aad;
 }
 
 body {
@@ -117,17 +117,22 @@ body {
 
 .book nav ul.recipes li a {
   display: block;
-  padding: 6px 12px;
+  padding: 6px 20px;
+  color: #000;
 }
 
-nav ul.recipes {
+nav .recipes-cover {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow-y: auto;
+}
+
+nav ul.recipes {
   list-style: none;
+  padding-top: 20px;
 }
 
 nav ul.recipes li {
@@ -160,6 +165,10 @@ h1 {
 h2 {
   margin: 40px 0 0 0;
   color: #c17878;
+}
+
+h3 a {
+  color: #6b7b95;
 }
 
 iframe {
