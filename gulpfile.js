@@ -23,7 +23,7 @@ var srcRecipes = recipeSlugs.map(function makePath(name) {
 });
 
 var recipes = parseRecipes(recipeSlugs).sort(function(a, b) {
-  return a.name < b.name ? -1 : 1;
+  return a.difficulty < b.difficulty ? -1 : 1;
 });
 
 var template = (function() {
