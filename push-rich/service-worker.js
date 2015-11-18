@@ -5,7 +5,7 @@ self.addEventListener('push', function(event) {
     // Show a notification with title 'ServiceWorker Cookbook' and body 'Alea iacta est'.
     // Set other parameters such as the notification language, a vibration pattern associated
     // to the notification, an image to show near the body.
-    // There are many other possible options, for an exahustive list see the specs:
+    // There are many other possible options, for an exhaustive list see the specs:
     //   https://notifications.spec.whatwg.org/
     self.registration.showNotification('ServiceWorker Cookbook', {
       lang: 'la',
