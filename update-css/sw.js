@@ -1,24 +1,10 @@
-var cacheName = 'update-css-2015.1015.1202';
+const cacheName = 'update-css-2015.1015.1202';
+const updateFilename = 'current.json';
 
 self.addEventListener('install', function(event) {
   self.skipWaiting();
 
-  // TODO: Comment explaining what would happen here in a real site
-
-  event.waitUntil(caches.open(cacheName).then(function(cache) {
-    return cache.addAll([
-      'style-1.css',
-      'style-2.css',
-    ]).then(getCurrentCSSFilename).then(function(filename) {
-      // Cache whichever CSS file we currently want to serve as
-      // 'style.css'
-      return cache.match(filename).then(function(response) {
-        if (response) {
-          cache.put('style.css', response);
-        }
-      });
-    });
-  }));
+  event.waitUntil(updateResources());
 });
 
 self.addEventListener('activate', function() {
@@ -28,81 +14,67 @@ self.addEventListener('activate', function() {
 });
 
 self.addEventListener('fetch', function(event) {
-  // Only process fetch requests for 'style.css'. Let everything
-  // else be handled normally.
+  // TODO: Make this smarter; we want to show how it is
+  // possible to filter fetch events for CSS, fonts, images, etc.
   if (event.request.url.lastIndexOf('style.css') === -1) {
     return;
   }
 
-  // Respond with the cached version of 'style.css' after initiating
-  // a network fetch to update our cache if necessary.
+  // Return response from cache
   event.respondWith(caches.open(cacheName).then(function(cache) {
-    // Perform a network fetch of 'style.css' to see if there's an updated
-    // version available. If there is, replace our cached version with the
-    // updated one and use `postMessage` to notify the page that there
-    // is updated CSS available.
-    simulateStyleCSSNetworkFetch().then(function(response) {
-      // In real production code, we would use smarter heuristics to
-      // determine if the CSS file that we requested has actually been
-      // updated.
-      if (response && response.text) {
-        var clone = response.clone();
-        clone.text().then(function(networkText) {
-          cache.match('style.css').then(function(cachedResponse) {
-            if (cachedResponse && cachedResponse.text) {
-              cachedResponse.text().then(function(cacheText) {
-                if (cacheText !== networkText) {
-                  cache.put('style.css', response);
-                  // Inform any open pages that a new CSS file is available on
-                  // the server
-                  notifyPageOfCSSUpdate(true);
-                } else {
-                  notifyPageOfCSSUpdate(false);
-                }
-              });
-            } else {
-              notifyPageOfCSSUpdate(false);
-            }
-          });
-        });
-      } else {
-        notifyPageOfCSSUpdate(false);
-      }
-    });
-
-    return cache.match('style.css');
+    return cache.match(event.request.url);
   }));
 });
 
-function notifyPageOfCSSUpdate(isUpdated) {
-  self.clients.matchAll().then(function(clientList) {
-    clientList.forEach(function(client) {
-      client.postMessage({ msg: 'cssUpdated', val: isUpdated });
-    });
-  });
-}
+function updateResources() {
+  // Fetch update file
+  simulateFetch(updateFilename).then(function(response) {
+    if (!response || !response.ok || !response.json) {
+      var err = new Error('Bad response when fetching ' + updateFilename);
+      console.error(err);
+      throw(err);
+    }
 
-function simulateStyleCSSNetworkFetch() {
-  return getCurrentCSSFilename().then(function(filename) {
-    return caches.open(cacheName).then(function(cache) {
-      // return the specified CSS file from the cache
-      return cache.match(filename);
-    });
-  });
-}
+    // Compare update file to 
+    Pomise.all([
+        caches.open(cacheName),
+        response.json()
+    ]).then(function(cache, fileList) {
+      fileList.forEach(function(file) {
+        cache.match(file.name).then(function(cachedResponse) {
 
-function getCurrentCSSFilename() {
-  return caches.open(cacheName).then(function(cache) {
-    return cache.match('current-css-filename').then(function(cached) {
-      if (cached.text) {
-        return cached.text().then(function(text) {
-          return text;
+          // Initiate updates for each resource that needs updating
         });
-      }
 
-      cache.put('current-css-filename', new Response('style-1.css', { 'status': 200 }));
-      return 'style-1.css';
+        // At this point we could optionally remove any entries in the
+        // cache that don't appear in the update file; those resources
+        // no longer exist in the web app
+      });
+    });
+
+    // Notify page that update is available
+    self.clients.matchAll().then(function(clientList) {
+      clientList.forEach(function(client) {
+        client.postMessage({ msg: 'cssUpdated', val: isUpdated });
+      });
     });
   });
 }
+
+
+/*
+ * Implementation details
+ */
+
+const cacheForSimulatedFetches = 'update-css-simulated-fetches-2015.1117.1636';
+
+/**
+ * simulateFetch
+ *
+ * In a real production environment, this function would be equivalent
+ * to performing a regular `fetch` for a particular resource.
+ */
+function simulateFetch(resource) {
+}
+
 
