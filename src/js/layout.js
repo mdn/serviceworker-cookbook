@@ -19,4 +19,13 @@ function resizeIframe(obj) {
     navItem.classList.add('active');
   }
 
+  var mainNavItem = document.querySelector('nav a[href^="' + (file.split('_')[0] || 'index.html') + '"]');
+  if (mainNavItem) {
+    mainNavItem.classList.add('active');
+  }
+
 })();
+
+window.addEventListener('load', function() {
+  document.body.classList.add('loaded');
+});

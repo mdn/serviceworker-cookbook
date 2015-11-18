@@ -1,6 +1,6 @@
 {
-  "name": "Web Push Demo",
-  "short_name": "webpushdemo",
+  "name": "Push Rich - Service Worker Cookbook",
+  "short_name": "push-rich",
   "start_url": "./index.html",
   "display": "standalone",
   "gcm_sender_id": "829371921996",

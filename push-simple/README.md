@@ -1,3 +1,6 @@
 # Push Simple
 
-This recipe shows how to register for push notifications and how to send them.
+Simplest example of Web Push API usage. Send notifications to users even when your page is not open.
+
+## Difficulty
+Beginner

@@ -16,3 +16,10 @@ document.getElementById('randomButton').addEventListener('click', function() {
     return Math.floor(Math.random() * 6) + 1;
   }
 });
+
+document.getElementById('clearAndReRegister').addEventListener('click', function() {
+  navigator.serviceWorker.getRegistration().then(function(registration) {
+    registration.unregister();
+    window.location.reload();
+  });
+});

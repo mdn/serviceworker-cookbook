@@ -3,12 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title>ServiceWorker Cookbook</title>
+  <link rel="stylesheet" href="tabzilla/css/tabzilla.css">
   <link rel="stylesheet" href="bundle.css">
   <script type="text/javascript" src="bundle.js" defer></script>
 </head>
 <body>
   <div class="book with-nav">
-    <nav>
+    <nav><div class="recipes-cover">
+      <div id="tabzilla">
+        <a href="https://www.mozilla.org/">Mozilla</a>
+      </div>
+
       <ul class="recipes">
         <li><a href="index.html">Introduction</a></li>
         {% for recipe in recipes %}
@@ -17,7 +22,7 @@
           </li>
         {% endfor %}
       </ul>
-    </nav>
+    </div></nav>
     <main>
       <header>
         <div class="nav-top">
