@@ -2,8 +2,6 @@ var marked = require('marked');
 var glob = require('glob');
 var fs = require('fs');
 var assert = require('assert');
-require('string.prototype.startswith');
-require('string.prototype.endswith');
 
 module.exports = function(recipeSlugs) {
   return recipeSlugs.map(function(recipe) {

@@ -27,9 +27,7 @@
     "@alrra/travis-scripts": "^1.1.1",
     "browser-sync": "^2.9.6",
     "eslint-config-airbnb": "^0.1.0",
-    "gulp-eslint": "^1.0.0",
-    "string.prototype.endswith": "^0.2.0",
-    "string.prototype.startswith": "^0.2.0"
+    "gulp-eslint": "^1.0.0"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
