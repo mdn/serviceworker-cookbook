@@ -1,4 +1,4 @@
-# Recipe: Fetching remote resources
+# Fetching remote resources
 
 This recipe is showing 2 standard ways of loading a remote resource and one attempt to use service worker as a proxy middleware.
 
