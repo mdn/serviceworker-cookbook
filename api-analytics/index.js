@@ -45,6 +45,11 @@ function showQuotations(collection) {
     quote = collection[index];
     table.appendChild(getRowFor(quote));
   }
+
+  // Specifically for the cookbook site :(
+  if (window.parent !== window) {
+    window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+  }
 }
 
 // Builds a row for a quote.
