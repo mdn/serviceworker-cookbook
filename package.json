@@ -27,7 +27,9 @@
     "@alrra/travis-scripts": "^1.1.1",
     "browser-sync": "^2.9.6",
     "eslint-config-airbnb": "^0.1.0",
-    "gulp-eslint": "^1.0.0"
+    "gulp-eslint": "^1.0.0",
+    "string.prototype.endswith": "^0.2.0",
+    "string.prototype.startswith": "^0.2.0"
   },
   "dependencies": {
     "array.prototype.findindex": "^1.0.0",
@@ -44,6 +46,7 @@
     "gulp-swig": "^0.7.4",
     "marked": "^0.3.5",
     "merge-stream": "^1.0.0",
+    "mozilla-tabzilla": "^0.5.1",
     "rename": "^1.0.3",
     "request": "^2.64.0",
     "swig": "^1.4.2",
