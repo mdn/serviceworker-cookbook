@@ -60,6 +60,23 @@ body {
   height:100%;
 }
 
+#tabzilla {
+  width: 147px;
+  margin: 0 auto;
+  float: none;
+  opacity: 0;
+}
+
+.loaded #tabzilla {
+  transition: opacity 1s;
+  opacity: 1;
+}
+
+.loaded #tabzilla:before {
+  background: #333;
+  transition: background 1s;
+}
+
 .tip {
   background: #fffea1;
   padding: 10px;
@@ -81,7 +98,7 @@ body {
   z-index: 1;
   width: 300px;
   color: #364149;
-  background: #fafafa;
+  background: rgba(70, 140, 100, 0.4);
   border-right: 1px solid rgba(0,0,0,0.07);
 }
 
@@ -118,7 +135,7 @@ body {
 .book nav ul.recipes li a {
   display: block;
   padding: 6px 20px;
-  color: #000;
+  color: #333;
 }
 
 nav .recipes-cover {
@@ -214,10 +231,14 @@ iframe {
 }
 
 .nav-top .active, nav a.active {
-  color: inherit;
-  background: rgba(120, 186, 145, 0.4);
+  color: inherit; 
+}
+
+nav a.active {
+  background: rgba(120, 186, 145, 0.8);
 }
 
 .nav-top .active {
+  background: rgba(120, 186, 145, 0.4);
   border-bottom: 2px solid rgb(120, 186, 145);
 }

@@ -178,6 +178,12 @@ gulp.task('build:js', ['clean'], function() {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('build:tabzilla', ['clean'], function() {
+  return gulp
+    .src('node_modules/mozilla-tabzilla/**/*.{css,png}')
+    .pipe(gulp.dest('dist/tabzilla'));
+});
+
 // Start express server after building site
 gulp.task('start-server', ['build'], function startServer(cb) {
   require('./server.js').ready.then(cb);
@@ -200,4 +206,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js']);
+gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla']);
