@@ -133,9 +133,34 @@ body {
 }
 
 .book nav ul.recipes li a {
-  display: block;
-  padding: 6px 20px;
+  display: inline-block;
+  margin-left: 14px;
+  padding: 6px;
   color: #333;
+}
+
+.book nav ul.recipes li span {
+  font: bold 16px Arial, sans-serif;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  padding: 7px;
+  color: white;
+  border-radius: 50%;
+  margin-right: 3px;
+  display: inline-block;
+}
+
+.ball-difficulty-1 {
+  background: green;
+}
+
+.ball-difficulty-2 {
+  background: orange;
+}
+
+.ball-difficulty-3 {
+  background: #cc0000;
 }
 
 nav .recipes-cover {
@@ -175,7 +200,7 @@ nav ul.recipes li {
 }
 
 h1 {
-  color: #78ba91;  
+  color: #78ba91;
   line-height: 1;
 }
 
@@ -231,7 +256,7 @@ iframe {
 }
 
 .nav-top .active, nav a.active {
-  color: inherit; 
+  color: inherit;
 }
 
 nav a.active {
