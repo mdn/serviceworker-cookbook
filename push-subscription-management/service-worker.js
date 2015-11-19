@@ -7,10 +7,11 @@ self.addEventListener('push', function(event) {
 });
 
 // handle the expired subscriptions
-self.addEventListener('pushsubscriptionchange', function() {
+self.addEventListener('pushsubscriptionchange', function(event) {
   // subscription expired, let's try to subscribe again
   console.log('Subscription expired');
-  self.registration.pushManager.subscribe({ userVisibleOnly: true })
+  event.waitUntil(
+    self.registration.pushManager.subscribe({ userVisibleOnly: true })
     .then(function(subscription) {
       console.log('Subscribed after expiration', subscription.endpoint);
       // register new subscription in the application server
@@ -23,5 +24,6 @@ self.addEventListener('pushsubscriptionchange', function() {
           endpoint: subscription.endpoint
         })
       });
-    });
+    })
+  );
 });
