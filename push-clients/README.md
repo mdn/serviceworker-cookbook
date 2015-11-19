@@ -4,3 +4,6 @@ Control the clients of a service worker when the user clicks on a notification g
 
 ## Difficulty
 Advanced
+
+## Category
+Web Push

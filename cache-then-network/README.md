@@ -12,3 +12,6 @@ One advantage to using service workers is having programmatic control over what 
 
 - Configure form to allow or disallow cache and/or network
 - Click "Get new data" to execute requests
+
+## Category
+Performance

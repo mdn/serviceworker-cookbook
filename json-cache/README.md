@@ -23,3 +23,6 @@ Tests have been run in:
 - Firefox Nightly 44.0a1
 - Chrome Canary 48.0.2533.0
 - Opera 32.0
+
+## Category
+Offline

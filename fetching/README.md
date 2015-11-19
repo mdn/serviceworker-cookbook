@@ -15,3 +15,6 @@ Fetch on the client loads a local resource ./cookbook-proxy/{full URL} which is 
 
 ## Difficulty
 Intermediate
+
+## Category
+Misc

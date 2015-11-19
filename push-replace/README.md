@@ -4,3 +4,6 @@ Use the notification tag to replace old notifications with new ones. Allows you 
 
 ## Difficulty
 Intermediate
+
+## Category
+Web Push

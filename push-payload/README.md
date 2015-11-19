@@ -4,3 +4,6 @@ Send push notifications with a payload. This recipe shows how to send and receiv
 
 ## Difficulty
 Beginner
+
+## Category
+Web Push
