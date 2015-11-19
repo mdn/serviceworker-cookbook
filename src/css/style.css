@@ -146,7 +146,7 @@ body {
 
 .book nav ul.recipes li.category {
   padding: 20px 10px 3px;
-  font: bold 20px Arial, sans-serif;
+  font: bold 20px "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .book nav ul.recipes li span {
