@@ -133,10 +133,15 @@ body {
 }
 
 .book nav ul.recipes li a {
-  display: inline-block;
-  margin-left: 14px;
-  padding: 6px;
+  display: block;
+  padding: 6px 20px;
   color: #333;
+}
+
+.book nav ul.recipes li a:hover,
+.book nav ul.recipes li a:active,
+.book nav ul.recipes li a:focus {
+  background: rgba(120, 186, 145, 0.6);  
 }
 
 .book nav ul.recipes li span {
@@ -149,6 +154,7 @@ body {
   border-radius: 50%;
   margin-right: 3px;
   display: inline-block;
+  opacity: 0.6;
 }
 
 .ball-difficulty-1 {
