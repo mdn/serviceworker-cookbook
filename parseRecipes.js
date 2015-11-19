@@ -2,7 +2,6 @@ var marked = require('marked');
 var glob = require('glob');
 var fs = require('fs');
 var assert = require('assert');
-require('array.prototype.findindex');
 
 module.exports = function(recipeSlugs) {
   return recipeSlugs.map(function(recipe) {
@@ -13,9 +12,13 @@ module.exports = function(recipeSlugs) {
     var name = tokens[0].text;
     var summary = tokens[1].text;
 
-    var difficultyIdx = tokens.findIndex(function(token) {
-      return token.type === 'heading' && token.text === 'Difficulty';
-    });
+    var difficultyIdx;
+    for (difficultyIdx = 0; difficultyIdx < tokens.length; difficultyIdx++) {
+      var token = tokens[difficultyIdx];
+      if (token.type === 'heading' && token.text === 'Difficulty') {
+        break;
+      }
+    }
     assert(difficultyIdx !== -1, recipe + ': README.md should contain a difficulty');
     assert(difficultyIdx + 1 <= tokens.length, recipe + ': README.md should contain a difficulty');
 

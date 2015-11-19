@@ -30,7 +30,6 @@
     "gulp-eslint": "^1.0.0"
   },
   "dependencies": {
-    "array.prototype.findindex": "^1.0.0",
     "body-parser": "^1.14.1",
     "del": "^2.0.2",
     "es6-promisify": "^3.0.0",
