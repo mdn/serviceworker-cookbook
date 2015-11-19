@@ -14,4 +14,4 @@ The `postMessage` API is brilliant for passing messages between windows and `ifr
 - Service worker registration
 
 ## Category
-?
+Misc

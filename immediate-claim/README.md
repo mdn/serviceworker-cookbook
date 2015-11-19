@@ -15,4 +15,4 @@ Basic service worker registration requires a navigation event to occur before th
 - Immediately claim the servier worker
 
 ## Category
-?
+Misc
