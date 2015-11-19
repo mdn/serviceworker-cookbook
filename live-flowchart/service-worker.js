@@ -1,4 +1,4 @@
-console.debug('sw.js: this is a service worker');
+console.debug('service-worker.js: this is a service worker');
 
 // This is the basic architecture of a service worker, as described [here](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#Basic_architecture "Service Worker architecture").
 

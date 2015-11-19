@@ -38,7 +38,7 @@ SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerCon
     Logger.debug('The following service worker controls this app: ');
     Logger.debug(navigator.serviceWorker.controller.scriptURL + ' <= navigator.serviceWorker.controller.scriptURL');
 
-    // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [sw.js module](sw.html "the js module implementing a service worker").
+    // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [service-worker.js module](sw.html "the js module implementing a service worker").
     Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
 
     // More on:
@@ -104,7 +104,7 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
 
           // Service worker registered
           Logger.info('Service worker successfully registered');
-          // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [sw.js module](sw.html "the js module implementing a service worker").
+          // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [service-worker.js module](sw.html "the js module implementing a service worker").
           Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
           // SW is in control, once document is reloaded
           Logger.info('SW is in control, once document is reloaded');
