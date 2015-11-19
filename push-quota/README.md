@@ -4,3 +4,6 @@ Experiment with the quota management policies of different browsers. Try sending
 
 ## Difficulty
 Advanced
+
+## Category
+Web Push

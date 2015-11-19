@@ -4,3 +4,6 @@ Simplest example of Web Push API usage. Send notifications to users even when yo
 
 ## Difficulty
 Beginner
+
+## Category
+Web Push

@@ -4,3 +4,6 @@ Show rich push notifications, defining the language of the notification, a vibra
 
 ## Difficulty
 Beginner
+
+## Category
+Web Push
