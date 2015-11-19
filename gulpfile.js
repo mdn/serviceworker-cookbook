@@ -25,11 +25,13 @@ var srcRecipes = recipeSlugs.map(function makePath(name) {
 var recipes = parseRecipes(recipeSlugs).sort(function(a, b) {
   if (a.category === b.category) {
     return a.difficulty < b.difficulty ? -1 : 1;
-  } else if (a.category < b.category) {
-    return -1;
-  } else {
-    return 1;
   }
+
+  if (a.category < b.category) {
+    return -1;
+  }
+
+  return 1;
 });
 
 var template = (function() {

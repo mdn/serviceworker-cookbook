@@ -26,7 +26,7 @@ module.exports = function(recipeSlugs) {
       return tokens[i + 1].text;
     }
 
-    var difficulty = getMetadata('Difficulty')
+    var difficulty = getMetadata('Difficulty');
     if (difficulty === 'Advanced') {
       difficulty = 3;
     } else if (difficulty === 'Intermediate') {
