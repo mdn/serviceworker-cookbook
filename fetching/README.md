@@ -13,5 +13,8 @@ Fetch issues a cors or no-cors request to each resource
 ## Fetch with SW proxy
 Fetch on the client loads a local resource ./cookbook-proxy/{full URL} which is then translated to real URL in the service worker and forwarded to the client.
 
+## Difficulty
+Intermediate
+
 ## Category
 ?
