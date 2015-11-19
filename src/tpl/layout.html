@@ -19,7 +19,18 @@
         <li><a href="index.html">Introduction</a></li>
         {% for recipe in recipes %}
           <li>
-            <a href="{{ recipe.intro_ref }}">{{ loop.index }}. {{ recipe.name }}</a>
+            <a href="{{ recipe.intro_ref }}">
+              <span class="ball-difficulty-{{ recipe.difficulty }}">
+                {% if recipe.difficulty === 1 %}
+                B
+                {% elif recipe.difficulty === 2 %}
+                I
+                {% elif recipe.difficulty === 3 %}
+                A
+                {% endif %}
+              </span>
+              {{ recipe.name }}
+            </a>
           </li>
         {% endfor %}
         <li><a href="https://github.com/mozilla/serviceworker-cookbook/">Contribute on GitHub</a></li>
