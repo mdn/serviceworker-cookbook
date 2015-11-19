@@ -3,8 +3,6 @@ var glob = require('glob');
 var fs = require('fs');
 var assert = require('assert');
 require('array.prototype.findindex');
-require('string.prototype.startswith');
-require('string.prototype.endswith');
 
 module.exports = function(recipeSlugs) {
   return recipeSlugs.map(function(recipe) {

@@ -184,6 +184,12 @@ gulp.task('build:tabzilla', ['clean'], function() {
     .pipe(gulp.dest('dist/tabzilla'));
 });
 
+gulp.task('build:favicon', ['clean'], function() {
+  return gulp
+    .src('favicon.ico')
+    .pipe(gulp.dest('dist'));
+});
+
 // Start express server after building site
 gulp.task('start-server', ['build'], function startServer(cb) {
   require('./server.js').ready.then(cb);
@@ -206,4 +212,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla']);
+gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);
