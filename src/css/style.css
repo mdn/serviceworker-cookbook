@@ -141,7 +141,12 @@ body {
 .book nav ul.recipes li a:hover,
 .book nav ul.recipes li a:active,
 .book nav ul.recipes li a:focus {
-  background: rgba(120, 186, 145, 0.6);  
+  background: rgba(120, 186, 145, 0.6);
+}
+
+.book nav ul.recipes li.category {
+  padding: 20px 10px 3px;
+  font: bold 20px Arial, sans-serif;
 }
 
 .book nav ul.recipes li span {
