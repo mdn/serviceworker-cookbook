@@ -251,17 +251,25 @@ iframe {
   padding-right: 20px;
 }
 
+.nav-top .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 .nav-top .item {
   font-size: 14px;
+  display: flex;
 }
 
 .nav-top a {
   padding: .4rem .8rem;
   color: #999;
+  border-bottom: 2px solid transparent;
 }
 
 .nav-top a:hover:not(.active) {
-  border-bottom: 2px solid #ccc;
+  border-bottom-color: #ccc;
   color: inherit;
   background: #eee;
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>ServiceWorker Cookbook</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="tabzilla/css/tabzilla.css">
@@ -61,14 +62,16 @@
           <div class="item">
             <button id="navToggle" class="fi-list large"></button>
           </div>
-          {% if currentRecipe %}
-            <div class="item"><a href="{{ currentRecipe.intro_ref }}">Readme</a></div>
-            <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo</a></div>
-            <div class="item" style="flex-grow: 1;"></div>
-            {% for src in currentRecipe.srcs %}
-              <div class="item"><a href="{{ src.ref }}">{{ src.name }}.js</a></div>
-            {% endfor %}
-          {% endif %}
+          <div class="tabs">
+            {% if currentRecipe %}
+              <div class="item"><a href="{{ currentRecipe.intro_ref }}">Readme</a></div>
+              <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo</a></div>
+              <div class="item" style="flex-grow: 1;"></div>
+              {% for src in currentRecipe.srcs %}
+                <div class="item"><a href="{{ src.ref }}">{{ src.name }}.js</a></div>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
       </header>
       <div class="main-inner">
