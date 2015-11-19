@@ -1,7 +1,7 @@
 'use strict';
 
-function resizeIframe(obj) {
-  obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+function resizeIframe(iframe) {
+  iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
 }
 
 (function() {
@@ -29,3 +29,15 @@ function resizeIframe(obj) {
 window.addEventListener('load', function() {
   document.body.classList.add('loaded');
 });
+
+(function()  {
+  var iframe = document.querySelector('iframe');
+  var callback = function () {
+    resizeIframe(iframe);
+  };
+
+  if(iframe) {
+    document.body.addEventListener('iframeresize', callback);
+    iframe.addEventListener('load', callback);
+  }
+})();
