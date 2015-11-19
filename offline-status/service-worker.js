@@ -12,6 +12,7 @@ var REQUIRED_FILES = [
   'random-6.png',
   'style.css',
   'index.html',
+  '/',
   'index.js',
   'app.js'
 ];
