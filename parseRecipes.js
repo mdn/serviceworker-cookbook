@@ -31,7 +31,6 @@ module.exports = function(recipeSlugs) {
     }
 
     var srcs = glob.sync('*.js', { cwd: recipe }).map(function(src) {
-      assert(src.endsWith('.js'));
       var srcName = src.substr(0, src.length - 3);
       return {
         filename: src,
