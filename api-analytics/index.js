@@ -1,7 +1,7 @@
 var ENDPOINT = 'api/quotations';
 
 // Register the worker and show the list of quotations.
-navigator.serviceWorker.register('worker.js').then(function() {
+navigator.serviceWorker.register('service-worker.js').then(function() {
   loadQuotations();
 });
 
