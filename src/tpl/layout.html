@@ -20,10 +20,9 @@
 
         {% set curCategory = "" %}
         {% for recipe in recipes %}
-
-        {% if recipe.category != curCategory %}
-        <li class="category">{{ recipe.category }}</li>
-        {% endif %}
+          {% if recipe.category != curCategory %}
+            <li class="category">{{ recipe.category }}</li>
+          {% endif %}
 
           <li>
             <a href="{{ recipe.intro_ref }}">
@@ -39,7 +38,8 @@
               {{ recipe.name }}
             </a>
           </li>
-        {% set curCategory = recipe.category %}
+
+          {% set curCategory = recipe.category %}
         {% endfor %}
         <li><a href="https://github.com/mozilla/serviceworker-cookbook/">Contribute on GitHub</a></li>
       </ul>
