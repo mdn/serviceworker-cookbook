@@ -4,7 +4,7 @@
   "description": "It's online. It's offline. It's a Service Worker!",
   "private": true,
   "scripts": {
-    "start": "gulp build && node --harmony server.js",
+    "start": "node --harmony server.js",
     "test": "gulp test",
     "watch": "gulp watch",
     "build": "gulp build"
