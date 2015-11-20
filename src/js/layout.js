@@ -26,12 +26,15 @@ function resizeIframe(iframe) {
 
 })();
 
+// Marking as loaded triggers tabzilla fade-in
 window.addEventListener('load', function() {
   document.body.classList.add('loaded');
 });
 
-(function()  {
-  var iframe = document.querySelector('iframe');
+// Demos that dynamically make the page grow require extra effort in sizing the iframe
+// These demos should trigger a custom event on the parent:  
+// if (window.parent !== window) { window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize')); }
+(function(iframe)  {
   var callback = function () {
     resizeIframe(iframe);
   };
@@ -40,4 +43,14 @@ window.addEventListener('load', function() {
     document.body.addEventListener('iframeresize', callback);
     iframe.addEventListener('load', callback);
   }
-})();
+})(document.querySelector('iframe'));
+
+// Launch demos in new window when image is clicked
+(function(launchIcon) {
+  if(launchIcon) {
+      launchIcon.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open(launchIcon.getAttribute('data-href'));
+      });
+  }
+})(document.querySelector('.demo-launch'));
