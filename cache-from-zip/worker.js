@@ -1,6 +1,9 @@
 /* global importScripts, zip */
 
-importScripts('./lib/zip.js', './lib/deflate.js', './lib/inflate.js');
+importScripts('./lib/zip.js');
+importScripts('./lib/ArrayBufferReader.js');
+importScripts('./lib/deflate.js');
+importScripts('./lib/inflate.js');
 
 var ZIP_URL = './package.zip';
 zip.useWebWorkers = false;
@@ -11,7 +14,7 @@ self.oninstall = function(event) {
   event.waitUntil(
     fetch(ZIP_URL)
       .then(function(response) {
-        return response.blob();
+        return response.arrayBuffer();
       })
       .then(getZipReader)
       .then(cacheContents)
@@ -34,9 +37,9 @@ self.onfetch = function(event) {
 };
 
 // This wrapper promisifies the zip.js API for reading a zip.
-function getZipReader(blob) {
+function getZipReader(data) {
   return new Promise(function(fulfill, reject) {
-    zip.createReader(new zip.BlobReader(blob), fulfill, reject);
+    zip.createReader(new zip.ArrayBufferReader(data), fulfill, reject);
   });
 }
 
@@ -62,7 +65,11 @@ function cacheEntry(entry) {
     entry.getData(new zip.BlobWriter(), function(data) {
       return openCache().then(function(cache) {
         var location = getLocation(entry.filename);
-        var response = new Response(data);
+        var response = new Response(data, { headers: {
+          // As the zip says nothing about the nature of the file, we extract
+          // this information from the file name.
+          'Content-Type': getContentType(entry.filename)
+        }});
 
         console.log('-> Caching', location, '(size:', entry.uncompressedSize, 'bytes)');
 
@@ -82,6 +89,23 @@ function cacheEntry(entry) {
 // Return the location for each entry.
 function getLocation(filename) {
   return location.href.replace(/worker\.js$/, filename || '');
+}
+
+var contentTypesByExtension = {
+  'css': 'text/css',
+  'js': 'application/javascript',
+  'png': 'image/png',
+  'jpg': 'image/jpeg',
+  'jpeg': 'image/jpeg',
+  'html': 'text/html',
+  'htm': 'text/html'
+};
+
+// Return the content type of a file based on the name extension
+function getContentType(filename) {
+  var tokens = filename.split('.');
+  var extension = tokens[tokens.length - 1];
+  return contentTypesByExtension[extension] || 'text/plain';
 }
 
 // Opening a cache is an expensive operation. By caching the promise
