@@ -31,9 +31,10 @@ This cookbook contains dozens of practical, detailed, and working examples of se
 
 ## Similar projects & prior art
 
-- https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker
-- https://github.com/jakearchibald/isserviceworkerready/tree/gh-pages/demos
-- https://github.com/phamann/embrace-the-network
+- [Google Chrome Service Worker Samples](https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker)
+- [Is ServiceWorker Ready?](https://github.com/jakearchibald/isserviceworkerready/tree/gh-pages/demos)
+- [Embrace The Network](https://github.com/phamann/embrace-the-network)
+- [The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/)
 
 # Attributions
 
