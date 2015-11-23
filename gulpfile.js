@@ -22,12 +22,12 @@ var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
 
-var recipes = parseRecipes(recipeSlugs).sort(function(a, b) {
-  if (a.category === b.category) {
-    return a.difficulty < b.difficulty ? -1 : 1;
+var recipes = parseRecipes(recipeSlugs).sort(function(recipeA, recipeB) {
+  if (recipeA.category === recipeB.category) {
+    return recipeA.difficulty < recipeB.difficulty ? -1 : 1;
   }
 
-  if (a.category < b.category) {
+  if (recipeA.category < recipeB.category) {
     return -1;
   }
 

@@ -13,17 +13,17 @@ module.exports = function(recipeSlugs) {
     var summary = tokens[1].text;
 
     function getMetadata(type) {
-      var i;
-      for (i = 0; i < tokens.length; i++) {
-        var token = tokens[i];
+      var index;
+      for (index = 0; index < tokens.length; index++) {
+        var token = tokens[index];
         if (token.type === 'heading' && token.text === type) {
           break;
         }
       }
-      assert(i !== -1, recipe + ': README.md should contain a ' + type);
-      assert(i + 1 <= tokens.length, recipe + ': README.md should contain a ' + type);
+      assert(index !== -1, recipe + ': README.md should contain a ' + type);
+      assert(index + 1 <= tokens.length, recipe + ': README.md should contain a ' + type);
 
-      return tokens[i + 1].text;
+      return tokens[index + 1].text;
     }
 
     var difficulty = getMetadata('Difficulty');
