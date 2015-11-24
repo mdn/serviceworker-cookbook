@@ -7,6 +7,16 @@ var app = express();
 
 app.use(bodyParser.json());
 
+app.use(function maskIndex(req, res, next) {
+  // Adding this redirect to simplify caching a recipe page,
+  // essentially so we don't have to cache "/" and "/index.html"
+  // So: "recipe/index.html" -> "recipe/" , "index.html?123" -> "?123"
+  if (/\/(.*)\/index\.html\??(.*)$/.test(req.url)) {
+    return res.redirect(req.url.replace('index.html', ''));
+  }
+  return next();
+});
+
 app.use(function forceSSL(req, res, next) {
   var host = req.get('Host');
   var localhost = 'localhost';
@@ -31,7 +41,6 @@ app.use(function corsify(req, res, next) {
 
 glob.sync('./*/server.js').map(function requireRecipe(file) {
   var route = '/' + path.basename(path.dirname(file)) + '/';
-  console.log('require', route);
   require(file)(app, route);
 });
 
