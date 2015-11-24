@@ -23,11 +23,15 @@ This cookbook contains dozens of practical, detailed, and working examples of se
 
 ## How to contribute
 
+We are always happy to accept contributions!  You can follow the process below to start creating a new recipe:
+
 1.  Clone this repository
-2.  `cd serviceworker-cookbook && npm install`
-3.  Create a directory structure similiar to the other recipes
-3.  `gulp watch`
-4.  Navigate to http://localhost:3000
+2.  Execute `cd serviceworker-cookbook && npm install`
+3.  Copy the `_recipe_template` directory, rename it, and add all recipe code and resources within that new directory
+3.  Execute `gulp watch` to start the server
+4.  Navigate to http://localhost:3000 to develop and test your recipe
+
+When it's all done, please submit a pull request to the [ServiceWorker Cookbook](https://github.com/mozilla/serviceworker-cookbook).
 
 ## Similar projects & prior art
 
