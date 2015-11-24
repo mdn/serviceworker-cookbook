@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 /* global mapping */
 
 // This script must to be added via `importScripts()` to the
@@ -7,11 +8,11 @@
 // Make the SW control the client ASAP.
 function onInstall(event) {
   event.waitUntil(self.skipWaiting());
-};
+}
 
 function onActivate(event) {
   event.waitUntil(self.clients.claim.bind(self.clients));
-};
+}
 
 // Easy, simply try to find an actual resource URL for an abstract request.
 // If not found, let's fetch the abstract resource. In this demo, this never
@@ -20,7 +21,7 @@ function onFetch(event) {
   var abstractResource = event.request.url;
   var actualResource = findActualResource(abstractResource);
   event.respondWith(fetch(actualResource || abstractResource));
-};
+}
 
 // Look inside mapping to get the actual resource URL for the abstract resource URL
 // passed as parameter. This act like the dependency factory in charge of creating
