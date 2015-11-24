@@ -1,4 +1,4 @@
-# Client side server
+# Virtual server
 This recipe shows a service worker acting like a remote server.
 
 ## Difficulty
