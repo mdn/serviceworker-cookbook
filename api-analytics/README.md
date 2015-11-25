@@ -12,4 +12,4 @@ As a web app developer, I want to add API tracking capabilities to my web applic
 With the use of a service worker, we intercept each request of a client and send some information to a log API.
 
 ## Category
-Misc
+More than offline
