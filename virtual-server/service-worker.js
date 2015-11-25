@@ -39,8 +39,8 @@ function makeDefaults(quotationList) {
   return quotationList;
 }
 
-// Determine the root for the routes. This convert something like
-// `http://example.com/path/to/sw.js` to
+// Determine the root for the routes. I.e, if the Service Worker URL is
+// `http://example.com/path/to/sw.js`, then the root is
 // `http://example.com/path/to/`
 var root = (function() {
   var tokens = (self.location + '').split('/');
@@ -48,9 +48,10 @@ var root = (function() {
   return tokens.join('/');
 }());
 
-// By using Mozillas' ServiceWorkerWare we can quickly setup this _client server_.
-// Compare this code with the one from the [server side in
-// API analytics recipe](/api-analytics_server_doc.html).
+
+// By using Mozilla's ServiceWorkerWare we can quickly setup some routes
+// for a _virtual server_. Compare this code with the one from the
+// [server side in the API analytics recipe](/api-analytics_server_doc.html).
 var worker = new ServiceWorkerWare();
 
 // Returns an array with all quotations.
@@ -79,5 +80,5 @@ worker.post(root + 'api/quotations', function(req, res) {
   });
 });
 
-// Start the service worker
+// Start the service worker.
 worker.init();
