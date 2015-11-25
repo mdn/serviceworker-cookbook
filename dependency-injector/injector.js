@@ -11,7 +11,7 @@ function onInstall(event) {
 }
 
 function onActivate(event) {
-  event.waitUntil(self.clients.claim.bind(self.clients));
+  event.waitUntil(self.clients.claim());
 }
 
 // Easy, simply try to find an actual resource URL for an abstract request.
