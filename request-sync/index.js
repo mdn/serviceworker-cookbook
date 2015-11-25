@@ -14,9 +14,11 @@ if (navigator.serviceWorker.controller) {
   navigator.serviceWorker.register('service-worker.js');
 }
 
-// This force a sync with the server by sending a command to
-// the service worker.
-window.addEventListener('online', function () {
+// This forces a sync with the server. The POST request will never
+// reach the network. It is intended to be intercepted by the
+// Service Worker forcing it to do a sync with the actual remote
+// server.
+window.addEventListener('online', function() {
   fetch('api/sync', { method: 'POST' }).then(function() {
     loadQuotations();
   });
@@ -38,6 +40,7 @@ document.getElementById('add-form').onsubmit = function(event) {
   var headers = { 'content-type': 'application/json' };
 
   // Send the API request. In this case, a `POST` on `quotations` collection.
+  // Session management is based on a stored value and it's sent as a query parameter.
   fetch(addSession(ENDPOINT), { method: 'POST', body: JSON.stringify(quote), headers: headers })
     .then(function(response) {
       // **Accepted but not added**. This is an important distinction. We use it to
@@ -93,7 +96,7 @@ function getRowFor(quote) {
 
   if (!id) {
     // In case of no id, we assume it is a delayed quotation.
-    tr.appendChild(getCell('(in queue...)'));
+    tr.appendChild(getInQueueLabel());
   } else {
     // Otherwise add the delete button.
     tr.appendChild(quote.isSticky ? getCell('') : getDeleteButton(id));
@@ -105,6 +108,13 @@ function getRowFor(quote) {
 function getCell(text) {
   var td = document.createElement('TD');
   td.textContent = text;
+  return td;
+}
+
+// Builds a data cell for the delayed quotes.
+function getInQueueLabel() {
+  var td = getCell('(in queue...)');
+  td.classList.add('queue');
   return td;
 }
 

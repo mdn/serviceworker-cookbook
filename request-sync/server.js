@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 // A simple server to expose a quotation API, sessions are stored in the local storage
 // of the client.
 
-// Simple session handling with a hash of sessions
+// Simple session handling with a hash of sessions.
 var sessions = {};
 
 // The default quotations. `makeDefaults()` simply add the id and the

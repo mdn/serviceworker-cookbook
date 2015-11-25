@@ -1,8 +1,8 @@
 # Request sync
-This recipe illustrates how to use a service worker to impersonate a remote server when connection is not reliable. This false server delays any request to the network until the connection is restored, at that moment, the Service Worker synchronizes with the server.
+This recipe illustrates how to use a service worker to impersonate a remote server only while offline. This false server delays any request to the network until the connection is restored, at that moment, the Service Worker synchronizes with the server.
 
 ## Difficulty
-Intermediate
+Advanced
 
 ## Use case
 As a web app developer, I want to provide functionality when network is not reachable, synchronizing with the server once the network is available again.

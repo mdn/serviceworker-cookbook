@@ -1,10 +1,11 @@
+/* eslint-env es6 */
 /* eslint no-unused-vars: 0 */
 /* global importScripts, ServiceWorkerWare, localforage */
 importScripts('./lib/ServiceWorkerWare.js');
 importScripts('./lib/localforage.js');
 
-// Determine the root for the routes. This convert something like
-// `http://example.com/path/to/sw.js` to
+// Determine the root for the routes. I.e, if the Service Worker URL is
+// `http://example.com/path/to/sw.js`, then the root is
 // `http://example.com/path/to/`
 var root = (function() {
   var tokens = (self.location + '').split('/');
@@ -12,8 +13,9 @@ var root = (function() {
   return tokens.join('/');
 }());
 
-// By using Mozilla's ServiceWorkerWare we can quickly setup this
-// _client server_.
+// By using Mozilla's ServiceWorkerWare we can quickly setup some routes
+// for a _virtual server_. **It is convenient you review the
+// [virtual server recipe](/virtual-server.html) before seeing this**.
 var worker = new ServiceWorkerWare();
 
 // So here is the idea. We will check if we are online or not. In case
@@ -42,7 +44,9 @@ function tryOrFallback(fakeResponse) {
   };
 }
 
-// A fake response with a joke for when there is no connection.
+// A fake response with a joke for when there is no connection. A real
+// implementation could have cached the last collection of quotations
+// and keep a local model. For simplicity, not implemented here.
 worker.get(root + 'api/quotations?*', tryOrFallback(new Response(JSON.stringify([{
   text: 'You are offline and I know it well.',
   author: 'The Service Worker Cookbook',
@@ -50,40 +54,49 @@ worker.get(root + 'api/quotations?*', tryOrFallback(new Response(JSON.stringify(
   isSticky: true
 }]), { headers: { 'Content-Type': 'application/json' } })));
 
-// For deletion, let's simulate that all went OK.
+// For deletion, let's simulate that all went OK. **Notice we are omitting
+// the body of the response**. Trying to add a body with a 204, deleted, as
+// status throws an error.
 worker.delete(root + 'api/quotations/:id?*', tryOrFallback(new Response({
   status: 204
 })));
 
 // Creation is another story. We can not reach the server so we can not
 // get the id for the new quotations. No problem, just say we accept the
-// creation and we will process it as soon as we recover connectivity.
+// creation and we will process it later, as soon as we recover connectivity.
 worker.post(root + 'api/quotations?*', tryOrFallback(new Response(null, {
   status: 202
 })));
 
-// And a virtual route to force the sync
+// Lastly, this a virtual route to force the a sync. It is originated
+// by the client who is listening for the `online` event. This request
+// never reaches the network. It is here to be consistent but it is pure
+// virtual.
 worker.post(root + 'api/sync', function() {
   return flushQueue().then(function() {
-    return new Response({ status: 202 });
+    return new Response();
   });
 });
 
-// Start the service worker
+// Start the service worker.
 worker.init();
 
 // By using Mozilla's localforage db wrapper, we count with
 // a fast setup for a versatile key, value database. We use
 // it to store queue of deferred requests.
 
-// Enqueue consists into add to the list a pair of method, url.
+// Enqueue consists into add to the list a request. Due to the
+// limitations of IndexedDB, Request and Response objects can not
+// be saved so we need an alternative representations. This is
+// why we call to `serialize()`.`
 function enqueue(request) {
-  return serialize(request).then(function(request) {
+  return serialize(request).then(function(serialized) {
     localforage.getItem('queue').then(function(queue) {
+      /* eslint no-param-reassign: 0 */
       queue = queue || [];
-      queue.push(request);
+      queue.push(serialized);
       return localforage.setItem('queue', queue).then(function() {
-        console.log(request.method, request.url, 'enqueued!');
+        console.log(serialized.method, serialized.url, 'enqueued!');
       });
     });
   });
@@ -91,10 +104,13 @@ function enqueue(request) {
 
 // Flush is a little more complicated. It consists into get
 // the elements of the queue in order and send each one,
-// keeping track of not yet sent request.
+// keeping track of not yet sent request. Before sending a request
+// we need to recreate it from the alternative representation
+// stored in IndexedDB.
 function flushQueue() {
   // Get the queue
   return localforage.getItem('queue').then(function(queue) {
+    /* eslint no-param-reassign: 0 */
     queue = queue || [];
 
     // If empty, nothing to do!
@@ -114,10 +130,10 @@ function flushQueue() {
 // sending the next one.
 function sendInOrder(requests) {
   var sending = Promise.resolve();
-  requests.forEach(function(request) {
-    console.log('Sending', request.method, request.url);
+  requests.forEach(function(serialized) {
+    console.log('Sending', serialized.method, serialized.url);
     sending = sending.then(function() {
-      return deserialize(request).then(function(request) {
+      return deserialize(serialized).then(function(request) {
         fetch(request);
       });
     });
@@ -130,6 +146,8 @@ function sendInOrder(requests) {
 // and not a simple object.
 function serialize(request) {
   var headers = {};
+  // `for(... of ...)` is ES6 notation but current browsers supporting SW, support this
+  // notation as well and this is the only way of retrieving all the headers.
   for (var entry of request.headers.entries()) {
     headers[entry[0]] = entry[1];
   }
@@ -146,7 +164,7 @@ function serialize(request) {
 
   // Only if method is not GET or HEAD is the request allowed to have body.
   if (request.method !== 'GET' && request.method !== 'HEAD') {
-    return request.clone().text().then(function (body) {
+    return request.clone().text().then(function(body) {
       serialized.body = body;
       return Promise.resolve(serialized);
     });
