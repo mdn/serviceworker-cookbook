@@ -12,7 +12,7 @@ Basic service worker registration requires a navigation event to occur before th
 
 - Register a service worker
 - Delete old cache if present
-- Immediately claim the servier worker
+- Immediately claim the service worker
 
 ## Category
 Misc
