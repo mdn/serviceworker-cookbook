@@ -16,7 +16,10 @@ if (navigator.serviceWorker.controller) {
 
 // When clicking add button, get the new quote and author and post to
 // the backend.
-document.getElementById('add-form').onsubmit = function() {
+document.getElementById('add-form').onsubmit = function(event) {
+  // Avoid navigation
+  event.preventDefault();
+
   var newQuote = document.getElementById('new-quote').value.trim();
   // Skip if no quote provided.
   if (!newQuote) { return; }
