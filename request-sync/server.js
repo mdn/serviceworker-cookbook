@@ -1,7 +1,5 @@
 
-var path = require('path');
 var bodyParser = require('body-parser');
-var swig = require('swig');
 
 // A simple server to expose a quotation API, sessions are stored in the local storage
 // of the client.
@@ -39,7 +37,6 @@ var defaultQuotations = makeDefaults([
 // REST APIs for quoation and log managements. The service worker approach allow
 // us to log each request without touching the API implementation.
 module.exports = function(app, route) {
-
   // Allow express to parse the body of the requests.
   app.use(bodyParser.json());
 

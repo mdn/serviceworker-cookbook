@@ -4,20 +4,19 @@
   <meta charset="utf-8" />
   <title>API analytics - ServiceWorker Cookbook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: monospace;
-      font-size: 1rem;
-      white-space: pre-wrap;
-    }
-  </style>
 </head>
 <body>
-  Try to add and delete some quotations.
-  <form id="add-form">
+  <p>Try to add and delete some quotations.</p>
+  <p>Then go offline by disconnecting from Internet</p>
+  <p>And try to continue adding some quotes.</p>
+  <p>You see they have not a delete button because they are in queue</p>
+  <p>Now reconnect to the Internet and you'll see how they automatically synchronize.</p>
+  <p><strong>Show console logs for more information.</strong></a>
+  <p><form id="add-form">
     <input type="text" id="new-quote" placeholder="Add a quote here"/>
     <input type="text" id="quote-author" placeholder="And its author"/><input type="submit" value="Add" />
-  </form>
+  </form></p>
+  <h2>Quotes</h2>
   <table id="quotations">
   </table>
 <script src="./index.js"></script>

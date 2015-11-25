@@ -14,6 +14,14 @@ if (navigator.serviceWorker.controller) {
   navigator.serviceWorker.register('service-worker.js');
 }
 
+// This force a sync with the server by sending a command to
+// the service worker.
+window.addEventListener('online', function () {
+  fetch('api/sync', { method: 'POST' }).then(function() {
+    loadQuotations();
+  });
+});
+
 // When clicking add button, get the new quote and author and post to
 // the backend.
 document.getElementById('add-form').onsubmit = function(event) {
@@ -32,6 +40,11 @@ document.getElementById('add-form').onsubmit = function(event) {
   // Send the API request. In this case, a `POST` on `quotations` collection.
   fetch(addSession(ENDPOINT), { method: 'POST', body: JSON.stringify(quote), headers: headers })
     .then(function(response) {
+      // **Accepted but not added**. This is an important distinction. We use it to
+      // support delayed additions to the quotation collection while in offline.
+      if (response.status === 202) {
+        return quote;
+      }
       return response.json();
     })
     .then(function(addedQuote) {
@@ -64,17 +77,27 @@ function showQuotations(collection) {
   }
 }
 
-// Builds a row for a quote.
+// Builds a row for a quote. If the quote has no id, we considered it as a delayed
+// quotation and it does not include a delete button.
 function getRowFor(quote) {
   var tr = document.createElement('TR');
   var id = quote.id;
 
   // The row is identified by the quote id to allow easy deletion.
-  tr.id = id;
+  if (id) {
+    tr.id = id;
+  }
 
   tr.appendChild(getCell(quote.text));
   tr.appendChild(getCell('by ' + quote.author));
-  tr.appendChild(quote.isSticky ? getCell('') : getDeleteButton(id));
+
+  if (!id) {
+    // In case of no id, we assume it is a delayed quotation.
+    tr.appendChild(getCell('(in queue...)'));
+  } else {
+    // Otherwise add the delete button.
+    tr.appendChild(quote.isSticky ? getCell('') : getDeleteButton(id));
+  }
   return tr;
 }
 
