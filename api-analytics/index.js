@@ -1,13 +1,25 @@
 var ENDPOINT = 'api/quotations';
 
 // Register the worker and show the list of quotations.
-navigator.serviceWorker.register('service-worker.js').then(function() {
+if (navigator.serviceWorker.controller) {
   loadQuotations();
-});
+} else {
+  navigator.serviceWorker.oncontrollerchange = function() {
+    this.controller.onstatechange = function() {
+      if (this.state === 'activated') {
+        loadQuotations();
+      }
+    };
+  };
+  navigator.serviceWorker.register('service-worker.js');
+}
 
 // When clicking add button, get the new quote and author and post to
 // the backend.
-document.getElementById('add-form').onsubmit = function() {
+document.getElementById('add-form').onsubmit = function(event) {
+  // Avoid navigation
+  event.preventDefault();
+
   var newQuote = document.getElementById('new-quote').value.trim();
   // Skip if no quote provided.
   if (!newQuote) { return; }

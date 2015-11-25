@@ -59,7 +59,9 @@ module.exports = function(app, route) {
 
   // Returns an array with all quotations.
   app.get(route + 'api/quotations', function(req, res) {
-    res.json(quotations);
+    res.json(quotations.filter(function(item) {
+      return item !== null;
+    }));
   });
 
   // Delete a quote specified by id. The id is the position in the collection
@@ -67,7 +69,7 @@ module.exports = function(app, route) {
   app.delete(route + 'api/quotations/:id', function(req, res) {
     var id = parseInt(req.params.id, 10) - 1;
     if (!quotations[id].isSticky) {
-      quotations.splice(id, 1);
+      quotations[id] = null;
     }
     res.sendStatus(204);
   });
