@@ -65,7 +65,7 @@
           <div class="tabs">
             {% if currentRecipe %}
               <div class="item"><a href="{{ currentRecipe.intro_ref }}">Readme</a></div>
-              <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo</a></div>
+              <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo <button class="demo-launch" data-href="{{ currentRecipe.demo_index }}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAQAAACIaFaMAAAAOklEQVR4AWMgA/yHQhBogPP+I0mgSYEJZgZG7BIQgGkUmnADEGKRaICw0Y1qQHEuNi+QJYEJ8UuQDACsJ1O3PKSOdQAAAABJRU5ErkJggg=="></button></a></div>
               <div class="item" style="flex-grow: 1;"></div>
               {% for src in currentRecipe.srcs %}
                 <div class="item"><a href="{{ src.ref }}">{{ src.name }}.js</a></div>

@@ -54,6 +54,7 @@ module.exports = function(recipeSlugs) {
       slug: recipe,
       srcs: srcs,
       demo_ref: recipe + '_demo.html',
+      demo_index: recipe + '/index.html',
       intro_ref: recipe + '.html',
     };
   });
