@@ -31,10 +31,11 @@ function updateNumber(type) {
 
         return cache.put(
           new Request(type),
-          new Response(
-            JSON.stringify(newNotificationNum),
-            { headers: { 'content-type': 'application/json' } }
-          )
+          new Response(JSON.stringify(newNotificationNum), {
+            headers: {
+              'content-type': 'application/json',
+            },
+          })
         ).then(function() {
           return newNotificationNum;
         });

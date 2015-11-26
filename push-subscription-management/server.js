@@ -10,7 +10,7 @@ var pushInterval = 10;
 // setting the Google Cloud Messaging API Key
 if (!process.env.GCM_API_KEY) {
   console.error('If you want Chrome to work, you need to set the ' +
-    'GCM_API_KEY environment variable to your GCM API key.');
+                'GCM_API_KEY environment variable to your GCM API key.');
 } else {
   webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 }
