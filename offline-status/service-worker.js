@@ -22,11 +22,13 @@ self.addEventListener('install', function(event) {
     caches.open(CACHE_NAME)
       .then(function(cache) {
         // Add all offline dependencies to the cache
-        console.log('[install] Caches opened, adding all core components to cache');
+        console.log('[install] Caches opened, adding all core components' +
+          'to cache');
         return cache.addAll(REQUIRED_FILES);
       })
       .then(function() {
-        console.log('[install] All required resources have been cached, we\'re good!');
+        console.log('[install] All required resources have been cached, ' +
+          'we\'re good!');
         return self.skipWaiting();
       })
   );
@@ -38,7 +40,10 @@ self.addEventListener('fetch', function(event) {
       .then(function(response) {
         // Cache hit - return the response from the cached version
         if (response) {
-          console.log('[fetch] Returning from ServiceWorker cache: ', event.request.url);
+          console.log(
+            '[fetch] Returning from ServiceWorker cache: ',
+            event.request.url
+          );
           return response;
         }
 

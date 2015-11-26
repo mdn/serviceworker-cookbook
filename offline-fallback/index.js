@@ -1,8 +1,14 @@
 if (navigator.serviceWorker.controller) {
   // A ServiceWorker controls the site on load and therefor can handle offline
   // fallbacks.
-  debug(navigator.serviceWorker.controller.scriptURL + ' (onload)', 'controller');
-  debug('An active service worker controller was found, no need to register');
+  debug(
+    navigator.serviceWorker.controller.scriptURL +
+    ' (onload)', 'controller'
+  );
+  debug(
+    'An active service worker controller was found, ' +
+    'no need to register'
+  );
 } else {
   // Register the ServiceWorker
   navigator.serviceWorker.register('service-worker.js', {
@@ -23,9 +29,11 @@ function debug(message, element, append) {
 }
 
 // Allow for "replaying" this example
-document.getElementById('clearAndReRegister').addEventListener('click', function() {
-  navigator.serviceWorker.getRegistration().then(function(registration) {
-    registration.unregister();
-    window.location.reload();
-  });
-});
+document.getElementById('clearAndReRegister').addEventListener('click',
+  function() {
+    navigator.serviceWorker.getRegistration().then(function(registration) {
+      registration.unregister();
+      window.location.reload();
+    });
+  }
+);

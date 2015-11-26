@@ -71,7 +71,8 @@ function cacheEntry(entry) {
           'Content-Type': getContentType(entry.filename)
         }});
 
-        console.log('-> Caching', location, '(size:', entry.uncompressedSize, 'bytes)');
+        console.log('-> Caching', location,
+                    '(size:', entry.uncompressedSize, 'bytes)');
 
         // If the entry is the index, cache its contents for root as well.
         if (entry.filename === 'index.html') {

@@ -42,7 +42,7 @@ $('#uninstall').onclick = function() {
         setTimeout(function() { location.reload(); }, 500);
       })
       .catch(function(error) {
-        logUninstall('An error happened during uninstalling the service worker:');
+        logUninstall('Error while uninstalling the service worker:');
         logUninstall(error.message);
       });
   });

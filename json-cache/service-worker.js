@@ -26,7 +26,10 @@ self.addEventListener('install', function(event) {
       })
       .then(function() {
         // Message to simply show the lifecycle flow
-        console.log('[install] All required resources have been cached; the Service Worker was successfully installed!');
+        console.log(
+          '[install] All required resources have been cached;',
+          'the Service Worker was successfully installed!'
+        );
 
         // Force activation
         return self.skipWaiting();
@@ -40,7 +43,10 @@ self.addEventListener('fetch', function(event) {
       .then(function(response) {
         // Cache hit - return the response from the cached version
         if (response) {
-          console.log('[fetch] Returning from Service Worker cache: ', event.request.url);
+          console.log(
+            '[fetch] Returning from Service Worker cache: ',
+            event.request.url
+          );
           return response;
         }
 

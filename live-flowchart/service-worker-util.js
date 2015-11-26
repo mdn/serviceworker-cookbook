@@ -7,7 +7,7 @@ function SWUtil() {
 
 // <h3>Are Service Workers Supported?</h3>
 // Check whether service workers are supported
-SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupported() {
+SWUtil.prototype.areServiceWorkersSupported = function() {
   Logger.newSection();
   Logger.log('Are Service Workers Supported?');
 
@@ -25,7 +25,7 @@ SWUtil.prototype.areServiceWorkersSupported = function areServiceWorkersSupporte
 
 // <h3>Are Service Workers in control?</h3>
 // Check whether a service worker is controlling the application
-SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerControllingThisApp() {
+SWUtil.prototype.isServiceWorkerControllingThisApp = function() {
   Logger.newSection();
   Logger.log('Are Service Workers in control?');
 
@@ -36,16 +36,19 @@ SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerCon
     // A service worker controls this app
     Logger.info('A service worker controls this app');
     Logger.debug('The following service worker controls this app: ');
-    Logger.debug(navigator.serviceWorker.controller.scriptURL + ' <= navigator.serviceWorker.controller.scriptURL');
+    Logger.debug(navigator.serviceWorker.controller.scriptURL +
+                ' <= navigator.serviceWorker.controller.scriptURL');
 
     // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [service-worker.js module](sw.html "the js module implementing a service worker").
-    Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
+    Logger.info('Please enable and check the browser logs for the oninstall' +
+                ', onactivate, and onfetch events');
 
     // More on:
     // - Firefox: *about:serviceworkers*
     // - Chrome: *chrome://serviceworker-internals/*
     // - [Browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API#Browser_compatibility)
-    Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+    Logger.debug('More on about:serviceworkers (Firefox) ' +
+                 'or chrome://serviceworker-internals/');
 
     return true;
   }
@@ -56,7 +59,7 @@ SWUtil.prototype.isServiceWorkerControllingThisApp = function isServiceWorkerCon
 
 // <h3>Register a Service Worker</h3>
 // Register a service worker
-SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptURL, scope) {
+SWUtil.prototype.registerServiceWorker = function(scriptURL, scope) {
   var swRegisterSecondParam = {};
 
   Logger.newSection();
@@ -88,24 +91,29 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
           if (swRegistration.active) {
             // Registering the active service worker again
             Logger.debug('Registering the active service worker again: ');
-            Logger.debug(swRegistration.active.scriptURL + ' <= swRegistration.active.scriptURL');
+            Logger.debug(swRegistration.active.scriptURL +
+                         ' <= swRegistration.active.scriptURL');
           }
 
           // Checking the <code>installing</code> attribute on a <code>ServiceWorkerRegistration</code> object
           if (swRegistration.installing) {
             // Registering the following service worker for the first time
-            Logger.debug('Registering the following service worker for the first time: ');
-            Logger.debug(swRegistration.installing.scriptURL + ' <= swRegistration.installing.scriptURL');
+            Logger.debug('Registering the following service worker for ' +
+                         'the first time: ');
+            Logger.debug(swRegistration.installing.scriptURL +
+                         ' <= swRegistration.installing.scriptURL');
           }
 
           if (swRegistration.scope) {
-            Logger.debug('with scope: ' + swRegistration.scope + ' <= swRegistration.scope');
+            Logger.debug('with scope: ' + swRegistration.scope +
+                         ' <= swRegistration.scope');
           }
 
           // Service worker registered
           Logger.info('Service worker successfully registered');
           // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [service-worker.js module](sw.html "the js module implementing a service worker").
-          Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
+          Logger.info('Please enable and check the browser logs for' +
+                      ' the oninstall, onactivate, and onfetch events');
           // SW is in control, once document is reloaded
           Logger.info('SW is in control, once document is reloaded');
 
@@ -113,7 +121,8 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
           // - Firefox: *about:serviceworkers*
           // - Chrome: *chrome://serviceworker-internals/*
           // - [Browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API#Browser_compatibility)
-          Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+          Logger.debug('More on about:serviceworkers (Firefox) ' +
+                       'or chrome://serviceworker-internals/');
 
           resolve();
         },
@@ -133,22 +142,29 @@ SWUtil.prototype.registerServiceWorker = function registerServiceWorker(scriptUR
 
 // <h3>Unregister a Service Worker</h3>
 // Unregister the active service worker
-SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
+SWUtil.prototype.unregisterServiceWorker = function() {
   Logger.newSection();
 
   Logger.log('Unregistering the active service worker...');
-  Logger.debug('if something goes wrong, please unregister the service worker ');
-  Logger.debug('about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+  Logger.debug('if something goes wrong, please unregister ' +
+               'the service worker ');
+  Logger.debug('about:serviceworkers (Firefox) ' +
+               'or chrome://serviceworker-internals/');
 
   return new Promise(
     function then(resolve, reject) {
-      Logger.debug('navigator.serviceWorker.getRegistration().then(success, error)');
+      Logger.debug('navigator.serviceWorker.getRegistration()' +
+                   '.then(success, error)');
       // Calling <code>navigator.serviceWorker.getRegistration()</code>
-      navigator.serviceWorker.getRegistration().then(function getRegistrationSuccess(swRegistration) {
+      navigator.serviceWorker.getRegistration()
+      .then(function getRegistrationSuccess(swRegistration) {
         Logger.debug('getRegistrationSuccess(swRegistration)');
         Logger.debug(swRegistration);
-        Logger.debug('Unregistering the following service worker: ' + swRegistration.active.scriptURL + ' <= swRegistration.active.scriptURL');
-        Logger.debug('with scope ' + swRegistration.scope + ' <= swRegistration.scope');
+        Logger.debug('Unregistering the following service worker: ' +
+          swRegistration.active.scriptURL +
+          ' <= swRegistration.active.scriptURL');
+        Logger.debug('with scope ' + swRegistration.scope +
+                     ' <= swRegistration.scope');
 
         // Calling <code>unregister()</code> on a <code>ServiceWorkerRegistration</code> object
         Logger.debug('swRegistration.unregister().then()');
@@ -158,13 +174,15 @@ SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
             function unregisterSuccess() {
               Logger.debug('unregisterSuccess()');
               // The service worker has been successfully unregistered
-              Logger.info('The service worker has been successfully unregistered');
+              Logger.info('The service worker has been ' +
+                          'successfully unregistered');
 
               // More on:
               // - Firefox: *about:serviceworkers*
               // - Chrome: *chrome://serviceworker-internals/*
               // - [Browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API#Browser_compatibility)
-              Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+              Logger.debug('More on about:serviceworkers (Firefox) ' +
+                           'or chrome://serviceworker-internals/');
 
               resolve();
             },
@@ -184,7 +202,8 @@ SWUtil.prototype.unregisterServiceWorker = function unregisterServiceWorker() {
         Logger.debug('getRegistrationError(why)');
         Logger.error(why);
         // It has been not possibile to unregister the service worker
-        Logger.warn('It has been not possibile to unregister the service worker');
+        Logger.warn('It has been not possibile to unregister' +
+                    ' the service worker');
       }
     );
     }

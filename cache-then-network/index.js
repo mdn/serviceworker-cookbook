@@ -59,7 +59,8 @@ function enableUI() {
 }
 
 function updatePage(data) {
-  dataElement.textContent = 'User ' + data[0].actor.login + ' modified repo ' + data[0].repo.name;
+  dataElement.textContent = 'User ' + data[0].actor.login +
+                            ' modified repo ' + data[0].repo.name;
 }
 
 
@@ -133,7 +134,10 @@ getDataButton.addEventListener('click', function handleClick() {
   // in Firefox or Chrome. See bug 1120715 for the Firefox
   // implementation status.
   var cacheBuster = Date.now();
-  var networkFetch = fetch(dataUrl + '?cacheBuster=' + cacheBuster, { mode: 'cors', cache: 'no-cache' }).then(function(res) {
+  var networkFetch = fetch(dataUrl + '?cacheBuster=' + cacheBuster, {
+    mode: 'cors',
+    cache: 'no-cache',
+  }).then(function(res) {
     var networkDelay = networkDelayInput.value || 0;
 
     // We simulate network delays by waiting before actually calling
