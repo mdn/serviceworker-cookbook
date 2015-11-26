@@ -38,7 +38,8 @@ function getCurrentInjector() {
   var injector;
   var controller = navigator.serviceWorker.controller;
   if (controller) {
-    injector = controller.scriptURL.endsWith('production-sw.js') ? 'production' : 'testing';
+    injector = controller.scriptURL.endsWith('production-sw.js')
+                 ? 'production' : 'testing';
   }
   return injector;
 }

@@ -98,9 +98,10 @@ SWUtil.prototype.registerServiceWorker = function(scriptURL, scope) {
           // Checking the <code>installing</code> attribute on a <code>ServiceWorkerRegistration</code> object
           if (swRegistration.installing) {
             // Registering the following service worker for the first time
-            Logger.debug('Registering the following service worker for' +
-                         ' the first time: ');
-            Logger.debug(swRegistration.installing.scriptURL + ' <= swRegistration.installing.scriptURL');
+            Logger.debug('Registering the following service worker for ' +
+                         'the first time: ');
+            Logger.debug(swRegistration.installing.scriptURL +
+                         ' <= swRegistration.installing.scriptURL');
           }
 
           if (swRegistration.scope) {
