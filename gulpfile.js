@@ -18,7 +18,6 @@ var ignore = ['!./dist', '!./dist', '!./dist/**', '!./node_modules', '!./node_mo
 var recipeSlugs = glob.sync('./!(dist|node_modules|src|_recipe_template)/').map(function toBase(dir) {
   return path.basename(dir);
 });
-
 var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
@@ -142,14 +141,10 @@ gulp.task('build:intros', ['clean'], function() {
   return Promise.all(recipes.map(function(recipe) {
     return fsReadFile(recipe.slug + '/README.md', 'utf8')
     .then(function(readme) {
-      return renderFile('./src/tpl/intro.html', {
-        markdown: marked(readme)
-      });
+      return renderFile('./src/tpl/intro.html', { markdown: marked(readme) });
     })
     .then(function(content) {
-      return template.writeFile('./dist/' + recipe.slug + '.html', content, {
-        currentRecipe: recipe,
-      });
+      return template.writeFile('./dist/' + recipe.slug + '.html', content, { currentRecipe: recipe });
     });
   }));
 });
@@ -158,11 +153,7 @@ gulp.task('build:demos', ['clean'], function() {
   return Promise.all(recipes.map(function(recipe) {
     return renderFile('./src/tpl/demo.html', { recipe: recipe })
     .then(function(output) {
-      return template.writeFile(
-        './dist/' + recipe.slug + '_demo.html',
-        output,
-        { currentRecipe: recipe }
-      );
+      return template.writeFile('./dist/' + recipe.slug + '_demo.html', output, { currentRecipe: recipe });
     });
   }));
 });
@@ -220,11 +211,7 @@ gulp.task('watch', ['start-server'], function serve() {
     files: './*/*.js',
     open: false
   });
-  return gulp.watch(
-    ['./*/*'].concat(ignore),
-    ['build-dev'],
-    browserSync.reload
-  );
+  return gulp.watch(['./*/*'].concat(ignore), ['build-dev'], browserSync.reload);
 });
 
 gulp.task('test', ['lint']);
@@ -233,8 +220,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', [
-  'build:index', 'build:intros', 'build:demos',
-  'build:recipes', 'build:docs', 'build:css',
-  'build:js', 'build:tabzilla', 'build:favicon'
-]);
+gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);
