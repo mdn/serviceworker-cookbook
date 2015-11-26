@@ -17,9 +17,11 @@ document.getElementById('randomButton').addEventListener('click', function() {
   }
 });
 
-document.getElementById('clearAndReRegister').addEventListener('click', function() {
-  navigator.serviceWorker.getRegistration().then(function(registration) {
-    registration.unregister();
-    window.location.reload();
-  });
-});
+document.getElementById('clearAndReRegister').addEventListener('click',
+  function() {
+    navigator.serviceWorker.getRegistration().then(function(registration) {
+      registration.unregister();
+      window.location.reload();
+    });
+  }
+);

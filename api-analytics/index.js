@@ -25,12 +25,17 @@ document.getElementById('add-form').onsubmit = function(event) {
   if (!newQuote) { return; }
 
   // Leave blank to represent an anonymous quote.
-  var quoteAuthor = document.getElementById('quote-author').value.trim() || 'Anonymous';
+  var quoteAuthor = document.getElementById('quote-author').value.trim()
+                    || 'Anonymous';
   var quote = { text: newQuote, author: quoteAuthor };
   var headers = { 'content-type': 'application/json' };
 
   // Send the API request. In this case, a `POST` on `quotations` collection.
-  fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(quote), headers: headers })
+  fetch(ENDPOINT, {
+    method: 'POST',
+    body: JSON.stringify(quote),
+    headers: headers,
+  })
     .then(function(response) {
       return response.json();
     })

@@ -29,11 +29,13 @@ function updateNumber(type) {
       return response.json().then(function(notificationNum) {
         var newNotificationNum = notificationNum + 1;
 
-        return cache.put(new Request(type), new Response(JSON.stringify(newNotificationNum), {
-          headers: {
-            'content-type': 'application/json'
-          }
-        })).then(function() {
+        return cache.put(
+          new Request(type),
+          new Response(
+            JSON.stringify(newNotificationNum),
+            { headers: { 'content-type': 'application/json' } }
+          )
+        ).then(function() {
           return newNotificationNum;
         });
       });
