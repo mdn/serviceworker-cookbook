@@ -150,11 +150,9 @@ gulp.task('build:intros', ['clean'], function() {
       });
     })
     .then(function(content) {
-      return template.writeFile(
-        './dist/' + recipe.slug + '.html',
-        content,
-        { currentRecipe: recipe }
-      );
+      return template.writeFile('./dist/' + recipe.slug + '.html', content, {
+        currentRecipe: recipe,
+      });
     });
   }));
 });

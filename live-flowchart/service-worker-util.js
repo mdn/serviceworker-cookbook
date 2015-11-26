@@ -36,16 +36,19 @@ SWUtil.prototype.isServiceWorkerControllingThisApp = function() {
     // A service worker controls this app
     Logger.info('A service worker controls this app');
     Logger.debug('The following service worker controls this app: ');
-    Logger.debug(navigator.serviceWorker.controller.scriptURL + ' <= navigator.serviceWorker.controller.scriptURL');
+    Logger.debug(navigator.serviceWorker.controller.scriptURL +
+                ' <= navigator.serviceWorker.controller.scriptURL');
 
     // Please find the <code>oninstall</code>, <code>onactivate</code>, and <code>onfetch</code> events in the [service-worker.js module](sw.html "the js module implementing a service worker").
-    Logger.info('Please enable and check the browser logs for the oninstall, onactivate, and onfetch events');
+    Logger.info('Please enable and check the browser logs for the oninstall' +
+                ', onactivate, and onfetch events');
 
     // More on:
     // - Firefox: *about:serviceworkers*
     // - Chrome: *chrome://serviceworker-internals/*
     // - [Browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API#Browser_compatibility)
-    Logger.debug('More on about:serviceworkers (Firefox) or chrome://serviceworker-internals/');
+    Logger.debug('More on about:serviceworkers (Firefox) ' +
+                 'or chrome://serviceworker-internals/');
 
     return true;
   }

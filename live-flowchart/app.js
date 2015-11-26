@@ -16,22 +16,20 @@ App.prototype.constructor = function constructor() {
   this.swUtil = new SWUtil();
 
   // register click events
-  document.querySelector('#reloadapp').addEventListener('click',
-    function reloadappHandler() {
-      window.location.reload();
-    }
-  );
+  document.querySelector('#reloadapp').addEventListener('click', function() {
+    window.location.reload();
+  });
 
   // checking whether service workers are supported
   if (this.swUtil.areServiceWorkersSupported()) {
     document.querySelector('#swinstall').addEventListener('click',
-      function swinstallHandler() {
+      function() {
         thisapp.enableCoolFeatures();
       }
     );
 
     document.querySelector('#swuninstall').addEventListener('click',
-      function swuninstallHandler() {
+      function() {
         thisapp.disableCoolFeatures();
       }
     );
@@ -62,7 +60,10 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
   scriptURL = document.querySelector('#swscripturl');
   scope = document.querySelector('#swscope');
 
-  Logger.debug('Configuring the following service worker ' + scriptURL.value + ' with scope ' + scope.value);
+  Logger.debug(
+    'Configuring the following service worker ' + scriptURL.value +
+    ' with scope ' + scope.value
+  );
 
   if (scriptURL.value !== '') {
     Logger.debug('scriptURL: ' + scriptURL.value);
@@ -74,13 +75,15 @@ App.prototype.enableCoolFeatures = function enableCoolFeatures() {
   if (scope.value !== '') {
     Logger.debug('scope: ' + scope.value);
   } else {
-    Logger.warn('scope: not specified (scope defaults to the path the script sits in)');
+    Logger.warn('scope: not specified ' +
+      '(scope defaults to the path the script sits in)'
+    );
   }
 
   // register the specified service worker
   this.swUtil.registerServiceWorker(scriptURL.value, scope.value).then(
-      this.disableServiceWorkerRegistration, // success
-      this.enableServiceWorkerRegistration // error
+      this.disableSWRegistration, // success
+      this.enableSWRegistration // error
   );
 };
 
@@ -91,21 +94,21 @@ App.prototype.disableCoolFeatures = function disableCoolFeatures() {
   Logger.log('Disabling cool features...');
 
   this.swUtil.unregisterServiceWorker().then(
-      this.enableServiceWorkerRegistration, // success
-      this.disableServiceWorkerRegistration // error
+      this.enableSWRegistration, // success
+      this.disableSWRegistration // error
   );
 };
 
 // <h3>Enable Service Worker Registration</h3>
 // Enable the possibility for the user to register a service worker
-App.prototype.enableServiceWorkerRegistration = function enableServiceWorkerRegistration() {
+App.prototype.enableSWRegistration = function() {
   document.querySelector('#swinstall').disabled = false;
   document.querySelector('#swuninstall').disabled = true;
 };
 
 // <h3>Disable Service Worker Registration</h3>
 // Disable the possibility for the user to unregister a service worker
-App.prototype.disableServiceWorkerRegistration = function disableServiceWorkerRegistration() {
+App.prototype.disableSWRegistration = function() {
   document.querySelector('#swinstall').disabled = true;
   document.querySelector('#swuninstall').disabled = false;
 };

@@ -9,8 +9,7 @@ var swig = require('swig');
 // This is the collection of logs.
 var requestsLog = [];
 
-// And these are the default quotations.
-// `makeDefaults()` simply add the id and the
+// And these are the default quotations. `makeDefaults()` simply add the id and the
 // sicky flag to make them non removables.
 var quotations = makeDefaults([
   {
