@@ -1,10 +1,13 @@
-navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-  return registration.pushManager.getSubscription().then(function(subscription) {
+navigator.serviceWorker.register('service-worker.js')
+.then(function(registration) {
+  return registration.pushManager.getSubscription()
+  .then(function(subscription) {
     if (subscription) {
       return subscription;
     }
 
-    return registration.pushManager.subscribe().then(function(newSubscription) {
+    return registration.pushManager.subscribe()
+    .then(function(newSubscription) {
       return newSubscription;
     });
   });
@@ -18,7 +21,9 @@ navigator.serviceWorker.register('service-worker.js').then(function(registration
     },
     body: JSON.stringify({
       endpoint: subscription.endpoint,
-      key: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : '',
+      key: key ?
+           btoa(String.fromCharCode.apply(null, new Uint8Array(key))) :
+           '',
     }),
   });
 });

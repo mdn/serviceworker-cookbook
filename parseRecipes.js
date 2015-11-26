@@ -7,8 +7,12 @@ module.exports = function(recipeSlugs) {
   return recipeSlugs.map(function(recipe) {
     var tokens = marked.lexer(fs.readFileSync(recipe + '/README.md', 'utf8'));
     assert(tokens.length > 1, recipe + ': README.md must have contents.');
-    assert(tokens[0].type === 'heading', recipe + ': README.md first token must be header.');
-    assert(tokens[1].type === 'paragraph', recipe + ': README.md second token must be summary.');
+    assert(tokens[0].type === 'heading',
+      recipe + ': README.md first token must be header.'
+    );
+    assert(tokens[1].type === 'paragraph',
+      recipe + ': README.md second token must be summary.'
+    );
     var name = tokens[0].text;
     var summary = tokens[1].text;
 

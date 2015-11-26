@@ -9,17 +9,18 @@ var swig = require('swig');
 // This is the collection of logs.
 var requestsLog = [];
 
-// And these are the default quotations. `makeDefaults()` simply add the id and the
+// And these are the default quotations.
+// `makeDefaults()` simply add the id and the
 // sicky flag to make them non removables.
 var quotations = makeDefaults([
   {
-    text: 'Humanity is smart. Sometime in the technology world we think we are smarter, ' +
-    'but we are not smarter than you.',
+    text: 'Humanity is smart. Sometime in the technology world we think' +
+    'we are smarter, but we are not smarter than you.',
     author: 'Mitchell Baker'
   },
   {
-    text: 'A computer would deserve to be called intelligent if it could deceive a human ' +
-    'into believing that it was human.',
+    text: 'A computer would deserve to be called intelligent if it could ' +
+    'deceive a human into believing that it was human.',
     author: 'Alan Turing'
   },
   {
@@ -27,7 +28,8 @@ var quotations = makeDefaults([
     author: 'Donald Knuth'
   },
   {
-    text: 'If you don\'t fail at least 90 percent of the time, you\'re not aiming high enough',
+    text: 'If you don\'t fail at least 90 percent of the time' +
+    'you\'re not aiming high enough',
     author: 'Alan Kay'
   },
   {
@@ -103,7 +105,12 @@ function summarizeLogs() {
   // Here we perform the aggregations.
   var aggregations = requestsLog.reduce(function(partialSummary, entry) {
     if (!(entry.url in partialSummary)) {
-      partialSummary[entry.url] = { url: entry.url, GET: 0, POST: 0, DELETE: 0 };
+      partialSummary[entry.url] = {
+        url: entry.url,
+        GET: 0,
+        POST: 0,
+        DELETE: 0,
+      };
     }
     partialSummary[entry.url][entry.method]++;
     return partialSummary;

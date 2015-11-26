@@ -53,7 +53,12 @@ function fetchSuccess(response, url, section) {
     log(section, 'SUCCESS');
   } else {
     console.log(section, 'FAIL:', url, response);
-    log(section, 'FAIL: response type: ' + response.type + ', response status: ' + response.status, 'error');
+    log(
+      section,
+      'FAIL: response type: ' + response.type,
+      'response status: ' + response.status,
+      'error'
+    );
   }
 }
 

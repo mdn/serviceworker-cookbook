@@ -16,27 +16,33 @@ App.prototype.constructor = function constructor() {
   this.swUtil = new SWUtil();
 
   // register click events
-  document.querySelector('#reloadapp').addEventListener('click', function reloadappHandler() {
-    window.location.reload();
-  });
+  document.querySelector('#reloadapp').addEventListener('click',
+    function reloadappHandler() {
+      window.location.reload();
+    }
+  );
 
   // checking whether service workers are supported
   if (this.swUtil.areServiceWorkersSupported()) {
-    document.querySelector('#swinstall').addEventListener('click', function swinstallHandler() {
-      thisapp.enableCoolFeatures();
-    });
+    document.querySelector('#swinstall').addEventListener('click',
+      function swinstallHandler() {
+        thisapp.enableCoolFeatures();
+      }
+    );
 
-    document.querySelector('#swuninstall').addEventListener('click', function swuninstallHandler() {
-      thisapp.disableCoolFeatures();
-    });
+    document.querySelector('#swuninstall').addEventListener('click',
+      function swuninstallHandler() {
+        thisapp.disableCoolFeatures();
+      }
+    );
 
     // checking whether a service worker is in control
     if (this.swUtil.isServiceWorkerControllingThisApp()) {
       Logger.info('App code run as expected');
 
-      this.disableServiceWorkerRegistration();
+      this.disableSWRegistration();
     } else {
-      this.enableServiceWorkerRegistration();
+      this.enableSWRegistration();
     }
   } else {
     Logger.error('Service workers are not supported by this browser');
