@@ -1,15 +1,16 @@
-# Request sync
-This recipe illustrates how to use a service worker to impersonate a remote server only while offline. This false server delays any request to the network until the connection is restored, at that moment, the Service Worker synchronizes with the server.
+# REST API Session Deferrer
+This recipe shows how to record requests to a remote REST API while offline and defer them until regaining connectivity.
 
 ## Difficulty
 Advanced
 
 ## Use case
-As a web app developer, I want to provide functionality when network is not reachable, synchronizing with the server once the network is available again.
+As a web app developer, I want to provide functionality during offline, synchronizing with the server once the network is available again.
 
 ## Solution
-If network is not available, let the Service Worker answer with a generic response then enqueue the request
-until the network is reachable again.
+Use a Service Worker to intercept requests. While offline, record the succesive requests in a queue to preserve the order and answer with fake responses. If online, flush the queue to replay the session and sync with the server.
+
+This advanced technique is intended to integrate with REST APIs and it requires the client to deal with asynchronous create (`POST`) operations (HTTP answering with status code 202, Accepted). 
 
 ## Category
 More than offline
