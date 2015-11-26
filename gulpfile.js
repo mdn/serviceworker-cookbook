@@ -138,10 +138,19 @@ gulp.task('build:index', ['clean'], function buildIndex() {
 });
 
 gulp.task('build:intros', ['clean'], function() {
+  var renderer = new marked.Renderer();
+  renderer.link = function(href, title, text) {
+    var link = '<a href="'+ href +'" target="_blank"';
+    if (title) {
+      link += ' title="' + title + '"';
+    }
+    return link + '>' + text + '</a>';
+  }
+
   return Promise.all(recipes.map(function(recipe) {
     return fsReadFile(recipe.slug + '/README.md', 'utf8')
     .then(function(readme) {
-      return renderFile('./src/tpl/intro.html', { markdown: marked(readme) });
+      return renderFile('./src/tpl/intro.html', { markdown: marked(readme, { renderer: renderer }) });
     })
     .then(function(content) {
       return template.writeFile('./dist/' + recipe.slug + '.html', content, { currentRecipe: recipe });
