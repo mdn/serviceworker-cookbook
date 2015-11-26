@@ -2,6 +2,8 @@
 
 This recipe shows how to communicate between the service worker and a page and also using service worker to relay messages between pages.
 
+**Warning:** this recipe doesn't work in Chrome yet: https://code.google.com/p/chromium/issues/detail?id=549346
+
 ## Difficulty
 Beginner
 
