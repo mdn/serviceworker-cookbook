@@ -1,6 +1,6 @@
 // [Working example](/serviceworker-cookbook/fetching/).
 
-// These urls will be loaded several times
+// These URLs will be loaded several times
 // * `http-acao` SSL protocol with the `Access-Control-Allow-Origin=*` header
 // * `https` SSL protocol without allow origin header
 // * `http` non-cryptographic protocol

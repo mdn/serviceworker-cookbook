@@ -3,8 +3,8 @@
 // `web-push` is a library which makes sending notifications a very
 // simple process.
 var webPush = require('web-push');
-// Global array collecting all active endpoints. In real live example
-// one would use a database here.
+// Global array collecting all active endpoints. In real world
+// application one would use a database here.
 var subscriptions = [];
 
 // How often (in seconds) should the server send a notification to the
@@ -20,7 +20,7 @@ if (!process.env.GCM_API_KEY) {
 }
 
 // Send notification to the push service. Remove the endpoint from the
-// `subscriptions` array if push services responds with an error.
+// `subscriptions` array if the  push service responds with an error.
 // Subscription has been cancelled or expired.
 function sendNotification(endpoint) {
   webPush.sendNotification(endpoint).then(function() {
@@ -31,8 +31,8 @@ function sendNotification(endpoint) {
   });
 }
 
-// In real live notification is send only if an event occured.
-// To simulate it server is sending a notification every `pushInterval` seconds
+// In real world application is sent only if an event occured.
+// To simulate it, server is sending a notification every `pushInterval` seconds
 // to each registered endpoint.
 setInterval(function() {
   subscriptions.forEach(sendNotification);

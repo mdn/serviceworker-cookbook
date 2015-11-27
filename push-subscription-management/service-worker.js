@@ -10,8 +10,8 @@ self.addEventListener('push', function(event) {
 
 // Listen to  `pushsubscriptionchange` event which is fired when
 // subscription expires. Subscribe again and register the new subscription
-// in the server by sending a POST request with endpoint. Real live
-// production example would probably use also user identification.
+// in the server by sending a POST request with endpoint. Real world
+// application would probably use also user identification.
 self.addEventListener('pushsubscriptionchange', function(event) {
   console.log('Subscription expired');
   event.waitUntil(

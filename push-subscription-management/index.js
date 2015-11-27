@@ -2,7 +2,8 @@
 
 var subscriptionButton = document.getElementById('subscriptionButton');
 
-// Provide a Promise with subscription to not repeat too often
+// As subscription object is needed in few places let's create a method which
+// returns a promise.
 function getSubscription() {
   return navigator.serviceWorker.ready
     .then(function(registration) {
