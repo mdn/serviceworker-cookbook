@@ -150,7 +150,8 @@ body {
 }
 
 .book nav ul.recipes li span {
-  font: bold 16px Arial, sans-serif;
+  font: bold 15px Arial, sans-serif;
+  line-height: 1.1;
   text-align: center;
   width: 30px;
   height: 30px;
