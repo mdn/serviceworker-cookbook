@@ -1,13 +1,17 @@
+// [Working example](/serviceworker-cookbook/push-subscription-management/).
+
+// `web-push` is a library which makes sending notifications a very
+// simple process.
 var webPush = require('web-push');
-// collection of endpoints stored in memory (in production it should be
-// a database)
+// Global array collecting all active endpoints. In real live example
+// one would use a database here.
 var subscriptions = [];
 
-var TTL = 200;
-// how often should the server send the notification
+// How often (in seconds) should the server send a notification to the
+// user.
 var pushInterval = 10;
 
-// setting the Google Cloud Messaging API Key
+// Setting the Google Cloud Messaging API Key.
 if (!process.env.GCM_API_KEY) {
   console.error('If you want Chrome to work, you need to set the ' +
                 'GCM_API_KEY environment variable to your GCM API key.');
@@ -15,19 +19,21 @@ if (!process.env.GCM_API_KEY) {
   webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 }
 
+// Send notification to the push service. Remove the endpoint from the
+// `subscriptions` array if push services responds with an error.
+// Subscription has been cancelled or expired.
 function sendNotification(endpoint) {
-  webPush.sendNotification(endpoint, TTL).then(function() {
+  webPush.sendNotification(endpoint).then(function() {
     console.log('Push Application Server - Notification sent to ' + endpoint);
   }).catch(function() {
-    // there has been an error - it is possible the subscription has
-    // been cancelled or expired - remove the endpoint
     console.log('ERROR in sending Notification, endpoint removed ' + endpoint);
     subscriptions.splice(subscriptions.indexOf(endpoint), 1);
   });
 }
 
-// To simulate a real life notification server we're sending
-// a notification every [pushInterval] seconds to each endpoints
+// In real live notification is send only if an event occured.
+// To simulate it server is sending a notification every `pushInterval` seconds
+// to each registered endpoint.
 setInterval(function() {
   subscriptions.forEach(sendNotification);
 }, pushInterval * 1000);
@@ -37,9 +43,9 @@ function isSubscribed(endpoint) {
 }
 
 module.exports = function(app, route) {
-  // register subscription
+  // Register a subscription by adding an endpoint to the `subscriptions`
+  // array.
   app.post(route + 'register', function(req, res) {
-    // get an endpoint from POST request's body
     var endpoint = req.body.endpoint;
     if (!isSubscribed(endpoint)) {
       console.log('Subscription registered ' + endpoint);
@@ -48,12 +54,10 @@ module.exports = function(app, route) {
     res.type('js').send('{"success":true}');
   });
 
-  // unregister subscription
+  // Unregister a subscription by removing it from the `subscriptions` array
   app.post(route + 'unregister', function(req, res) {
-    // get an endpoint from POST request's body
     var endpoint = req.body.endpoint;
     if (isSubscribed(endpoint)) {
-      // remove from subscriptions list
       console.log('Subscription unregistered ' + endpoint);
       subscriptions.splice(subscriptions.indexOf(endpoint), 1);
     }

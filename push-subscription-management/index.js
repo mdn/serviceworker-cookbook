@@ -1,5 +1,8 @@
+// [Working example](/serviceworker-cookbook/push-subscription-management/).
+
 var subscriptionButton = document.getElementById('subscriptionButton');
 
+// Provide a Promise with subscription to not repeat too often
 function getSubscription() {
   return navigator.serviceWorker.ready
     .then(function(registration) {
@@ -7,6 +10,8 @@ function getSubscription() {
     });
 }
 
+// Register service worker and check the initial subscription state.
+// Set the UI (button) according to the status.
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then(function() {
@@ -15,29 +20,27 @@ if ('serviceWorker' in navigator) {
     });
   getSubscription()
     .then(function(subscription) {
-      // check if already subscribed
-      // get push manager subscription
       if (subscription) {
-        // already subscribed
         console.log('Already subscribed', subscription.endpoint);
         setUnsubscribeButton();
       } else {
-        // user needs to subscribe
         setSubscribeButton();
       }
     });
 }
 
+// Get the `registration` from service worker and create a new
+// subscription using `registration.pushManager.subscribe`. Then
+// register received new subscription by sending a POST request with its
+// endpoint to the server.
 function subscribe() {
   navigator.serviceWorker.ready.then(function(registration) {
-    // subscribe to push service
     return registration.pushManager.subscribe({ userVisibleOnly: true })
       .then(function(newSubscription) {
         return newSubscription;
       });
   }).then(function(subscription) {
     console.log('Subscribed', subscription.endpoint);
-    // register subscription in the application server
     return fetch('register', {
       method: 'post',
       headers: {
@@ -47,16 +50,17 @@ function subscribe() {
         endpoint: subscription.endpoint
       })
     });
-  // set the button to be an unsubscribe button
   }).then(setUnsubscribeButton);
 }
 
+// Get existing subscription from service worker, unsubscribe
+// (`subscription.unsubscribe()`) and unregister it in the server with
+// a POST request to stop sending push messages to
+// unexisting endpoint.
 function unsubscribe() {
   getSubscription().then(function(subscription) {
     return subscription.unsubscribe()
       .then(function() {
-        // unregister subscription in the application server
-        // otherwise server will try to continue sending the push messages
         console.log('Unsubscribed', subscription.endpoint);
         return fetch('unregister', {
           method: 'post',
@@ -68,10 +72,10 @@ function unsubscribe() {
           })
         });
       });
-  // set the button to be a subscribe button
   }).then(setSubscribeButton);
 }
 
+// Change the subscription button's text and action.
 function setSubscribeButton() {
   subscriptionButton.onclick = subscribe;
   subscriptionButton.textContent = 'Subscribe!';

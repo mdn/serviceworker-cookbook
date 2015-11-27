@@ -1,20 +1,23 @@
+// [Working example](/serviceworker-cookbook/push-subscription-management/).
+
+// Listen to `push` notification event. Define the text to be displayed
+// and show the notification.
 self.addEventListener('push', function(event) {
-  // server send a push notification
-  console.log('Push event fired');
   event.waitUntil(self.registration.showNotification('ServiceWorker Cookbook', {
     body: 'Push Notification Subscription Management'
   }));
 });
 
-// handle the expired subscriptions
+// Listen to  `pushsubscriptionchange` event which is fired when
+// subscription expires. Subscribe again and register the new subscription
+// in the server by sending a POST request with endpoint. Real live
+// production example would probably use also user identification.
 self.addEventListener('pushsubscriptionchange', function(event) {
-  // subscription expired, let's try to subscribe again
   console.log('Subscription expired');
   event.waitUntil(
     self.registration.pushManager.subscribe({ userVisibleOnly: true })
     .then(function(subscription) {
       console.log('Subscribed after expiration', subscription.endpoint);
-      // register new subscription in the application server
       return fetch('register', {
         method: 'post',
         headers: {
