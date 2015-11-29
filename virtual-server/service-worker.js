@@ -2,9 +2,8 @@
 /* global importScripts, ServiceWorkerWare */
 importScripts('./lib/ServiceWorkerWare.js');
 
-// These are the default quotations. `makeDefaults()` simply add the id and the
-// sticky flag to make them non removables.
-var quotations = makeDefaults([
+// List of the default quotations.
+var quotations = [
   {
     text: 'Humanity is smart. Sometime in the technology world we think we are smarter, ' +
       'but we are not smarter than you.',
@@ -27,17 +26,13 @@ var quotations = makeDefaults([
     text: 'Colorless green ideas sleep furiously.',
     author: 'Noam Chomsky'
   }
-]);
+].map(function(quotation, index) {
+  // Add the id and the sticky flag to make the default quotations non removable.
+  quotation.id = index + 1;
+  quotation.isSticky = true;
 
-// Adds id and the sticky flag to a list of quotes.
-function makeDefaults(quotationList) {
-  for (var index = 0, max = quotationList.length, quote; index < max; index++) {
-    quote = quotationList[index];
-    quote.id = index + 1;
-    quote.isSticky = true;
-  }
-  return quotationList;
-}
+  return quotation;
+});
 
 // Determine the root for the routes. I.e, if the Service Worker URL is
 // `http://example.com/path/to/sw.js`, then the root is
