@@ -5,13 +5,13 @@ importScripts('./lib/ServiceWorkerWare.js');
 // List of the default quotations.
 var quotations = [
   {
-    text: 'Humanity is smart. Sometime in the technology world we think we are smarter, ' +
-      'but we are not smarter than you.',
+    text: 'Humanity is smart. Sometime in the technology world we think' +
+    'we are smarter, but we are not smarter than you.',
     author: 'Mitchell Baker'
   },
   {
-    text: 'A computer would deserve to be called intelligent if it could deceive a human ' +
-      'into believing that it was human.',
+    text: 'A computer would deserve to be called intelligent if it could ' +
+    'deceive a human into believing that it was human.',
     author: 'Alan Turing'
   },
   {
@@ -19,7 +19,8 @@ var quotations = [
     author: 'Donald Knuth'
   },
   {
-    text: 'If you don\'t fail at least 90 percent of the time, you\'re not aiming high enough',
+    text: 'If you don\'t fail at least 90 percent of the time' +
+    'you\'re not aiming high enough',
     author: 'Alan Kay'
   },
   {
