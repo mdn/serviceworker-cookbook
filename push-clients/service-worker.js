@@ -53,7 +53,7 @@ self.addEventListener('notificationclick', function(event) {
       }
 
       // Otherwise, open a new page.
-      return self.clients.openWindow('./index.html');
+      return self.clients.openWindow('../push-clients_demo.html');
     })
   );
 });
