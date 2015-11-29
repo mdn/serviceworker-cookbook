@@ -89,16 +89,6 @@ module.exports = function(app, route) {
   });
 };
 
-// Adds id and the sticky flag to a list of quotes.
-function makeDefaults(quotationList) {
-  for (var index = 0, max = quotationList.length, quote; index < max; index++) {
-    quote = quotationList[index];
-    quote.id = index + 1;
-    quote.isSticky = true;
-  }
-  return quotationList;
-}
-
 // Log a request.
 function logRequest(request) {
   request.id = requestsLog.length + 1;
