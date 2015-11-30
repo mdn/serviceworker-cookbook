@@ -29,7 +29,7 @@ function cacheInRenderStore(request) {
     var headers = { 'Content-Type': 'text/html' };
     var response = new Response(contents, { headers: headers, status: 200 });
     return self.caches.open('render-store').then(function(cache) {
-      return cache.put(request.headers.get('x-url'), response);
+      return cache.put(request.referrer, response);
     });
   });
 }

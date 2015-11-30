@@ -1,5 +1,5 @@
 # Render store
-The recipe illustrates one recommendation from the [NGA](https://wiki.mozilla.org/Gaia/Architecture_Proposal#Render_store). A cache containing the interpolated templates in order to avoid render time upon successive requests.
+The recipe illustrates one recommendation from the [NGA](https://wiki.mozilla.org/Gaia/Architecture_Proposal#Render_store). A cache containing the interpolated templates in order to avoid model fetching and render times upon successive requests.
 
 ## Difficulty
 Intermediate
