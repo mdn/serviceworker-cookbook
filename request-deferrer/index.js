@@ -55,7 +55,7 @@ document.getElementById('add-form').onsubmit = function(event) {
     });
 };
 
-// A simply `GET` (default operation for `fetch()`) is enough to retrieve
+// A simple `GET` (default operation for `fetch()`) is enough to retrieve
 // the collection of quotes.
 function loadQuotations() {
   fetch(addSession(ENDPOINT))

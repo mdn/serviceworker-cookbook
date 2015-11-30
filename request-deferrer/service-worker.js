@@ -121,6 +121,10 @@ function flushQueue() {
     // Else, send the requests in order...
     console.log('Sending ', queue.length, ' requests...');
     return sendInOrder(queue).then(function() {
+      // **Requires error handling**. Actually, this is assuming all the requests
+      // in queue are a success when reaching the Network. So it should empty the
+      // queue step by step, only popping from the queue if the request completes
+      // with success.
       return localforage.setItem('queue', []);
     });
   });
