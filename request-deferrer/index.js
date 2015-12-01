@@ -52,6 +52,11 @@ document.getElementById('add-form').onsubmit = function(event) {
     })
     .then(function(addedQuote) {
       document.getElementById('quotations').appendChild(getRowFor(addedQuote));
+
+      // Specifically for the cookbook site :(
+      if (window.parent !== window) {
+        window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+      }
     });
 };
 
@@ -69,10 +74,9 @@ function loadQuotations() {
 function showQuotations(collection) {
   var table = document.getElementById('quotations');
   table.innerHTML = '';
-  for (var index = 0, max = collection.length, quote; index < max; index++) {
-    quote = collection[index];
+  collection.forEach(function(quote) {
     table.appendChild(getRowFor(quote));
-  }
+  });
 
   // Specifically for the cookbook site :(
   if (window.parent !== window) {

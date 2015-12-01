@@ -1,5 +1,5 @@
 # Request Deferrer
-The recipe show how to enqueue requests while in offline in an _outbox-like_ buffer to perform the operations once the connection is regained.
+This recipe shows how to enqueue requests while in offline in an _outbox-like_ buffer to perform the operations once the connection is regained.
 
 ## Difficulty
 Advanced

@@ -68,7 +68,7 @@ worker.post(root + 'api/quotations?*', tryOrFallback(new Response(null, {
   status: 202
 })));
 
-// Lastly, this a virtual route to force the a sync. It is originated
+// Lastly, this is a virtual route to force the a sync. It is originated
 // by the client who is listening for the `online` event. This request
 // never reaches the network. It is here to be consistent but it is pure
 // virtual.
@@ -81,11 +81,11 @@ worker.post(root + 'api/sync', function() {
 // Start the service worker.
 worker.init();
 
-// By using Mozilla's localforage db wrapper, we count with
-// a fast setup for a versatile key, value database. We use
+// By using Mozilla's localforage db wrapper, we can count on
+// a fast setup for a versatile key-value database. We use
 // it to store queue of deferred requests.
 
-// Enqueue consists into add to the list a request. Due to the
+// Enqueue consists on adding a request to the list. Due to the
 // limitations of IndexedDB, Request and Response objects can not
 // be saved so we need an alternative representations. This is
 // why we call to `serialize()`.`
@@ -133,15 +133,16 @@ function flushQueue() {
 // Send the requests inside the queue in order. Waiting for the current before
 // sending the next one.
 function sendInOrder(requests) {
-  var sending = Promise.resolve();
-  requests.forEach(function(serialized) {
+  // The `reduce()` chains one promise per serialized request, not allowing to
+  // progress to the next one until completing the current.
+  var sending = requests.reduce(function(prevPromise, serialized) {
     console.log('Sending', serialized.method, serialized.url);
-    sending = sending.then(function() {
+    return prevPromise.then(function() {
       return deserialize(serialized).then(function(request) {
-        fetch(request);
+        return fetch(request);
       });
     });
-  });
+  }, Promise.resolve());
   return sending;
 }
 
