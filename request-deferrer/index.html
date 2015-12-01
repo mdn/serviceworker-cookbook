@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Request sync - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .queue {
+      background-color: #68CCED;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>How to</h2>
+  <p>Try to add and delete some quotations.</p>
+  <p>Then go offline by disconnecting from Internet</p>
+  <p>And try to continue adding some quotes.</p>
+  <p>You can see they don't have a delete button because they are in queue</p>
+  <p>Now reconnect to the Internet and you'll see how they automatically synchronize.</p>
+  <p><strong>Show console logs for more information.</strong></a>
+  <p><form id="add-form">
+    <input type="text" id="new-quote" placeholder="Add a quote here"/>
+    <input type="text" id="quote-author" placeholder="And its author"/><input type="submit" value="Add" />
+  </form></p>
+  <h2>Quotes</h2>
+  <table id="quotations">
+  </table>
+<script src="./index.js"></script>
+</body>
+</html>
