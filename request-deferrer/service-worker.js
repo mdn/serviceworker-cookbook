@@ -68,16 +68,6 @@ worker.post(root + 'api/quotations?*', tryOrFallback(new Response(null, {
   status: 202
 })));
 
-// Lastly, this is a virtual route to force the a sync. It is originated
-// by the client who is listening for the `online` event. This request
-// never reaches the network. It is here to be consistent but it is pure
-// virtual.
-worker.post(root + 'api/sync', function() {
-  return flushQueue().then(function() {
-    return new Response();
-  });
-});
-
 // Start the service worker.
 worker.init();
 

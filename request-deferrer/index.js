@@ -14,14 +14,9 @@ if (navigator.serviceWorker.controller) {
   navigator.serviceWorker.register('service-worker.js');
 }
 
-// This forces a sync with the server. The POST request will never
-// reach the network. It is intended to be intercepted by the
-// Service Worker forcing it to do a sync with the actual remote
-// server.
+// By performing this request, we force flushing the queue in the Service Worker.
 window.addEventListener('online', function() {
-  fetch('api/sync', { method: 'POST' }).then(function() {
-    loadQuotations();
-  });
+  loadQuotations();
 });
 
 // When clicking add button, get the new quote and author and post to
