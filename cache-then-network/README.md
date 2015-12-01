@@ -1,6 +1,6 @@
 # Cache then Network
 
-This recipe illustrates the ability to return network requests from either the cache or network.
+This recipe illustrates methods to return network requests from either the cache or network.
 
 ## Difficulty
 Beginner

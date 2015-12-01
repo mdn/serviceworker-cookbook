@@ -5,5 +5,8 @@ Send push notifications with a payload. This recipe shows how to send and receiv
 ## Difficulty
 Beginner
 
+## Use Case
+A message does not have to deliver just text, but can deliver various kinds of payloads of data to an application.  This demonstrates how you can deliver a rich payload to your app.
+
 ## Category
 Web Push
