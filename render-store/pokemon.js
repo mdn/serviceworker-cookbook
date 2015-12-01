@@ -3,7 +3,7 @@ var startTime = performance.now();
 var interpolationTime = 0;
 var fetchingModelTime = 0;
 
-// Here is the idea. This is the template for a Pokemon. It isCached
+// Here is the idea. This is the template for a Pokemon. It is
 // in charge of parse which Pokemon is requested from the querystring
 // of the URL, fetch that pokemon and fill the template. Once the template
 // has been filled, we are going to mark the document as cached and send

@@ -24,6 +24,11 @@ function loadPokemonList() {
     })
     .then(function(info) {
       fillPokemonList(info.pokemon);
+
+      // Specifically for the cookbook site :(
+      if (window.parent !== window) {
+        window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+      }
     });
 }
 
