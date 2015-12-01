@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node --harmony server.js",
-    "pretest": "gulp build",
+    "pretest": "npm run build",
     "test": "gulp test",
     "watch": "gulp watch",
     "build": "gulp build"

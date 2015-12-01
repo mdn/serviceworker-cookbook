@@ -44,16 +44,18 @@ function fillCharSheet(pokemon) {
 
   // Specifically for the cookbook site :(
   document.querySelector('img').onload = function() {
-    if (window.parent !== window) {
-      window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+    if (window.parent === window) {
+      return;
     }
+    window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
   };
 }
 
 // Log times for interpolation, fetching and total loading times.
 function logTime() {
   var loadingTimeLabel = document.querySelector('#loading-time-label');
-  var interpolationTimeLabel = document.querySelector('#interpolation-time-label');
+  var interpolationTimeLabel =
+    document.querySelector('#interpolation-time-label');
   var fetchingModelTimeLabel = document.querySelector('#fetching-time-label');
   loadingTimeLabel.textContent = (performance.now() - startTime) + ' ms';
   interpolationTimeLabel.textContent = interpolationTime + ' ms';
