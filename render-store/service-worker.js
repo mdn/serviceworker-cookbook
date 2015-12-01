@@ -17,9 +17,11 @@ self.onfetch = function(event) {
   // For this example, `GET` implies looking for a cached copy...
   if (event.request.method === 'GET') {
     event.respondWith(getFromRenderStoreOrNetwork(event.request));
-  // While `PUT` means to cache contents...
   } else {
-    event.respondWith(cacheInRenderStore(event.request).then(createdResponse));
+    // While `PUT` means to cache contents...
+    event.respondWith(cacheInRenderStore(event.request).then(function() {
+      return new Response({ status: 202 });
+    }));
   }
 };
 
@@ -38,7 +40,7 @@ function getFromRenderStoreOrNetwork(request) {
 // result.
 function cacheInRenderStore(request) {
   return request.text().then(function(contents) {
-    // Craft a `tesxt/html` response for the contents to be cached.
+    // Craft a `text/html` response for the contents to be cached.
     var headers = { 'Content-Type': 'text/html' };
     var response = new Response(contents, { headers: headers });
     return self.caches.open('render-store').then(function(cache) {
@@ -49,9 +51,4 @@ function cacheInRenderStore(request) {
       return cache.put(request.referrer, response);
     });
   });
-}
-
-// Return a 202 response.
-function createdResponse() {
-  return new Response({ status: 202 });
 }
