@@ -9,9 +9,8 @@ var swig = require('swig');
 // This is the collection of logs.
 var requestsLog = [];
 
-// And these are the default quotations. `makeDefaults()` simply add the id and the
-// sicky flag to make them non removables.
-var quotations = makeDefaults([
+// List of the default quotations.
+var quotations = [
   {
     text: 'Humanity is smart. Sometime in the technology world we think' +
     'we are smarter, but we are not smarter than you.',
@@ -35,7 +34,13 @@ var quotations = makeDefaults([
     text: 'Colorless green ideas sleep furiously.',
     author: 'Noam Chomsky'
   }
-]);
+].map(function(quotation, index) {
+  // Add the id and the sticky flag to make the default quotations non removable.
+  quotation.id = index + 1;
+  quotation.isSticky = true;
+
+  return quotation;
+});
 
 // REST APIs for quoation and log managements. The service worker approach allow
 // us to log each request without touching the API implementation.
@@ -83,16 +88,6 @@ module.exports = function(app, route) {
     res.status(201).json(quote);
   });
 };
-
-// Adds id and the sticky flag to a list of quotes.
-function makeDefaults(quotationList) {
-  for (var index = 0, max = quotationList.length, quote; index < max; index++) {
-    quote = quotationList[index];
-    quote.id = index + 1;
-    quote.isSticky = true;
-  }
-  return quotationList;
-}
 
 // Log a request.
 function logRequest(request) {
