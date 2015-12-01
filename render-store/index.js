@@ -27,7 +27,8 @@ function loadPokemonList() {
 
       // Specifically for the cookbook site :(
       if (window.parent !== window) {
-        window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+        window.parent.document.body
+          .dispatchEvent(new CustomEvent('iframeresize'));
       }
     });
 }
@@ -39,7 +40,8 @@ function fillPokemonList(pokemonList) {
   var buffer = pokemonList.map(function(pokemon) {
     var uriTokens = pokemon.resource_uri.split('/');
     var id = uriTokens[uriTokens.length - 2];
-    return '<li><a href="pokemon.html?id=' + id + '">' + pokemon.name + '</a></li>';
+    return '<li><a href="pokemon.html?id=' + id + '">' + pokemon.name +
+           '</a></li>';
   });
   listElement.innerHTML = buffer.join('\n');
 }
