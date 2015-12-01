@@ -20,7 +20,7 @@ var fetchModes = ['cors', 'no-cors'];
 navigator.serviceWorker.getRegistration().then(function(registration) {
   if (!registration || !navigator.serviceWorker.controller) {
     navigator.serviceWorker.register('./service-worker.js').then(function() {
-      window.alert('Service worker registered, reloading the page');
+      console.log('Service worker registered, reloading the page');
       window.location.reload();
     });
   } else {
@@ -83,7 +83,8 @@ function fetchSuccess(response, url, section) {
     log(section, 'SUCCESS');
   } else {
     console.log(section, 'FAIL:', url, response);
-    log(section, 'FAIL: response type: ' + response.type + ', response status: ' + response.status, 'error');
+    log(section, 'FAIL: response type: ' + response.type +
+                 ', response status: ' + response.status, 'error');
   }
 }
 
