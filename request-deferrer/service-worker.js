@@ -47,12 +47,15 @@ function tryOrFallback(fakeResponse) {
 // A fake response with a joke for when there is no connection. A real
 // implementation could have cached the last collection of quotations
 // and keep a local model. For simplicity, not implemented here.
-worker.get(root + 'api/quotations?*', tryOrFallback(new Response(JSON.stringify([{
-  text: 'You are offline and I know it well.',
-  author: 'The Service Worker Cookbook',
-  id: 1,
-  isSticky: true
-}]), { headers: { 'Content-Type': 'application/json' } })));
+worker.get(root + 'api/quotations?*', tryOrFallback(new Response(
+  JSON.stringify([{
+    text: 'You are offline and I know it well.',
+    author: 'The Service Worker Cookbook',
+    id: 1,
+    isSticky: true
+  }]),
+  { headers: { 'Content-Type': 'application/json' } }
+)));
 
 // For deletion, let's simulate that all went OK. **Notice we are omitting
 // the body of the response**. Trying to add a body with a 204, deleted, as
@@ -75,7 +78,7 @@ worker.init();
 // a fast setup for a versatile key-value database. We use
 // it to store queue of deferred requests.
 
-// Enqueue consists on adding a request to the list. Due to the
+// Enqueue consists of adding a request to the list. Due to the
 // limitations of IndexedDB, Request and Response objects can not
 // be saved so we need an alternative representations. This is
 // why we call to `serialize()`.`
@@ -92,8 +95,8 @@ function enqueue(request) {
   });
 }
 
-// Flush is a little more complicated. It consists into get
-// the elements of the queue in order and send each one,
+// Flush is a little more complicated. It consists of getting
+// the elements of the queue in order and sending each one,
 // keeping track of not yet sent request. Before sending a request
 // we need to recreate it from the alternative representation
 // stored in IndexedDB.
@@ -136,9 +139,7 @@ function sendInOrder(requests) {
   return sending;
 }
 
-// Serialize is a little bit convolved due to headers is
-// a [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
-// and not a simple object.
+// Serialize is a little bit convolved due to headers is not a simple object.
 function serialize(request) {
   var headers = {};
   // `for(... of ...)` is ES6 notation but current browsers supporting SW, support this
@@ -157,7 +158,7 @@ function serialize(request) {
     referrer: request.referrer
   };
 
-  // Only if method is not GET or HEAD is the request allowed to have body.
+  // Only if method is not `GET` or `HEAD` is the request allowed to have body.
   if (request.method !== 'GET' && request.method !== 'HEAD') {
     return request.clone().text().then(function(body) {
       serialized.body = body;

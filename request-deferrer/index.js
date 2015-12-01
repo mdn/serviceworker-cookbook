@@ -30,13 +30,15 @@ document.getElementById('add-form').onsubmit = function(event) {
   if (!newQuote) { return; }
 
   // Leave blank to represent an anonymous quote.
-  var quoteAuthor = document.getElementById('quote-author').value.trim() || 'Anonymous';
+  var quoteAuthor =
+    document.getElementById('quote-author').value.trim() || 'Anonymous';
   var quote = { text: newQuote, author: quoteAuthor };
-  var headers = { 'content-type': 'application/json' };
 
   // Send the API request. In this case, a `POST` on `quotations` collection.
   // Session management is based on a stored value and it's sent as a query parameter.
-  fetch(addSession(ENDPOINT), { method: 'POST', body: JSON.stringify(quote), headers: headers })
+  var headers = { 'content-type': 'application/json' };
+  var body = JSON.stringify(quote);
+  fetch(addSession(ENDPOINT), { method: 'POST', headers: headers, body: body })
     .then(function(response) {
       // **Accepted but not added**. This is an important distinction. We use it to
       // support delayed additions to the quotation collection while in offline.
@@ -50,7 +52,8 @@ document.getElementById('add-form').onsubmit = function(event) {
 
       // Specifically for the cookbook site :(
       if (window.parent !== window) {
-        window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+        window.parent.document.body
+          .dispatchEvent(new CustomEvent('iframeresize'));
       }
     });
 };
