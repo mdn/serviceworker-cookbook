@@ -10,6 +10,11 @@ self.addEventListener('message', function(event) {
       // https://code.google.com/p/chromium/issues/detail?id=543198
       var senderID = event.source ? event.source.id : 'unknown';
 
+      // We'll also print a warning, so users playing with the demo aren't confused.
+      if (!event.source) {
+        console.log('event.source is null; we don\'t know the sender of this message');
+      }
+
       clientList.forEach(function(client) {
         // Skip sending the message to the client that sent it.
         if (client.id === senderID) {
