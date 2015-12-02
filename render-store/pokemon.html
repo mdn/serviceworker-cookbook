@@ -1,0 +1,26 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Render Store - ServiceWorker Cookbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="pokemon.js"></script>
+  </head>
+  <body>
+    <h1>#{{national_id}} {{name}}</h1>
+    <p><button onclick="window.location.reload();">Reload</button></p>
+    <p>Fetching model time: <span id="fetching-time-label"></span></p>
+    <p>Interpolation time: <span id="interpolation-time-label"></span></p>
+    <p>Loading time: <span id="loading-time-label"></span></p>
+    <p><img src="http://pokeapi.co/media/img/{{national_id}}.png" /></p>
+    <dl>
+      <dt>HP:</dt> <dd>{{hp}}</dd>
+      <dt>Attack:</dt> <dd>{{attack}}</dd>
+      <dt>Defense:</dt> <dd>{{defense}}</dd>
+      <dt>Speed:</dt> <dd>{{speed}}</dd>
+      <dt>Sp Atk:</dt> <dd>{{sp_atk}}</dd>
+      <dt>Sp Def:</dt> <dd>{{sp_def}}</dd>
+    </dl>
+  </body>
+</html>

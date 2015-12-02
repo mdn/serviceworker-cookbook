@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Virtual server - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h1>How to</h1>
+  <p>Try to add and delete some quotations. <strong>The session is not intended to survive refreshing the page</strong> but you could see it pretending to survive. This means the worker holding the state has not been killed yet.</p>
+  <p><form id="add-form">
+    <input type="text" id="new-quote" placeholder="Add a quote here"/>
+    <input type="text" id="quote-author" placeholder="And its author"/><input type="submit" value="Add" />
+  </form></p>
+  <h2>Quotes</h2>
+  <table id="quotations">
+  </table>
+<script src="./index.js"></script>
+</body>
+</html>
