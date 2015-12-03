@@ -17,6 +17,9 @@ navigator.serviceWorker.register('service-worker.js')
     });
   });
 }).then(function(subscription) {
+  // Show curl command to send the notification on the page.
+  document.getElementById('curl').textContent = 'curl -X POST ' + subscription.endpoint;
+
   // Send the subscription details to the server using the Fetch API.
   fetch('./register', {
     method: 'post',

@@ -10,6 +10,10 @@
       font-size: 1rem;
       white-space: pre-wrap;
     }
+
+    span {
+      font-style: italic;
+    }
   </style>
   <!-- This is needed for Google Chrome support. -->
   <link rel="manifest" href="manifest.json">
@@ -22,7 +26,11 @@ Notification delay: <input id='notification-delay' type='number' value='5'></inp
 Notification Time-To-Live: <input id='notification-ttl' type='number' value='0'></input> seconds
 </form>
 
-<button id="doIt">Try to conquer Italy!</button>
+<p>Either cick this button to ask the server to send a notification: <button id="doIt">Try to conquer Italy!</button></p>
+<p>Or use <b>curl</b> on your command line to send the notification:</p>
+<span id="curl"></span>
+
+<p>N.B.: The curl command only works for push services implementing the Web Push standard (GCM, the push service used by Google Chrome, currently doesn't).</p>
 
 <script src="./index.js"></script>
 </body>
