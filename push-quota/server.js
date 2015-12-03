@@ -6,13 +6,9 @@ var webPush = require('web-push');
 
 webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 
-var endpoint;
-var key;
-
 module.exports = function(app, route) {
-  app.post(route + 'register', function(req) {
-    endpoint = req.body.endpoint;
-    key = req.body.key;
+  app.post(route + 'register', function() {
+    // A real world application would store the subscription info.
   });
 
   // Send N notifications, specifying whether the service worker will need to show
@@ -23,9 +19,10 @@ module.exports = function(app, route) {
     var num = 1;
 
     var intervalID = setInterval(function() {
-      webPush.sendNotification(endpoint, 200, key, req.query.visible);
+      webPush.sendNotification(req.body.endpoint, 200, req.body.key,
+                               JSON.stringify(req.body.visible));
 
-      if (num++ === Number(req.query.num)) {
+      if (num++ === Number(req.body.num)) {
         clearInterval(intervalID);
       }
     }, 1000);
