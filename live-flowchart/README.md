@@ -87,4 +87,4 @@ Notes:
 - provide a button to simulate the lie-fi network status (very low connectivity but not completely offline)
 
 ## Category
-Misc
+General usage
