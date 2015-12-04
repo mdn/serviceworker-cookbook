@@ -7,7 +7,7 @@ self.oninstall = function(event) {
   event.waitUntil(self.skipWaiting());
 };
 
-self.onactive = function(event) {
+self.onactivate = function(event) {
   event.waitUntil(self.clients.claim());
 };
 

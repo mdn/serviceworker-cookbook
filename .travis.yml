@@ -3,11 +3,14 @@ git:
 language: node_js
 node_js:
 - '4'
+- '0.12'
 deploy:
   provider: heroku
   api_key:
     secure: XFI5BjFCHRn3egUWApYlK0A3bi3dIRmKUNTzd3frqIYNXJE6jx4nDudf/vyiqrahYuZthZVZYC8dNw8kkFPsRpqCEwh53KnvEDQehEMoII4q5qwEGIz4zI/EjAcnLyEXYv/VDipOhzLonQAw0OpFDcoQwtTl3iJ9ACW6+K2oIWnf2J+5cHbKqsCBw+b9p7vOEqln6L/dkfnajj9dqndsnCvVX47LoRbtvCmHRjSEl/UGK9HMQDv/1F60O8pQJWDF6So7AqBoX1OBVSEMSomlLHZtPZGVKCZOynIJIicd0PyEzG9pUVOyYUNCurlCMFgHzDOKSiw+8QOS1+YAcA3mNZoWtAotMSoUlU/IgATyZ075IDboQp4WGO+49VhQ07r86/v8F4uZWidontVwEUhx7pg+p7jWrV8hvV8wFICCDOH15TVkO8ilNGQp39qyFADKTkZv0pFy1UqsABvp8tXX7DZ6h9G+V5aY2hOf40bbAWvQZ1t9oEVcikkrOW/9qEfV5Mk9zioqmR/IXlgLAYL2BqIKC/a6RVPKQYB7y3nrjzA/Oi8gJyfgPo6VCdhPCIUF2xAXLiymV8LBmdiJSp3SYl72ffNB/urKPNBpNtwUEqTCoZBK15EA6+++kHszcbKRLKpNWnQlLgwePT+jucQtiDCCUIb4vlW3TyonO7s/Gb0=
   app: serviceworker-cookbook
+  skip_cleanup: true
   on:
     repo: mozilla/serviceworker-cookbook
     branch: master
+    node: '4'

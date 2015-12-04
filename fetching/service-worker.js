@@ -1,10 +1,10 @@
 // [Working example](/serviceworker-cookbook/fetching/).
 
+// Create a proxy for all requests to the local urls containing a
+// `cookbook-proxy` string.
 self.onfetch = function(event) {
   if (event.request.url.contains('cookbook-proxy')) {
-    var headers = new Headers();
     var init = { method: 'GET',
-                 headers: headers,
                  mode: event.request.mode,
                  cache: 'default' };
     var url = event.request.url.split('cookbook-proxy/')[1];

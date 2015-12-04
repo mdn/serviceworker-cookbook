@@ -2,12 +2,25 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>ServiceWorker Cookbook</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="tabzilla/css/tabzilla.css">
   <link rel="stylesheet" href="bundle.css">
   <script type="text/javascript" src="bundle.js" defer></script>
 </head>
 <body>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49796218-37', 'auto');
+  ga('send', 'pageview');
+  </script>
+
   <div class="book with-nav">
     <nav><div class="recipes-cover">
       <div id="tabzilla">
@@ -16,10 +29,30 @@
 
       <ul class="recipes">
         <li><a href="index.html">Introduction</a></li>
+        <li><a href="https://github.com/mozilla/serviceworker-cookbook/">Contribute on GitHub</a></li>
+
+        {% set curCategory = "" %}
         {% for recipe in recipes %}
+          {% if recipe.category != curCategory %}
+            <li class="category">{{ recipe.category }}</li>
+          {% endif %}
+
           <li>
-            <a href="{{ recipe.intro_ref }}">{{ loop.index }}. {{ recipe.name }}</a>
+            <a href="{{ recipe.intro_ref }}">
+              <span class="ball-difficulty-{{ recipe.difficulty }}" title="Difficulty: {{ recipe.difficultyTerm }}">
+                {% if recipe.difficulty === 1 %}
+                B
+                {% elif recipe.difficulty === 2 %}
+                I
+                {% elif recipe.difficulty === 3 %}
+                A
+                {% endif %}
+              </span>
+              {{ recipe.name }}
+            </a>
           </li>
+
+          {% set curCategory = recipe.category %}
         {% endfor %}
       </ul>
     </div></nav>
@@ -29,14 +62,16 @@
           <div class="item">
             <button id="navToggle" class="fi-list large"></button>
           </div>
-          {% if currentRecipe %}
-            <div class="item"><a href="{{ currentRecipe.intro_ref }}">Readme</a></div>
-            <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo</a></div>
-            <div class="item" style="flex-grow: 1;"></div>
-            {% for src in currentRecipe.srcs %}
-              <div class="item"><a href="{{ src.ref }}">{{ src.name }}.js</a></div>
-            {% endfor %}
-          {% endif %}
+          <div class="tabs">
+            {% if currentRecipe %}
+              <div class="item"><a href="{{ currentRecipe.intro_ref }}">Readme</a></div>
+              <div class="item"><a href="{{ currentRecipe.demo_ref }}">Demo <button class="demo-launch" data-href="{{ currentRecipe.demo_index }}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAQAAACIaFaMAAAAOklEQVR4AWMgA/yHQhBogPP+I0mgSYEJZgZG7BIQgGkUmnADEGKRaICw0Y1qQHEuNi+QJYEJ8UuQDACsJ1O3PKSOdQAAAABJRU5ErkJggg=="></button></a></div>
+              <div class="item" style="flex-grow: 1;"></div>
+              {% for src in currentRecipe.srcs %}
+                <div class="item"><a href="{{ src.ref }}">{{ src.name }}.js</a></div>
+              {% endfor %}
+            {% endif %}
+          </div>
         </div>
       </header>
       <div class="main-inner">

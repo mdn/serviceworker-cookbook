@@ -33,3 +33,6 @@ Service worker is watching for the *pushsubscriptionchange* event and resubscrib
 Not in recipe
 -------------
 Subscription might be cancelled by the user outside of this page (from browser settings or notification UI). In this recipe server will stop to send the notifications, but the front-end doesn't know about it. One could periodically check if registration is still active.
+
+## Category
+Web Push

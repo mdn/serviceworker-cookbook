@@ -19,3 +19,6 @@ A better solution would be to show the user a custom offline snippet served from
 - Register a service worker
 - Cache an `offline.html` file
 - Serve the `offline.html` file content if the network cannot be reached
+
+## Category
+Offline

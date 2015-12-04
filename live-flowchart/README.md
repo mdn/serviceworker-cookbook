@@ -85,3 +85,6 @@ Notes:
 - do something onfetch
 - provide a button to simulate the offline network status
 - provide a button to simulate the lie-fi network status (very low connectivity but not completely offline)
+
+## Category
+General usage

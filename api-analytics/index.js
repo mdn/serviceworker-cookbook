@@ -1,24 +1,41 @@
 var ENDPOINT = 'api/quotations';
 
 // Register the worker and show the list of quotations.
-navigator.serviceWorker.register('worker.js').then(function() {
+if (navigator.serviceWorker.controller) {
   loadQuotations();
-});
+} else {
+  navigator.serviceWorker.oncontrollerchange = function() {
+    this.controller.onstatechange = function() {
+      if (this.state === 'activated') {
+        loadQuotations();
+      }
+    };
+  };
+  navigator.serviceWorker.register('service-worker.js');
+}
 
 // When clicking add button, get the new quote and author and post to
 // the backend.
-document.getElementById('add-form').onsubmit = function() {
+document.getElementById('add-form').onsubmit = function(event) {
+  // Avoid navigation
+  event.preventDefault();
+
   var newQuote = document.getElementById('new-quote').value.trim();
   // Skip if no quote provided.
   if (!newQuote) { return; }
 
   // Leave blank to represent an anonymous quote.
-  var quoteAuthor = document.getElementById('quote-author').value.trim() || 'Anonymous';
+  var quoteAuthor = document.getElementById('quote-author').value.trim()
+                    || 'Anonymous';
   var quote = { text: newQuote, author: quoteAuthor };
   var headers = { 'content-type': 'application/json' };
 
   // Send the API request. In this case, a `POST` on `quotations` collection.
-  fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(quote), headers: headers })
+  fetch(ENDPOINT, {
+    method: 'POST',
+    body: JSON.stringify(quote),
+    headers: headers,
+  })
     .then(function(response) {
       return response.json();
     })
@@ -44,6 +61,11 @@ function showQuotations(collection) {
   for (var index = 0, max = collection.length, quote; index < max; index++) {
     quote = collection[index];
     table.appendChild(getRowFor(quote));
+  }
+
+  // Specifically for the cookbook site :(
+  if (window.parent !== window) {
+    window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
   }
 }
 

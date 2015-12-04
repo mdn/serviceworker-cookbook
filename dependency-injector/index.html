@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dependency injection - ServiceWorker Cookbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="bootstrap.js"></script>
+    <script defer src="utils/dialogs"></script>
+    <script defer src="controller"></script>
+  </head>
+  <body>
+    <p>The demo shows Service Workers as dependency injectors. Depending on your selection,
+      a production or testing Service Worker will control this page and will serve proper
+      versions of the scripts needed to run the interaction section below.</p>
+    <p>Select an environment:</p>
+    <p>
+      <a href="#production">Switch to production</a> (dialogs will appear using the browser UI)</br>
+      <a href="#testing">Switch to testing</a> (dialogs will leave a trace in the <strong>console log</strong>)
+    </p>
+    <p>What is cool about this demo is that you can see different content for the same resources
+      if you explore the source files (Chrome only, Nightly fails to load the resource because it
+      actually does not exists) with the developer tools.</p>
+    <h2>Interaction</h2>
+    <p>
+      <button id="show-alert">Show alert</button>
+      <button id="show-confirm">Show confirm</button>
+      <button id="show-prompt">Show prompt</button>
+    </p>
+  </body>
+</html>

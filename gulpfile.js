@@ -15,15 +15,23 @@ var fsWriteFile = promisify(fs.writeFile);
 var fsReadFile = promisify(fs.readFile);
 
 var ignore = ['!./dist', '!./dist', '!./dist/**', '!./node_modules', '!./node_modules/**'];
-var recipeSlugs = glob.sync('./!(dist|node_modules|src|_template)/').map(function toBase(dir) {
+var recipeSlugs = glob.sync('./!(dist|node_modules|src|_recipe_template)/').map(function toBase(dir) {
   return path.basename(dir);
 });
 var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
 
-var recipes = parseRecipes(recipeSlugs).sort(function(a, b) {
-  return a.name < b.name ? -1 : 1;
+var recipes = parseRecipes(recipeSlugs).sort(function(recipeA, recipeB) {
+  if (recipeA.category === recipeB.category) {
+    return recipeA.difficulty < recipeB.difficulty ? -1 : 1;
+  }
+
+  if (recipeA.category < recipeB.category) {
+    return -1;
+  }
+
+  return 1;
 });
 
 var template = (function() {
@@ -130,10 +138,19 @@ gulp.task('build:index', ['clean'], function buildIndex() {
 });
 
 gulp.task('build:intros', ['clean'], function() {
+  var renderer = new marked.Renderer();
+  renderer.link = function(href, title, text) {
+    var link = '<a href="'+ href +'" target="_blank"';
+    if (title) {
+      link += ' title="' + title + '"';
+    }
+    return link + '>' + text + '</a>';
+  }
+
   return Promise.all(recipes.map(function(recipe) {
     return fsReadFile(recipe.slug + '/README.md', 'utf8')
     .then(function(readme) {
-      return renderFile('./src/tpl/intro.html', { markdown: marked(readme) });
+      return renderFile('./src/tpl/intro.html', { markdown: marked(readme, { renderer: renderer }) });
     })
     .then(function(content) {
       return template.writeFile('./dist/' + recipe.slug + '.html', content, { currentRecipe: recipe });
@@ -184,6 +201,12 @@ gulp.task('build:tabzilla', ['clean'], function() {
     .pipe(gulp.dest('dist/tabzilla'));
 });
 
+gulp.task('build:favicon', ['clean'], function() {
+  return gulp
+    .src('favicon.ico')
+    .pipe(gulp.dest('dist'));
+});
+
 // Start express server after building site
 gulp.task('start-server', ['build'], function startServer(cb) {
   require('./server.js').ready.then(cb);
@@ -206,4 +229,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla']);
+gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);

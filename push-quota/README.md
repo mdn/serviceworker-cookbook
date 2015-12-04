@@ -4,3 +4,9 @@ Experiment with the quota management policies of different browsers. Try sending
 
 ## Difficulty
 Advanced
+
+## Use Cases
+This code allows you to experiment with different push message quota policies with different browsers so you can see how they behave for different actions by the users.
+
+## Category
+Web Push
