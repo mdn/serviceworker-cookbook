@@ -26,15 +26,15 @@ module.exports = function(recipeSlugs) {
       return tokens[index + 1].text;
     }
 
-    var difficulty = getMetadata('Difficulty');
-    if (difficulty === 'Advanced') {
+    var difficultyTerm = getMetadata('Difficulty'), difficulty = 0;
+    if (difficultyTerm === 'Advanced') {
       difficulty = 3;
-    } else if (difficulty === 'Intermediate') {
+    } else if (difficultyTerm === 'Intermediate') {
       difficulty = 2;
-    } else if (difficulty === 'Beginner') {
+    } else if (difficultyTerm === 'Beginner') {
       difficulty = 1;
     } else {
-      assert(false, recipe + ': Unexpected difficulty value');
+      assert(false, recipe + ': Unexpected difficulty value "' + difficultyTerm + '"');
     }
 
     var srcs = glob.sync('*.js', { cwd: recipe }).map(function(src) {
@@ -50,6 +50,7 @@ module.exports = function(recipeSlugs) {
       name: name,
       summary: summary,
       difficulty: difficulty,
+      difficultyTerm: difficultyTerm,
       category: getMetadata('Category'),
       slug: recipe,
       srcs: srcs,

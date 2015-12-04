@@ -2,6 +2,8 @@
 
 This recipe shows how to communicate between the service worker and a page and shows how to use a service worker to relay messages between pages.
 
+**Warning:** this recipe doesn't fully work in Chrome yet (because of [this issue](https://code.google.com/p/chromium/issues/detail?id=549346)).  Read the source code of the recipe for more details.
+
 ## Difficulty
 Beginner
 
@@ -14,4 +16,4 @@ The `postMessage` API is brilliant for passing messages between windows and `ifr
 - Service worker registration
 
 ## Category
-Misc
+General usage
