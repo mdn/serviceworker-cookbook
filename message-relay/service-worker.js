@@ -11,7 +11,8 @@ self.addEventListener('message', function(event) {
 
     // We'll also print a warning, so users playing with the demo aren't confused.
     if (!event.source) {
-      console.log('event.source is null; we don\'t know the sender of this message');
+      console.log('event.source is null; we don\'t know the sender of the ' +
+                  'message');
     }
 
     clientList.forEach(function(client) {
