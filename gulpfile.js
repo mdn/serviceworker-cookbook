@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var fs = require('fs');
 var plugins = require('gulp-load-plugins')();
 var del = require('del');
+var cssBase64 = require('gulp-css-base64');
 var glob = require('glob');
 var path = require('path');
 var marked = require('marked');
@@ -197,8 +198,9 @@ gulp.task('build:js', ['clean'], function() {
 
 gulp.task('build:tabzilla', ['clean'], function() {
   return gulp
-    .src('node_modules/mozilla-tabzilla/**/*.{css,png}')
-    .pipe(gulp.dest('dist/tabzilla'));
+    .src('node_modules/mozilla-tabzilla/css/*.css')
+    .pipe(cssBase64())
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('build:favicon', ['clean'], function() {
