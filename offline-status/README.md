@@ -5,10 +5,10 @@ This basic recipe illustrates caching critical resources for offline use and the
 ## Difficulty
 Beginner
 
-## Use case
+## Use Case
 The most basic of service worker use cases:  caching a set of files so that the user may go offline.  The added value in this demo is showing a notification to the user that they can safely go offline.
 
-## Features and usage
+## Features and Usage
 
 - Register a service worker
 - Monitor the cached status of required resources

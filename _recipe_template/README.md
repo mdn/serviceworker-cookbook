@@ -7,7 +7,7 @@
 ## Use Case
 (Summary)
 
-## Features and usage
+## Features and Usage
 
 -
 -
@@ -21,5 +21,7 @@ Tests have been run in:
 - 
 
 ## Solution
+(Add details here)
 
-
+## Category
+(General Usage|More than Offline|Offline|Web Push)

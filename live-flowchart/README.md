@@ -23,7 +23,7 @@ Security error
 
 ![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/security-error.png)
 
-## Features and usage
+## Features and Usage
 
 Features are:
 
@@ -40,7 +40,7 @@ Usage:
 - take actions in case (e.g. open about://serviceworkers)
 - hack the code and see what happens
 
-## How to read the logs
+## How to Read the Logs
 
 There are two logs to read:
 
@@ -74,7 +74,7 @@ Notes:
 
 - the browser has to support ES6
 
-## What's next / contributions
+## What's Next / Contributions
 
 - responsive to work on mobile
 - have the flowchart build in SVG and visualize the service worker states
@@ -87,4 +87,4 @@ Notes:
 - provide a button to simulate the lie-fi network status (very low connectivity but not completely offline)
 
 ## Category
-General usage
+General Usage

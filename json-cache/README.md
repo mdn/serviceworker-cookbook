@@ -5,10 +5,10 @@ This recipe illustrates fetching a JSON file during service worker installation 
 ## Difficulty
 Beginner
 
-## Use case
+## Use Case
 You may not always want to keep the array of files to cache in the service worker's `.js` file itself -- you may want to hold that information in another place, possibly for versioning purposes.
 
-## Features and usage
+## Features and Usage
 
 - Register a service worker
 - Service worker retrieves a JSON file listing important resources to be cached

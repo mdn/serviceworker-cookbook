@@ -5,11 +5,11 @@ This recipe shows how to use push notifications with subscription management.
 ## Difficulty
 Advanced
 
-## Use case
+## Use Case
 Allowing users to subscribe to features of your app allows you to keep in touch with and convert visitors!
 
 
-Init state
+Init State
 ----------
 After service worker is registered, client is checking if it is already subscribed to the notificiation service. Button's contents is set depending on this.
 
@@ -26,11 +26,11 @@ Unsubscribe
 -----------
 After successful unsubscription (index.js::pushSubscription.unsubscribe) client sends a post request to application server to unregister the subscription. Server is no longer sending notification.
 
-Subscription expired
+Subscription Expired
 --------------------
 Service worker is watching for the *pushsubscriptionchange* event and resubscribes to the push service.
 
-Not in recipe
+Not in Recipe
 -------------
 Subscription might be cancelled by the user outside of this page (from browser settings or notification UI). In this recipe server will stop to send the notifications, but the front-end doesn't know about it. One could periodically check if registration is still active.
 
