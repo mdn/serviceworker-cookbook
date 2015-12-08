@@ -5,7 +5,7 @@ This recipe shows how to serve content from the cache when the user is offline.
 ## Difficulty
 Beginner
 
-## Use case
+## Use Case
 There's a problem with relying on the browser's default "you are offline" message:
 
 - The screen isn't branded the same as your app
@@ -14,7 +14,7 @@ There's a problem with relying on the browser's default "you are offline" messag
 
 A better solution would be to show the user a custom offline snippet served from the cache.
 
-## Features and usage
+## Features and Usage
 
 - Register a service worker
 - Cache an `offline.html` file

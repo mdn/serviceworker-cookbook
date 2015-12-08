@@ -1,10 +1,10 @@
-# Dependency injection
+# Dependency Injection
 This recipe shows how a Service Worker can act as a dependency injector, avoiding _hard wiring_ dependencies for high level components.
 
 ## Difficulty
 Advanced
 
-## Use case
+## Use Case
 As a framework developer, I want to provide production and testing environments, configuring two different injectors to provide the proper mock ups for the components without altering client code.
 
 ## Solution
@@ -15,4 +15,4 @@ Start by looking at `bootstrap.js` to see how a framework could detect which inj
 Compare the actual and mocked implementation of the `dialogs` interface in `actual-dialogs.js` and `mock-dialogs.js`.
 
 ## Category
-More than offline
+More than Offline
