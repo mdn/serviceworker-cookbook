@@ -68,13 +68,13 @@ body {
 }
 
 .loaded #tabzilla {
-  transition: opacity 1s;
+  transition: opacity .3s;
   opacity: 1;
 }
 
 .loaded #tabzilla:before {
   background: #333;
-  transition: background 1s;
+  transition: background .3s;
 }
 
 .tip {
