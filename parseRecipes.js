@@ -3,8 +3,16 @@ var glob = require('glob');
 var fs = require('fs');
 var assert = require('assert');
 
-module.exports = function(recipeSlugs) {
-  return recipeSlugs.map(function(recipe) {
+var difficulties = {
+  'Advanced': 3,
+  'Intermediate': 2,
+  'Beginner': 1
+};
+
+var categoryOrder = ['General Usage', 'Offline', 'Beyond Offline', 'Performance', 'Web Push'];
+
+module.exports = function(recipeSlugs) { 
+  var recipes = recipeSlugs.map(function(recipe) {
     var tokens = marked.lexer(fs.readFileSync(recipe + '/README.md', 'utf8'));
     assert(tokens.length > 1, recipe + ': README.md must have contents.');
     assert(tokens[0].type === 'heading', recipe + ': README.md first token must be header.');
@@ -27,12 +35,8 @@ module.exports = function(recipeSlugs) {
     }
 
     var difficultyTerm = getMetadata('Difficulty'), difficulty = 0;
-    if (difficultyTerm === 'Advanced') {
-      difficulty = 3;
-    } else if (difficultyTerm === 'Intermediate') {
-      difficulty = 2;
-    } else if (difficultyTerm === 'Beginner') {
-      difficulty = 1;
+    if(difficultyTerm in difficulties) {
+      difficulty = difficulties[difficultyTerm];
     } else {
       assert(false, recipe + ': Unexpected difficulty value "' + difficultyTerm + '"');
     }
@@ -46,12 +50,15 @@ module.exports = function(recipeSlugs) {
       };
     });
 
+    var category = getMetadata('Category');
+    assert(categoryOrder.indexOf(category) !== -1, name + ': Unexpected category value "' + category + '"');
+
     return {
       name: name,
       summary: summary,
       difficulty: difficulty,
       difficultyTerm: difficultyTerm,
-      category: getMetadata('Category'),
+      category: category,
       slug: recipe,
       srcs: srcs,
       demo_ref: recipe + '_demo.html',
@@ -59,4 +66,25 @@ module.exports = function(recipeSlugs) {
       intro_ref: recipe + '.html',
     };
   });
+
+  // Sort categories by category preference, then by difficulty
+  recipes = recipes.sort(function(recipeA, recipeB) {
+    // Sort by category
+    if (categoryOrder.indexOf(recipeA.category) === categoryOrder.indexOf(recipeB.category)) {
+      // Sort by difficulty
+      if (recipeA.category === recipeB.category) {
+        return recipeA.difficulty < recipeB.difficulty ? -1 : 1;
+      }
+      if (recipeA.category < recipeB.category) {
+        return -1;
+      }
+      return 1;
+    } else if (categoryOrder.indexOf(recipeA.category) > categoryOrder.indexOf(recipeB.category)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  
+  return recipes;
 };

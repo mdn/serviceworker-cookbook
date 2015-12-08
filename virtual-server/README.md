@@ -15,4 +15,4 @@ Instead of implementing your own logic to distinguish between routes and request
 The client code is virtually identical to [that in the API analytics recipe](/api-analytics_index_doc.html) (the report link has been removed). On the contrary, the [remote _Express server_](/api-analytics_server_doc.html) has been completely replaced by the _[ServiceWorkerWare](https://github.com/gaia-components/serviceworkerware) worker_.
 
 ## Category
-More than Offline
+Beyond Offline

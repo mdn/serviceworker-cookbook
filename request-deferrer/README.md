@@ -15,4 +15,4 @@ This advanced technique is intended to integrate with REST APIs and it requires 
 The solution is a proof of concept and does not include error handling which is a real challenge in this implementation. Some of the problems are stated in the inlined documentation.
 
 ## Category
-More than Offline
+Beyond Offline

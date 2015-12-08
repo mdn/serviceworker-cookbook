@@ -15,4 +15,4 @@ Start by looking at `bootstrap.js` to see how a framework could detect which inj
 Compare the actual and mocked implementation of the `dialogs` interface in `actual-dialogs.js` and `mock-dialogs.js`.
 
 ## Category
-More than Offline
+Beyond Offline

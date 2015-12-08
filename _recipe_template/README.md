@@ -24,4 +24,4 @@ Tests have been run in:
 (Add details here)
 
 ## Category
-(General Usage|More than Offline|Offline|Web Push)
+(General Usage|Beyond Offline|Performance|Offline|Web Push)

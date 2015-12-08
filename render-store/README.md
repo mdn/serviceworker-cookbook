@@ -11,4 +11,4 @@ As a web app developer, I want to minimize the load time for revisited resources
 Use an offline cache to store the template once it's completely rendered and use this copy upon next requests.
 
 ## Category
-More than Offline
+Beyond Offline

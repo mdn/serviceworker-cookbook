@@ -11,4 +11,4 @@ As a web developer I want to distribute my applications as individual zipped pac
 While installing the SW, download the zipfile and decompress, caching each of resources.
 
 ## Category
-More than Offline
+Beyond Offline
