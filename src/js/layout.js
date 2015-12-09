@@ -8,8 +8,7 @@ function resizeIframe(iframe) {
 
   document.getElementById('navToggle').addEventListener('click', function() {
     var book = document.querySelector('.book');
-    book.classList.toggle('with-nav');
-    localStorage.setItem('withNav', Number(book.classList.contains('with-nav')));
+    localStorage.setItem('hideNav', 1-Number(book.classList.toggle('with-nav')));
   });
 
   // This is a hacky way to highlight the current active tab. This should
@@ -31,7 +30,7 @@ function resizeIframe(iframe) {
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.book').classList.toggle(
     'with-nav',
-    Number(localStorage.getItem('withNav'))
+    1-Number(localStorage.getItem('hideNav'))
   );
 });
 
