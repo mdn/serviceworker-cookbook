@@ -48,6 +48,10 @@ $('#load-configuration').onsubmit = function(event) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(loads)
+  }).then(function(response) {
+    return response.json();
+  }).then(function(result) {
+    $('#loads-label').textContent = result;
   });
 };
 
