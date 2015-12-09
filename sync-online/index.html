@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Online Sync - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  
+  <p>Write your blog post in the textarea below.  The contents will be saved every 5 seconds; if you go offline, your content will be store in IndexedDB.  When you reconnect, the information will be sent to server.</p>
+
+  <form id="post-form" method="post">
+    <textarea name="content" style="width: 80%; height: 200px;"></textarea>
+    <input type="hidden" name="id" value="1">
+    <input type="submit" value="Save" id="post-save">
+  </form>
+  
+<script src="./index.js"></script>
+</body>
+</html>
