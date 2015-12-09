@@ -33,7 +33,7 @@ function isResource(request) {
 // selecting the server with lowest load, and compose a new request to
 // find the resource in the selected server.
 function fetchFromBestServer(request) {
-  var session = request.url.match(/\?session=(.*)/)[1];
+  var session = request.url.match(/\?session=([^&]*)/)[1];
   return getServerLoads(session)
     .then(selectServer)
     .then(function(serverUrl) {

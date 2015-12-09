@@ -40,12 +40,13 @@ $('#load-configuration').onsubmit = function(event) {
 $('#image-selector').onchange = function() {
   var imgUrl = $('select').value;
   if (imgUrl) {
-    $('img').src = addSession(imgUrl);
+    $('img').src = addSession(imgUrl) + '&_b=' + Date.now();
 
     // Specifically for the cookbook :(
     $('img').onload = function() {
       if (window.parent !== window) {
-        window.parent.dispatchEvent(new CustomEvent('iframeresize'));
+        window.parent
+          .document.body.dispatchEvent(new CustomEvent('iframeresize'));
       }
     };
   }
