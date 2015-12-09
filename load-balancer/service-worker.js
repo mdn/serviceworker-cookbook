@@ -1,6 +1,3 @@
-// The endpoint for querying the server loads.
-var LOAD_STATS = './server-loads';
-
 // The code in `oninstall` and `onactivate` force the service worker to
 // control the clients ASAP.
 self.oninstall = function(event) {
@@ -16,7 +13,6 @@ self.onactivate = function(event) {
 // network. Could should be autoexplanatory.
 self.onfetch = function(event) {
   var request = event.request;
-
   if (isResource(request)) {
     event.respondWith(fetchFromBestServer(request));
   } else {
@@ -38,7 +34,7 @@ function fetchFromBestServer(request) {
     .then(selectServer)
     .then(function(serverUrl) {
       // Get the resource path and combine with `serverUrl` to get
-      // the resource URL but in the selected server.
+      // the resource URL but **in the selected server**.
       var resourcePath = request.url.match(/\/imgs\/[^?]*/)[0];
       var serverRequest = new Request(serverUrl + resourcePath);
       return fetch(serverRequest);
@@ -63,16 +59,4 @@ function selectServer(serverLoads) {
 
   // Servers are 1, 2, 3...
   return './server-' + (serverIndex + 1);
-
-}
-
-// Post basic information of the request to a backend for historical purposes.
-function log(request) {
-  var returnRequest = function() { return Promise.resolve(request); };
-  var data = { method: request.method, url: request.url };
-  return fetch(LOG_ENDPOINT, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: { 'content-type': 'application/json' }
-  }).then(returnRequest, returnRequest);
 }

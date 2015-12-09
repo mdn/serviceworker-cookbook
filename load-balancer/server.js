@@ -1,5 +1,4 @@
 
-var path = require('path');
 var bodyParser = require('body-parser');
 
 // Simple session handling with a hash of sessions.

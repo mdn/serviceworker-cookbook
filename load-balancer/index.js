@@ -1,31 +1,45 @@
 // A convenient shortcut for `document.querySelector()`
 var $ = document.querySelector.bind(document); // eslint-disable-line id-length
 
+var serverLoadInputs = [
+  $('#load-1'),
+  $('#load-2'),
+  $('#load-3')
+];
+
 // Register the worker and enable image selection.
 if (navigator.serviceWorker.controller) {
-  enableImgSelector();
+  enableUI();
 } else {
   navigator.serviceWorker.register('service-worker.js');
-  navigator.serviceWorker.ready.then(enableImgSelector);
+  navigator.serviceWorker.ready.then(enableUI);
 }
 
-function enableImgSelector() {
-  $('#image-selector').disabled = false;
+function enableUI() {
+  getServerLoads().then(function(loads) {
+    serverLoadInputs.forEach(function(input, index) {
+      input.value = loads[index];
+      input.disabled = false;
+    });
+    $('#image-selector').disabled = false;
+  });
 }
 
-// When clicking configure button, send the load values to the back-end to
+function getServerLoads() {
+  return fetch(addSession('./server-loads/')).then(function(response) {
+    return response.json();
+  });
+}
+
+// When _clicking_ configure button, send the load values to the back-end to
 // simulate server loads.
 $('#load-configuration').onsubmit = function(event) {
   // Avoid navigation
   event.preventDefault();
 
-  // Get sever load levels.
-  var loads = [
-    $('#load-1').value,
-    $('#load-2').value,
-    $('#load-3').value
-  ].map(function(item) {
-    return parseInt(item, 10);
+  // Get fake levels from inputs.
+  var loads = serverLoadInputs.map(function(input) {
+    return parseInt(input.value, 10);
   });
 
   // Send the request to configure the load levels serializing the body
@@ -37,9 +51,11 @@ $('#load-configuration').onsubmit = function(event) {
   });
 };
 
+// Simply change the source for the image.
 $('#image-selector').onchange = function() {
   var imgUrl = $('select').value;
   if (imgUrl) {
+    // The bumping parameter `_b` is just to avoid HTTP cache.
     $('img').src = addSession(imgUrl) + '&_b=' + Date.now();
 
     // Specifically for the cookbook :(
@@ -52,7 +68,7 @@ $('#image-selector').onchange = function() {
   }
 };
 
-// Add the session parameter to an URL
+// Add the session parameter to an URL.
 function addSession(url) {
   return url + '?session=' + getSession();
 }
