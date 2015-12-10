@@ -8,12 +8,8 @@ var serverLoadInputs = [
 ];
 
 // Register the worker and enable image selection.
-if (navigator.serviceWorker.controller) {
-  enableUI();
-} else {
-  navigator.serviceWorker.register('service-worker.js');
-  navigator.serviceWorker.ready.then(enableUI);
-}
+navigator.serviceWorker.register('service-worker.js');
+navigator.serviceWorker.ready.then(enableUI);
 
 function enableUI() {
   getServerLoads().then(function(loads) {
