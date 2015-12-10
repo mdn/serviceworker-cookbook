@@ -11,4 +11,4 @@ As a service provider, I want to provide the best source in terms of availabilit
 Use a Service Worker to intercept the requests to the resources and select the proper content provider accordingly to their availability.
 
 ## Category
-More than offline
+More than Offline
