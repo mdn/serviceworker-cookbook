@@ -22,18 +22,7 @@ var recipeSlugs = glob.sync('./!(dist|node_modules|src|_recipe_template)/').map(
 var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
-
-var recipes = parseRecipes(recipeSlugs).sort(function(recipeA, recipeB) {
-  if (recipeA.category === recipeB.category) {
-    return recipeA.difficulty < recipeB.difficulty ? -1 : 1;
-  }
-
-  if (recipeA.category < recipeB.category) {
-    return -1;
-  }
-
-  return 1;
-});
+var recipes = parseRecipes(recipeSlugs);
 
 var template = (function() {
   function renderContent(content, options) {
