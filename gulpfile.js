@@ -6,8 +6,10 @@ var cssBase64 = require('gulp-css-base64');
 var glob = require('glob');
 var path = require('path');
 var marked = require('marked');
+var minifyCss = require('gulp-minify-css');
 var swig = require('swig');
 var through2 = require('through2');
+var uglify = require('gulp-uglify')
 var promisify = require('es6-promisify');
 var mergeStream = require('merge-stream');
 var parseRecipes = require('./parseRecipes.js');
@@ -175,6 +177,7 @@ gulp.task('build:css', ['clean'], function() {
       'src/css/docco.css'
     ])
     .pipe(plugins.concat('bundle.css'))
+    .pipe(minifyCss())
     .pipe(gulp.dest('./dist'));
 });
 
@@ -182,6 +185,7 @@ gulp.task('build:js', ['clean'], function() {
   return gulp
     .src('src/js/*.js')
     .pipe(plugins.concat('bundle.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('./dist'));
 });
 
@@ -189,6 +193,7 @@ gulp.task('build:tabzilla', ['clean'], function() {
   return gulp
     .src('node_modules/mozilla-tabzilla/css/*.css')
     .pipe(cssBase64())
+    .pipe(minifyCss())
     .pipe(gulp.dest('dist/'));
 });
 
