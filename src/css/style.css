@@ -98,7 +98,7 @@ body {
   z-index: 1;
   width: 300px;
   color: #364149;
-  background: rgba(70, 140, 100, 0.4);
+  background: #333;
   border-right: 1px solid rgba(0,0,0,0.07);
 }
 
@@ -135,7 +135,7 @@ body {
 .book nav ul.recipes li a {
   display: block;
   padding: 6px 20px;
-  color: #333;
+  color: #fff;
 }
 
 .book nav ul.recipes li a:hover,
@@ -146,7 +146,8 @@ body {
 
 .book nav ul.recipes li.category {
   padding: 20px 10px 3px;
-  font: bold 20px "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 20px "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #78ba91;
 }
 
 .book nav ul.recipes li span {
@@ -160,7 +161,7 @@ body {
   border-radius: 50%;
   margin-right: 3px;
   display: inline-block;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .ball-difficulty-1 {
