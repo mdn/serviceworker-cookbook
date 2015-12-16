@@ -1,5 +1,7 @@
 # ServiceWorker Cookbook
 
+[![Build Status](https://travis-ci.org/mozilla/serviceworker-cookbook.svg?branch=master)](https://travis-ci.org/mozilla/serviceworker-cookbook)
+
 It's online. It's offline. It's a Service Worker!
 
 Service workers are a new technology to aid developers in:
