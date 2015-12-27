@@ -11,19 +11,31 @@ self.onactivate = function(event) {
   event.waitUntil(self.clients.claim());
 };
 
-// Fetch is as simply as log the request and passthrough.
-// Water clear thanks to the promise syntax!
 self.onfetch = function(event) {
-  event.respondWith(log(event.request).then(fetch));
+
+  event.respondWith(
+    // Log the request ...
+    log(event.request)
+    // .. and then actually perform it.
+    .then(fetch)
+  );
 };
 
 // Post basic information of the request to a backend for historical purposes.
 function log(request) {
-  var returnRequest = function() { return Promise.resolve(request); };
-  var data = { method: request.method, url: request.url };
+  var returnRequest = function() {
+    return request;
+  };
+
+  var data = {
+    method: request.method,
+    url: request.url
+  };
+
   return fetch(LOG_ENDPOINT, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: { 'content-type': 'application/json' }
-  }).then(returnRequest, returnRequest);
+  })
+  .then(returnRequest, returnRequest);
 }
