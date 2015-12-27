@@ -161,19 +161,21 @@ body {
   border-radius: 50%;
   margin-right: 3px;
   display: inline-block;
-  opacity: 0.8;
 }
 
 .ball-difficulty-1 {
   background: green;
+  background: rgba(0, 128, 0, 0.8);
 }
 
 .ball-difficulty-2 {
   background: orange;
+  background: rgba(255, 165, 0, 0.8);
 }
 
 .ball-difficulty-3 {
   background: #cc0000;
+  background: rgba(204, 0, 0, 0.8);
 }
 
 nav .recipes-cover {
