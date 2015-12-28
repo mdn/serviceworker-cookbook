@@ -13,9 +13,9 @@ self.onactivate = function(event) {
 
 self.onfetch = function(event) {
   event.respondWith(
-    // Log the request ...
+    // Log the request …
     log(event.request)
-    // .. and then actually perform it.
+    // … and then actually perform it.
     .then(fetch)
   );
 };
