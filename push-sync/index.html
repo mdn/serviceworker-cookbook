@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Push Notification XXX - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+  <!-- This is needed for Google Chrome support. -->
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<p>Open multiple tabs containing this page, make the server send a notification by writing a payload and clicking on "Send notification". The notification will be received by the service worker, which will then send it to all the open tabs.</p>
+
+<p id="elem"></p>
+
+<input id="payload" type="text" value="Insert notification payload..."></input>
+<button id="doIt">Send notification</button>
+
+<script src="./index.js"></script>
+</body>
+</html>
