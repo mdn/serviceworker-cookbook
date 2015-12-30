@@ -13,7 +13,8 @@
     <p>Fetching model time: <span id="fetching-time-label"></span></p>
     <p>Interpolation time: <span id="interpolation-time-label"></span></p>
     <p>Loading time: <span id="loading-time-label"></span></p>
-    <p><img src="http://pokeapi.co/media/img/{{national_id}}.png" /></p>
+    <!-- Proxify to avoid serving non https content. -->
+    <p><img src="https://crossorigin.me/http://pokeapi.co/media/img/{{national_id}}.png" /></p>
     <dl>
       <dt>HP:</dt> <dd>{{hp}}</dd>
       <dt>Attack:</dt> <dd>{{attack}}</dd>
