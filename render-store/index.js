@@ -1,7 +1,12 @@
+// Modern browsers prevent mixed content. I.e., if the page is served from
+// a safe (https) origin, they will block the content from other (non https)
+// origins. We use this service to tunnel Pokemon API responses through a
+// secure origin.
+var PROXY = 'https://crossorigin.me/';
 
 // We need the pokedex entry point to retrieve the complete list
 // of Pokemon.
-var POKEDEX = 'http://pokeapi.co/api/v1/pokedex/1/';
+var POKEDEX = PROXY + 'http://pokeapi.co/api/v1/pokedex/1/';
 
 // Once the Service Worker is activated, load the Pokemon list.
 if ('serviceWorker' in navigator) {
