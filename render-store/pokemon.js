@@ -1,3 +1,9 @@
+// Modern browsers prevent mixed content. I.e., if the page is served from
+// a safe (https) origin, they will block the content from other (non https)
+// origins. We use this service to tunnel Pokemon API responses through a
+// secure origin.
+var PROXY = 'https://crossorigin.me/';
+
 // Some times we want to measure.
 var startTime = performance.now();
 var interpolationTime = 0;
@@ -29,7 +35,7 @@ function getPokemonId() {
 // Fetch pokemon's info as JSON.
 function getPokemon(id) {
   var fetchingModelStart = performance.now();
-  var url = 'http://pokeapi.co/api/v1/pokemon/' + id + '/?_b=' + Date.now();
+  var url = PROXY + 'http://pokeapi.co/api/v1/pokemon/' + id + '/?_b=' + Date.now();
   return fetch(url).then(function(response) {
     fetchingModelTime = performance.now() - fetchingModelStart;
     return response.json();
