@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Load balancer - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h2>Resources</h2>
+  <p>
+    Choose from one of the images to be loaded:
+  </p>
+  <p>
+    Notice the white label in the image which is telling you the server it comes from.
+  </p>
+  <p>
+    <select id="image-selector" disabled>
+      <option value="">Select and image</option>
+      <option value="imgs/a.jpeg">Collaboration</option>
+      <option value="imgs/b.jpeg">Loneliness</option>
+      <option value="imgs/c.jpeg">Bread</option>
+    </select>
+  </p>
+  <p><img src="" alt="" /></p>
+  <h2>Configuration</h2>
+  <p>Configure the load of the content providers.</p>
+  <p>Servers set to: <span id="loads-label"></span></p>
+  <form id="load-configuration">
+    <p><label>Server 1: <input type="number" id="load-1" min="0" max="100" value="50" disabled /> %</label></p>
+    <p><label>Server 2: <input type="number" id="load-2" min="0" max="100" value="75" disabled /> %</label></p>
+    <p><label>Server 3: <input type="number" id="load-3" min="0" max="100" value="25" disabled /> %</label></p>
+    <input type="submit" value="Configure" />
+  </form>
+  <script src="./index.js"></script>
+</body>
+</html>

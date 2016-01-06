@@ -4,11 +4,11 @@ This recipe illustrates how to cache contents from a zipfile.
 ## Difficulty
 Intermediate
 
-## Use case
+## Use Case
 As a web developer I want to distribute my applications as individual zipped packages, so that I can reduce the number of HTTP requests and provide an implicit way of listing all the resources to offline.
 
 ## Solution
 While installing the SW, download the zipfile and decompress, caching each of resources.
 
 ## Category
-More than offline
+Beyond Offline

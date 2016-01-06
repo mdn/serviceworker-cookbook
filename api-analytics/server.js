@@ -53,7 +53,7 @@ module.exports = function(app, route) {
   // Shows the report.
   app.get(route + 'report', function(req, res) {
     var statistics = summarizeLogs();
-    var buffer = report({ statistics: statistics});
+    var buffer = report({ statistics: statistics });
     res.send(buffer);
   });
 

@@ -69,7 +69,7 @@ function cacheEntry(entry) {
           // As the zip says nothing about the nature of the file, we extract
           // this information from the file name.
           'Content-Type': getContentType(entry.filename)
-        }});
+        } });
 
         console.log('-> Caching', location,
                     '(size:', entry.uncompressedSize, 'bytes)');

@@ -7,7 +7,8 @@ function resizeIframe(iframe) {
 (function() {
 
   document.getElementById('navToggle').addEventListener('click', function() {
-    document.querySelector('.book').classList.toggle('with-nav');
+    var book = document.querySelector('.book');
+    localStorage.setItem('hideNav', 1-Number(book.classList.toggle('with-nav')));
   });
 
   // This is a hacky way to highlight the current active tab. This should
@@ -25,6 +26,13 @@ function resizeIframe(iframe) {
   }
 
 })();
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.book').classList.toggle(
+    'with-nav',
+    1-Number(localStorage.getItem('hideNav'))
+  );
+});
 
 // Marking as loaded triggers tabzilla fade-in
 window.addEventListener('load', function() {
