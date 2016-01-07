@@ -1,11 +1,13 @@
+/* eslint indent: 0 */
+
 // TODO: When to check for updates? Every fetch?
 // TODO: How to deal with multiple simultaneous update checks
 
-const updateFilename = 'current.json';
-const cachePrefix = 'update-css-';
-const metaCacheName = cachePrefix + 'meta-cache';
-const currentKey = 'current';
-const updatingKey = 'updating';
+var updateFilename = 'current.json';
+var cachePrefix = 'update-css-';
+var metaCacheName = cachePrefix + 'meta-cache';
+var currentKey = 'current';
+var updateKey = 'update';
 
 // Our cache only ever has two entries:
 //   currentCacheName tells us what cache holds our actual data
@@ -15,7 +17,7 @@ const updatingKey = 'updating';
 //   1. If a currentCache exists, it will always be complete
 
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function() {
 });
 
 self.addEventListener('activate', function() {
@@ -24,7 +26,7 @@ self.addEventListener('activate', function() {
   }
 
   // A. Call update logic, store promise
-  const updatePromise = updateResources();
+  var updatePromise = updateResources();
 
   // B. Check whether we have a currentCache available
   event.waitUntil(getCurrentCacheName().catch(function() {
@@ -44,7 +46,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     return response;
-  }).catch(function(err) {
+  }).catch(function() {
     // On any failure, go to the network
     return fetch(event.request);
   }));
@@ -84,20 +86,21 @@ function updateResources() {
   // Download current.json
   return simulateFetch(updateFilename).then(function(fetchedResponse) {
     if (!fetchedResponse || !fetchedResponse.ok || !fetchedResponse.json) {
-      return Promise.reject(new Error('Bad response when fetching ' + updateFilename));
+      return Promise.reject(new Error('Bad response when fetching '
+                                      + updateFilename));
     }
 
     // Compare it against our currentCache
     return Promise.all([
-       fetchedResponse.json(),
-       getCurrentCacheName(),
+      fetchedResponse.json(),
+      getCurrentCacheName(),
     ]);
   }).then(function(fetchedJson, currentCacheName) {
-    const generatedCacheName = cachePrefix + fetchedJson.id;
+    var generatedCacheName = cachePrefix + fetchedJson.id;
 
     // If the same, stop
     if (currentCacheName === generatedCacheName) {
-      return;
+      return Promise.resolve();
     }
 
     // Compare it to our updateCache
@@ -111,7 +114,8 @@ function updateResources() {
       }
     }).then(function() {
       // Create and populate updateCache
-      return cacheFiles(generatedCacheName, fetchedJson.filenames).then(function() {
+      return cacheFiles(generatedCacheName,
+                        fetchedJson.filenames).then(function() {
         //   Once all files check out, replace currentCache entry with updateCache entry
         return getUpdateCacheName().then(function(updateCacheName) {
           return setCurrentCacheName(updateCacheName);
@@ -120,7 +124,7 @@ function updateResources() {
         });
       });
     });
-  });
+  }).then(notifyClients);
 }
 
 function setCurrentCacheName(name) {
@@ -157,7 +161,7 @@ function notifyClients() {
  * Implementation details
  */
 
-const simulatedKey = 'simulatedFetch';
+var simulatedKey = 'simulatedFetch';
 
 /**
  * simulateFetch
@@ -168,7 +172,7 @@ const simulatedKey = 'simulatedFetch';
 function simulateFetch(resource) {
   return caches.open(metaCacheName).then(function(cache) {
     return cache.open(simulatedKey);
-  }).then(function(simulatedResponse) {
-    
+  }).then(function(values) {
+    return values[resource];
   });
 }
