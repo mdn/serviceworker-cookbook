@@ -1,6 +1,9 @@
+// TODO: When to check for updates? Every fetch?
+// TODO: How to deal with multiple simultaneous update checks
+
 const updateFilename = 'current.json';
-const metaCacheName = 'update-css';
 const cachePrefix = 'update-css-';
+const metaCacheName = cachePrefix + 'meta-cache';
 const currentKey = 'current';
 const updatingKey = 'updating';
 
@@ -20,7 +23,7 @@ self.addEventListener('activate', function() {
     self.clients.claim();
   }
 
-  // A. Call updateLogic, store promise
+  // A. Call update logic, store promise
   const updatePromise = updateResources();
 
   // B. Check whether we have a currentCache available
@@ -33,9 +36,7 @@ self.addEventListener('activate', function() {
 
 self.addEventListener('fetch', function(event) {
   // Return response from currentCache
-  event.respondWith(getCurrentCacheName().then(function(currentCacheName) {
-    return caches.open(currentCacheName);
-  }).then(function(cache) {
+  event.respondWith(getCurrentCache().then(function(cache) {
     return cache.match(event.request.url);
   }).then(function(response) {
     if (!response) {
@@ -58,6 +59,24 @@ function getCurrentCacheName() {
     }
 
     return response.text();
+  });
+}
+
+function getUpdateCacheName() {
+  return caches.open(metaCacheName).then(function(cache) {
+    return cache.match(updateKey);
+  }).then(function(response) {
+    if (!response || !response.ok || !response.text) {
+      return Promise.reject();
+    }
+
+    return response.text();
+  });
+}
+
+function getCurrentCache() {
+  return getCurrentCacheName().then(function(currentCacheName) {
+    return caches.open(currentCacheName);
   });
 }
 
@@ -88,30 +107,48 @@ function updateResources() {
         // `CacheStorage.delete` returns a promise but we don't care about the result
         caches.delete(updateCacheName);
         // Make updateCache entry point to the new cache we're creating
-        return changeUpdateCacheName(generatedCacheName);
+        return setUpdateCacheName(generatedCacheName);
       }
     }).then(function() {
       // Create and populate updateCache
       return cacheFiles(generatedCacheName, fetchedJson.filenames).then(function() {
         //   Once all files check out, replace currentCache entry with updateCache entry
-        return replaceCurrentCacheWithUpdateCache();
+        return getUpdateCacheName().then(function(updateCacheName) {
+          return setCurrentCacheName(updateCacheName);
+        }).then(function() {
+          return setUpdateCacheName(null);
+        });
       });
     });
   });
 }
 
-function cacheFiles(json) {
-  // For each file in current.json, validate and redownload if necessary,
-  // caching in updateCache
+function setCurrentCacheName(name) {
+  return caches.open(metaCacheName).then(function(cache) {
+    return cache.put(currentKey, name);
+  });
 }
 
-function performCacheUpdate() {
-  // Make updateCache the new currentCache
-  // Remove updateCache entry
-  // Notify clients that update is available
+function setUpdateCacheName(name) {
+  return caches.open(metaCacheName).then(function(cache) {
+    return cache.put(updateKey, name);
+  });
+}
+
+function cacheFiles(cacheName, files) {
+  // TODO: Eventually we may want to add logic here.
+  // Some ideas:
+  //   Validate files that are already in the cache
+  //   Check files in the current cache against a checksum to see if we can just copy
+  return caches.open(cacheName).then(function(cache) {
+    return cache.addAll(files);
+  });
+}
+
+function notifyClients() {
   self.clients.matchAll().then(function(clientList) {
     clientList.forEach(function(client) {
-      client.postMessage({ msg: 'cssUpdated', val: isUpdated });
+      client.postMessage({ msg: 'cssUpdated' });
     });
   });
 }
@@ -120,7 +157,7 @@ function performCacheUpdate() {
  * Implementation details
  */
 
-const cacheForSimulatedFetches = 'update-css-simulated-fetches-2015.1117.1636';
+const simulatedKey = 'simulatedFetch';
 
 /**
  * simulateFetch
@@ -129,4 +166,9 @@ const cacheForSimulatedFetches = 'update-css-simulated-fetches-2015.1117.1636';
  * This function should perform the equivalent of `fetch(resource)`
  */
 function simulateFetch(resource) {
+  return caches.open(metaCacheName).then(function(cache) {
+    return cache.open(simulatedKey);
+  }).then(function(simulatedResponse) {
+    
+  });
 }

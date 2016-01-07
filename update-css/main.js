@@ -1,48 +1,53 @@
-var cacheName = 'update-css-2015.1015.1202';
+var cacheName = 'update-css-meta-cache;
+var simulatedKey = 'simulatedFetch';
 
 navigator.serviceWorker.register('sw.js');
+
+var currents = [
+  { id: 0, filenames: [ 'style-0.css' ] },
+  { id: 1, filenames: [ 'style-1.css' ] },
+];
 
 window.addEventListener('message', function(event) {
   if (!event.data) {
     return;
   }
 
-  if (event.data.msg === 'toggleCSSFilename') {
-    document.querySelector('#css-status').textContent = 'The next time this page is loaded, the SW will discover updated CSS on the server after serving the cached CSS';
-    return;
+  if (event.data.msg === 'toggleVersion') {
+    getServerVersion().then(function(version) {
+      document.querySelector('#newest-version').textContent = version;
+    });
   }
 });
+
+function getServerVersion() {
+  return caches.open(cacheName).then(function(cache) {
+    return cache.match(simulatedKey);
+  }).then(function(val) {
+    return val;
+  });
+}
 
 navigator.serviceWorker.addEventListener('message', function(event) {
   if (event.data.msg === 'cssUpdated') {
-    if (event.data.val) {
-      document.querySelector('#new-css-msg').textContent = 'The server has a new CSS file available! If you refresh the page you should see updated CSS. In production, a site might decide to automatically refresh at this point';
-    } else {
-      document.querySelector('#new-css-msg').textContent = 'The latest CSS has been served';
-    }
-
-    return;
+    document.querySelector('#updated').textContent = 'SW informs us there is a new version available!';
   }
 });
 
-var updateCSSButton = document.querySelector('#updateCSSButton');
-updateCSSButton.addEventListener('click', function() {
-  updateCSSButton.disabled = true;
+var toggleVersionButton = document.querySelector('#toggleVersionButton');
+toggleVersionButton.addEventListener('click', function() {
+  toggleVersionButton.disabled = true;
   caches.open(cacheName).then(function(cache) {
-    cache.match('current-css-filename').then(function(response) {
+    cache.match(simulatedKey).then(function(response) {
       var newValue;
-      if (response.text) {
-        response.text().then(function(value) {
-          if (value === 'style-1.css') {
-            newValue = 'style-2.css';
-          } else {
-            newValue = 'style-1.css';
-          }
-          cache.put('current-css-filename', new Response(newValue, { 'status': 200 }));
-          return window.postMessage({ msg: 'toggleCSSFilename' }, '*');
+      if (response.json) {
+        response.json().then(function(value) {
+          newValue = (value.id + 1) % currents.length;
+          cache.put(simulatedKey, new Response(currents[newValue], { 'status': 200 }));
+          return window.postMessage({ msg: 'toggleVersion' }, '*');
         });
       } else {
-        cache.put('current-css-filename', new Response('style-2.css', { 'status': 200 }));
+        cache.put(simulatedKey, new Response(currents[0], { 'status': 200 }));
         return window.postMessage({ msg: 'toggleCSSFilename' }, '*');
       }
     });
