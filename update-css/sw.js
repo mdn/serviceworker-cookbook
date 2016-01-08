@@ -3,7 +3,6 @@
 // TODO: When to check for updates? Every fetch?
 // TODO: How to deal with multiple simultaneous update checks
 
-var updateFilename = 'current.json';
 var cachePrefix = 'update-css-';
 var metaCacheName = cachePrefix + 'meta-cache';
 var currentKey = 'current';
@@ -16,27 +15,33 @@ var updateKey = 'update';
 // Invariants:
 //   1. If a currentCache exists, it will always be complete
 
+var updatePromise = Promise.resolve();
+var isUpdateCheckInProgress = false;
 
 self.addEventListener('install', function() {
 });
 
-self.addEventListener('activate', function() {
+self.addEventListener('activate', function(event) {
   if (self.clients && self.clients.claim) {
     self.clients.claim();
   }
 
   // A. Call update logic, store promise
-  var updatePromise = updateResources();
+  updateResources();
 
   // B. Check whether we have a currentCache available
-  event.waitUntil(getCurrentCacheName().catch(function() {
-    //    If not, the cache needs to be populated. Wait on the promise acquired
-    //    in A.
-    return updatePromise;
+  event.waitUntil(getCurrentCacheName().then(function(name) {
+    if (!name) {
+      //    If not, the cache needs to be populated. Wait on the promise acquired
+      //    in A.
+      return updatePromise;
+    }
   }));
 });
 
 self.addEventListener('fetch', function(event) {
+  updateResources();
+
   // Return response from currentCache
   event.respondWith(getCurrentCache().then(function(cache) {
     return cache.match(event.request.url);
@@ -57,7 +62,7 @@ function getCurrentCacheName() {
     return cache.match(currentKey);
   }).then(function(response) {
     if (!response || !response.ok || !response.text) {
-      return Promise.reject();
+      return null;
     }
 
     return response.text();
@@ -69,7 +74,7 @@ function getUpdateCacheName() {
     return cache.match(updateKey);
   }).then(function(response) {
     if (!response || !response.ok || !response.text) {
-      return Promise.reject();
+      return null;
     }
 
     return response.text();
@@ -83,11 +88,18 @@ function getCurrentCache() {
 }
 
 function updateResources() {
+  if (isUpdateCheckInProgress) {
+    return updatePromise;
+  }
+
+  isUpdateCheckInProgress = true;
+
   // Download current.json
-  return simulateFetch(updateFilename).then(function(fetchedResponse) {
+  updatePromise = getCurrentJSON().then(function(fetchedResponse) {
     if (!fetchedResponse || !fetchedResponse.ok || !fetchedResponse.json) {
-      return Promise.reject(new Error('Bad response when fetching '
-                                      + updateFilename));
+      // Immediately give up on failure
+      isUpdateCheckInProgress = false;
+      return Promise.reject('Unable to retrieve current.json');
     }
 
     // Compare it against our currentCache
@@ -96,7 +108,13 @@ function updateResources() {
       getCurrentCacheName(),
     ]);
   }).then(function(fetchedJson, currentCacheName) {
-    var generatedCacheName = cachePrefix + fetchedJson.id;
+    // TODO: Why do we get an array here instead of just the first object?
+    var json = fetchedJson[0];
+
+    var generatedCacheName = cachePrefix + json.id;
+
+    console.log('generatedCacheName = ' + generatedCacheName);
+    console.log('currentCacheName = ' + currentCacheName);
 
     // If the same, stop
     if (currentCacheName === generatedCacheName) {
@@ -107,39 +125,50 @@ function updateResources() {
     return getUpdateCacheName().then(function(updateCacheName) {
       // If different, obliterate updateCache
       if (updateCacheName !== generatedCacheName) {
-        // `CacheStorage.delete` returns a promise but we don't care about the result
-        caches.delete(updateCacheName);
+        if (updateCacheName) {
+          // `CacheStorage.delete` returns a promise but we don't care about the result
+          caches.delete(updateCacheName);
+        }
         // Make updateCache entry point to the new cache we're creating
         return setUpdateCacheName(generatedCacheName);
       }
     }).then(function() {
       // Create and populate updateCache
       return cacheFiles(generatedCacheName,
-                        fetchedJson.filenames).then(function() {
+                        json.filenames).then(function() {
         //   Once all files check out, replace currentCache entry with updateCache entry
         return getUpdateCacheName().then(function(updateCacheName) {
+          console.log('updateCacheName = ' + updateCacheName);
           return setCurrentCacheName(updateCacheName);
         }).then(function() {
           return setUpdateCacheName(null);
+        }).then(function() {
+          notifyClients();
+          isUpdateCheckInProgress = false;
         });
       });
     });
-  }).then(notifyClients);
+  });
+
+  return updatePromise;
 }
 
 function setCurrentCacheName(name) {
+  console.log('setCurrentCacheName - ' + name);
   return caches.open(metaCacheName).then(function(cache) {
-    return cache.put(currentKey, name);
+    return cache.put(currentKey, new Response(name, { status: 200 }));
   });
 }
 
 function setUpdateCacheName(name) {
+  console.log('setUpdateCacheName - ' + name);
   return caches.open(metaCacheName).then(function(cache) {
-    return cache.put(updateKey, name);
+    return cache.put(updateKey, new Response(name, { status: 200 }));
   });
 }
 
 function cacheFiles(cacheName, files) {
+  console.log('cacheFiles. files=' + files);
   // TODO: Eventually we may want to add logic here.
   // Some ideas:
   //   Validate files that are already in the cache
@@ -161,18 +190,16 @@ function notifyClients() {
  * Implementation details
  */
 
-var simulatedKey = 'simulatedFetch';
+var currentJSONKey = 'currentJSON';
 
 /**
- * simulateFetch
+ * getCurrentJSON
  *
  * In a real production environment, this function would not be necessary.
  * This function should perform the equivalent of `fetch(resource)`
  */
-function simulateFetch(resource) {
+function getCurrentJSON() {
   return caches.open(metaCacheName).then(function(cache) {
-    return cache.open(simulatedKey);
-  }).then(function(values) {
-    return values[resource];
+    return cache.match(currentJSONKey);
   });
 }
