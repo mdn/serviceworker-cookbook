@@ -47,10 +47,6 @@ html {
   height: 100%;
 }
 
-a {
-  color: #a87aad;
-}
-
 body {
   font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
@@ -78,9 +74,9 @@ body {
 }
 
 .tip {
-  background: #fffea1;
+  background: rgba(255, 254, 161, 0.55);
   padding: 10px;
-  border-left: #fc0;
+  border-left: 2px solid #fffea1;
 }
 
 .book {
@@ -97,9 +93,9 @@ body {
   bottom: 0;
   z-index: 1;
   width: 300px;
-  color: #364149;
-  background: #333;
-  border-right: 1px solid rgba(0,0,0,0.07);
+  color: #333;
+  background: #efefef;
+  border-right: 1px solid #ddd;
 }
 
 @media (min-width: 600px) {
@@ -135,13 +131,13 @@ body {
 .book nav ul.recipes li a {
   display: block;
   padding: 6px 20px;
-  color: #fff;
+  color: #333;
 }
 
 .book nav ul.recipes li a:hover,
 .book nav ul.recipes li a:active,
 .book nav ul.recipes li a:focus {
-  background: rgba(120, 186, 145, 0.6);
+  background: #ddd;
 }
 
 .book nav ul.recipes li.category {
@@ -161,6 +157,7 @@ body {
   border-radius: 50%;
   margin-right: 3px;
   display: inline-block;
+  opacity: 0.5;
 }
 
 .ball-difficulty-1 {
@@ -299,10 +296,10 @@ iframe {
 }
 
 nav a.active {
-  background: rgba(120, 186, 145, 0.8);
+  background: #ddd;
 }
 
 .nav-top .active {
-  background: rgba(120, 186, 145, 0.4);
+  background: #eee;
   border-bottom: 2px solid rgb(120, 186, 145);
 }
