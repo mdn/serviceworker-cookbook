@@ -1,13 +1,8 @@
-var metaCacheName = 'update-css-meta-cache';
+var cachePrefix = 'update-css-';
+var metaCacheName = cachePrefix + 'meta-cache';
 var currentKey = 'current';
-var currentJSONKey = 'currentJSON';
 
 navigator.serviceWorker.register('sw.js');
-
-var currents = [
-  { id: 0, filenames: ['style-0.css'] },
-  { id: 1, filenames: ['style-1.css'] },
-];
 
 var isUpdatingUI = false;
 function updateUI() {
@@ -17,12 +12,10 @@ function updateUI() {
 
   isUpdatingUI = true;
 
-  getServerVersion().then(function(version) {
-    document.querySelector('#newest-version').textContent = version;
-  });
-
-  getCurrentVersion().then(function(version) {
-    document.querySelector('#displayed-version').textContent = version;
+  Promise.all([getServerVersion(), getCurrentVersion()]).then(function(vals) {
+    document.querySelector('#newest-version').textContent = vals[0];
+    document.querySelector('#displayed-version').textContent = vals[1];
+    isUpdatingUI = false;
   });
 }
 
@@ -31,11 +24,11 @@ window.addEventListener('load', function() {
 });
 
 window.addEventListener('message', function(event) {
-  if (!event.data) {
+  if (!event.data || !event.data.msg) {
     return;
   }
 
-  if (event.data.msg === 'toggleVersion') {
+  if (event.data.msg === 'cacheUpdated') {
     updateUI();
   }
 });
@@ -45,55 +38,39 @@ function getCurrentVersion() {
     return cache.match(currentKey);
   }).then(function(response) {
     if (!response || !response.ok || !response.text) {
-      return null;
+      return 'no cached version';
     }
 
     return response.text();
   });
 }
 
+var currentJSONKey = 'currentJSON';
 function getServerVersion() {
   return caches.open(metaCacheName).then(function(cache) {
     return cache.match(currentJSONKey);
   }).then(function(res) {
     if (!res || !res.ok || !res.json) {
-      return 'No version';
+      return cachePrefix + '0';
     }
     return res.json().then(function(json) {
-      return json.id;
+      return cachePrefix + json.id;
     });
   });
 }
 
 navigator.serviceWorker.addEventListener('message', function(event) {
-  if (event.data.msg === 'cssUpdated') {
+  if (event.data.msg === 'cacheUpdated') {
     document.querySelector('#updated').textContent =
       'SW informs us there is a new version available!';
+  }
+
+  if (event.data.msg === 'currentJSONUpdated') {
+    updateUI();
   }
 });
 
 var toggleVersionButton = document.querySelector('#toggleVersionButton');
 toggleVersionButton.addEventListener('click', function() {
-  toggleVersionButton.disabled = true;
-  caches.open(metaCacheName).then(function(cache) {
-    return cache.match(currentJSONKey).then(function(response) {
-      if (!response || !response.ok || !response.json) {
-        var json = JSON.stringify(currents[0]);
-        return cache.put(currentJSONKey,
-                         new Response(json,
-                                      { 'status': 200 }));
-      }
-
-      return response.json().then(function(resJSON) {
-        var id = (resJSON.id + 1) % currents.length;
-        var newJSON = JSON.stringify(currents[id]);
-        return cache.put(currentJSONKey,
-                         new Response(newJSON,
-                                      { 'status': 200 }));
-      });
-    });
-  }).then(function() {
-    window.postMessage({ msg: 'toggleVersion' }, '*');
-    toggleVersionButton.disabled = false;
-  });
+  navigator.serviceWorker.controller.postMessage({ msg: 'toggleVersion' });
 });
