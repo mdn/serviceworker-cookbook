@@ -14,10 +14,7 @@ navigator.serviceWorker.register('service-worker.js')
 
     // Otherwise, subscribe the user (userVisibleOnly allows to specify that we don't plan to
     // send notifications that don't have a visible effect for the user).
-    return registration.pushManager.subscribe({ userVisibleOnly: true })
-    .then(function(newSubscription) {
-      return newSubscription;
-    });
+    return registration.pushManager.subscribe({ userVisibleOnly: true });
   });
 }).then(function(subscription) {
   // Retrieve the user's public key.

@@ -36,10 +36,7 @@ if ('serviceWorker' in navigator) {
 // endpoint to the server.
 function subscribe() {
   navigator.serviceWorker.ready.then(function(registration) {
-    return registration.pushManager.subscribe({ userVisibleOnly: true })
-      .then(function(newSubscription) {
-        return newSubscription;
-      });
+    return registration.pushManager.subscribe({ userVisibleOnly: true });
   }).then(function(subscription) {
     console.log('Subscribed', subscription.endpoint);
     return fetch('register', {
