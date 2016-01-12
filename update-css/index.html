@@ -5,31 +5,35 @@
   <title>Cache CSS - ServiceWorker Cookbook</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' href='style.css'>
+  <link rel='stylesheet' href='style-shared.css'>
 </head>
 <body>
-  <p>This page uses a ServiceWorker to make CSS assets available from a local cache; the browser does not have to wait for a response to a network request for the CSS assets before it displays the page.
-  </p>
+  <div id='styled-inner'>
+    <p>This page uses a Service Worker to make CSS assets available from a local cache; the browser does not have to wait for a response to a network request for the CSS assets before it displays the page.
+    </p>
 
-  <p>This page also demonstrates what happens when a new CSS file becomes available.
-  </p>
+    <p>This page should have some dramatically obvious styling. If it does not have styling, that means that a Service Worker is not controlling this page. Make sure your browser supports Service Workers and refresh the page.</p>
 
-  <p>The box below indicates what the SW served to this page in response to the request for 'style.css'. There are 2 styles available; yellow and blue. The button on this page can be used to simulate pushing an updated CSS file on the server. It will cycle between the yellow and blue styles. A black box below indicates that there was no SW installed when the page was loaded. Refresh the page to see a styled box appear.
-  </p>
+    <p>If you do see styling, the CSS, image, and font (coming soon) resources have been served from a Service Worker. If you refresh the page, the same resources will be served. On each fetch, the Service Worker queries the "server" for a JSON file that lists the resources to be cached. If a newer JSON file is available than the one that our Service Worker is using, the Service Worker will begin downloading the resources listed in that file. When the Service Worker has finished caching those items, it will notify all the pages that it is controlling that a new set of resources is now cached. If this page gets notified it will change the text of the line below.</p>
 
-  <p>This example does not poll the server for new CSS files, but that could optionally be accomplished by sending Fetch Events from time to time from this page.
-  </p>
+    <p>
+      <div id='status'>SW has not informed us of an update</div>
+    </p>
 
-  <p>This page does not auto-refresh the page when it discovers that a new CSS file is available; it simply displays a message to illustrate what is happening.
-  </p>
+    <p>To make a different JSON file available, click the button below:</p>
 
-  <label>Output: </label>
-  <div id='css-output' width='50px' height='50px'></div>
-  <div><label>Displayed version: </label><output id='displayed-version'></output></div>
-  <div><label>"Newest" version: </label><output id='newest-version'></output></div>
-  <div><output id='updated'></output></div>
+    <p>
+      <button id='toggleVersionButton'>Update files on "server"</button>
+      <output id='toggleVersionButtonOutput'></output>
+    </p>
 
-  <p><button id='toggleVersionButton'>Update files on "server"</button>
-  </p>
+    <p>This example does not poll the server for new CSS files, but that could optionally be accomplished by sending Fetch Events from time to time from this page.
+    </p>
+
+    <p>This page does not auto-refresh the page when it discovers that a new CSS file is available; it simply displays a message to illustrate what is happening.
+    </p>
+
+  </div>
 
   <script src='./main.js'></script>
 </body>

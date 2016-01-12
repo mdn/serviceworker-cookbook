@@ -1,0 +1,11 @@
+body {
+  background-size: contain;
+  width: 100%;
+  height: 100px;
+}
+
+#styled-inner {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}

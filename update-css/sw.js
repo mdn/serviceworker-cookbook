@@ -195,8 +195,12 @@ function notifyClients(msg) {
 
 var currentJSONKey = 'currentJSON';
 var currents = [
-  { id: 0, files: [{ name: 'style-0.css', cacheAs: 'style.css' }] },
-  { id: 1, files: [{ name: 'style-1.css', cacheAs: 'style.css' }] },
+  { id: 0, files: [{ name: 'style-0.css', cacheAs: 'style.css' },
+                   { name: 'style-shared.css', cacheAs: 'style-shared.css' },
+                   { name: 'cat.jpg', cacheAs: 'cat.jpg' }] },
+  { id: 1, files: [{ name: 'style-1.css', cacheAs: 'style.css' },
+                   { name: 'style-shared.css', cacheAs: 'style-shared.css' },
+                   { name: 'monalisa.jpg', cacheAs: 'monalisa.jpg' }] },
 ];
 
 var isTogglingVersion = false;
