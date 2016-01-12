@@ -15,10 +15,7 @@ navigator.serviceWorker.register('service-worker.js')
     // Otherwise, subscribe the user (unlike the other push recipes, here we don't set
     // the userVisibleOnly property because we don't plan to only send notifications that
     // have a visible effect for the user).
-    return registration.pushManager.subscribe()
-    .then(function(newSubscription) {
-      return newSubscription;
-    });
+    return registration.pushManager.subscribe();
   });
 }).then(function(subscription) {
   // Retrieve the user's public key.
