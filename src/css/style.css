@@ -48,7 +48,7 @@ html {
 }
 
 a {
-  color: #a87aad;
+  color: #0c99d5;
 }
 
 body {
@@ -78,9 +78,7 @@ body {
 }
 
 .tip {
-  background: #fffea1;
-  padding: 10px;
-  border-left: #fc0;
+  font-style:italic;
 }
 
 .book {
@@ -98,8 +96,8 @@ body {
   z-index: 1;
   width: 300px;
   color: #364149;
-  background: #333;
-  border-right: 1px solid rgba(0,0,0,0.07);
+  background: rgba(209, 210, 211, 0.3); /* #d1d2d3 */
+  border-right: 1px solid rgba(86, 86, 90, 0.2); /* #56565a */
 }
 
 @media (min-width: 600px) {
@@ -135,19 +133,19 @@ body {
 .book nav ul.recipes li a {
   display: block;
   padding: 6px 20px;
-  color: #fff;
+  color: #56565a;
 }
 
 .book nav ul.recipes li a:hover,
 .book nav ul.recipes li a:active,
 .book nav ul.recipes li a:focus {
-  background: rgba(120, 186, 145, 0.6);
+  background: rgba(111, 190, 74, 0.3); /* #6fbe4a */
 }
 
 .book nav ul.recipes li.category {
   padding: 20px 10px 3px;
-  font: 20px "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: #78ba91;
+  font: 20px "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif bold;
+  color: #000;
 }
 
 .book nav ul.recipes li span {
@@ -164,18 +162,15 @@ body {
 }
 
 .ball-difficulty-1 {
-  background: green;
-  background: rgba(0, 128, 0, 0.8);
+  background: #6fbe4a;
 }
 
 .ball-difficulty-2 {
-  background: orange;
-  background: rgba(255, 165, 0, 0.8);
+  background: #f18a21;
 }
 
 .ball-difficulty-3 {
-  background: #cc0000;
-  background: rgba(204, 0, 0, 0.8);
+  background: #c33b32;
 }
 
 nav .recipes-cover {
@@ -215,17 +210,13 @@ nav ul.recipes li {
 }
 
 h1 {
-  color: #78ba91;
+  color: #6fbe4a;
   line-height: 1;
 }
 
 h2 {
   margin: 40px 0 0 0;
-  color: #c17878;
-}
-
-h3 a {
-  color: #6b7b95;
+  color: #e55525;
 }
 
 iframe {
@@ -289,9 +280,9 @@ iframe {
 }
 
 .nav-top a:hover:not(.active) {
-  border-bottom-color: #ccc;
+  border-bottom-color: #d1d2d3;
   color: inherit;
-  background: #eee;
+  background: rgba(209, 210, 211, 0.3); /* #d1d2d3 */
 }
 
 .nav-top .active, nav a.active {
@@ -299,10 +290,10 @@ iframe {
 }
 
 nav a.active {
-  background: rgba(120, 186, 145, 0.8);
+  background: rgba(111, 190, 74, 0.3); /* #6fbe4a */
 }
 
 .nav-top .active {
-  background: rgba(120, 186, 145, 0.4);
-  border-bottom: 2px solid rgb(120, 186, 145);
+  background: rgba(111, 190, 74, 0.3); /* #6fbe4a */
+  border-bottom: 2px solid #6fbe4a;
 }
