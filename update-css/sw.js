@@ -12,29 +12,42 @@ var updateKey = 'update';
 // Invariants:
 //   1. If a currentCache exists, it will always be complete
 
+function log(msg) {
+  console.log('|SW| ' + msg);
+}
+
 
 self.addEventListener('install', function() {
+  log('install event (no-op)');
 });
 
 self.addEventListener('activate', function(event) {
+  log('activate event');
+  log('claiming clients');
   var wait = [self.clients.claim()];
 
   // A. Call update logic, store promise
+  log('initiating check for updated resources');
   var p = updateResources();
 
   // B. Check whether we have a currentCache available
   wait.push(getCurrentCacheName().then(function(name) {
     if (!name) {
+      log('no resources are cached');
+      log('activate event will not complete until resources are cached');
       //    If not, the cache needs to be populated. Wait on the promise acquired
       //    in A.
       return p;
     }
+    log('cached resources are available');
   }));
 
   event.waitUntil(Promise.all(wait));
 });
 
 self.addEventListener('fetch', function(event) {
+  log('fetch - ' + event.request.url);
+  log('initiating check for updated resources');
   updateResources();
 
   // Return response from currentCache
@@ -45,12 +58,12 @@ self.addEventListener('fetch', function(event) {
       throw new Error('Item not in cache: ' + event.request.url);
     }
 
-    console.log('cache: ' + event.request.url);
+    log('fetched from cache: ' + event.request.url);
 
     return response;
   }).catch(function() {
     // On any failure, go to the network
-    console.log('network: ' + event.request.url);
+    log('fetching from network: ' + event.request.url);
     return fetch(event.request);
   }));
 });
@@ -89,10 +102,10 @@ var isUpdateCheckInProgress = false;
 var updatePromise = Promise.resolve();
 function updateResources() {
   if (isUpdateCheckInProgress) {
-    console.log('updateResources - not starting');
+    log('updateResources - not starting');
     return updatePromise;
   }
-  console.log('updateResources - start');
+  log('updateResources - start');
 
   isUpdateCheckInProgress = true;
 
@@ -104,8 +117,8 @@ function updateResources() {
 
     // Compare it against our currentCache
     return getCurrentCacheName().then(function(currentCacheName) {
-      console.log('sw.js newest - ' + generatedCacheName);
-      console.log('sw.js current - ' + currentCacheName);
+      log('update check: server version - ' + generatedCacheName);
+      log('update check: cached version - ' + currentCacheName);
 
       // If the same, stop
       if (currentCacheName === generatedCacheName) {
@@ -118,6 +131,7 @@ function updateResources() {
         // If different, obliterate updateCache
         if (updateCacheName !== generatedCacheName) {
           if (updateCacheName) {
+            log('obliterating partially downloaded resource cache - ' + updateCacheName);
             // `CacheStorage.delete` returns a promise but we don't care about the result
             caches.delete(updateCacheName);
           }
@@ -134,6 +148,7 @@ function updateResources() {
           }).then(function() {
             return setUpdateCacheName(null);
           }).then(function() {
+            log('resources cached, notifying clients');
             notifyClients('cacheUpdated');
             isUpdateCheckInProgress = false;
           });
@@ -146,14 +161,12 @@ function updateResources() {
 }
 
 function setCurrentCacheName(name) {
-  console.log('setCurrentCacheName - ' + name);
   return caches.open(metaCacheName).then(function(cache) {
     return cache.put(currentKey, new Response(name, { status: 200 }));
   });
 }
 
 function setUpdateCacheName(name) {
-  console.log('setUpdateCacheName - ' + name);
   return caches.open(metaCacheName).then(function(cache) {
     return cache.put(updateKey, new Response(name, { status: 200 }));
   });
@@ -164,6 +177,7 @@ function cacheFiles(cacheName, files) {
   // Some ideas:
   //   Validate files that are already in the cache
   //   Check files in the current cache against a checksum to see if we can just copy
+  log('downloading/caching files in ' + cacheName);
   return caches.open(cacheName).then(function(cache) {
     var promises = [];
 
@@ -220,16 +234,13 @@ self.addEventListener('message', function(event) {
       return cache.match(currentJSONKey).then(function(response) {
         if (!response || !response.ok || !response.json) {
           var json = JSON.stringify(currents[0]);
-          console.log('json = ' + json);
           return cache.put(currentJSONKey,
                            new Response(json, { status: 200 }));
         }
 
         return response.json().then(function(resJSON) {
-          console.log('resJSON.id = ' + resJSON.id);
           var id = (resJSON.id + 1) % currents.length;
           var newJSON = JSON.stringify(currents[id]);
-          console.log('newJSON = ' + newJSON);
           return cache.put(currentJSONKey,
                            new Response(newJSON,
                                         { status: 200 }));
