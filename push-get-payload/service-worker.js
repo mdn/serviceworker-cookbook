@@ -1,6 +1,6 @@
 function getEndpoint() {
   return self.registration.pushManager.getSubscription()
-  .then(subscription => {
+  .then(function(subscription) {
     if (subscription) {
       return subscription.endpoint;
     }
@@ -14,16 +14,20 @@ self.addEventListener('push', function(event) {
   // Keep the service worker alive until the notification is created.
   event.waitUntil(
     getEndpoint()
-    // Retrieve the textual payload from the server using a GET request.
-    // We are using the endpoint as an unique ID of the user for simplicity.
-    .then(endpoint => fetch('./getPayload?endpoint=' + endpoint))
-    .then(response => response.text())
-    .then(payload => 
+    .then(function(endpoint) {
+      // Retrieve the textual payload from the server using a GET request.
+      // We are using the endpoint as an unique ID of the user for simplicity.
+      return fetch('./getPayload?endpoint=' + endpoint);
+    })
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(payload) {
       // Show a notification with title 'ServiceWorker Cookbook' and use the payload
       // as the body.
       self.registration.showNotification('ServiceWorker Cookbook', {
         body: payload,
-      })
-    )
+      });
+    })
   );
 });
