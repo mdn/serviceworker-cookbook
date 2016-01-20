@@ -1,5 +1,4 @@
 var endpoint;
-var key;
 
 // Register a Service Worker.
 navigator.serviceWorker.register('service-worker.js')
