@@ -1,0 +1,8 @@
+{
+  "name": "Push Payload - Service Worker Cookbook",
+  "short_name": "push-get-payload",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "gcm_sender_id": "829371921996",
+  "gcm_user_visible_only": true
+}
