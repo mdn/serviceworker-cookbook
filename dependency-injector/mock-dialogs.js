@@ -16,4 +16,4 @@
       return 'test';
     }
   };
-}(window));
+})(window);

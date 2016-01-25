@@ -14,4 +14,4 @@
       return window.prompt(msg);
     }
   };
-}(window));
+})(window);

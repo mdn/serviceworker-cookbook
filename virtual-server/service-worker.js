@@ -42,7 +42,7 @@ var root = (function() {
   var tokens = (self.location + '').split('/');
   tokens[tokens.length - 1] = '';
   return tokens.join('/');
-}());
+})();
 
 
 // By using Mozilla's ServiceWorkerWare we can quickly setup some routes
