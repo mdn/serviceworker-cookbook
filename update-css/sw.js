@@ -16,38 +16,33 @@ function log(msg) {
   console.log('|SW| ' + msg);
 }
 
-
 self.addEventListener('install', function() {
   log('install event (no-op)');
 });
 
 self.addEventListener('activate', function(event) {
   log('activate event');
-  log('claiming clients');
   var wait = [self.clients.claim()];
 
   // A. Call update logic, store promise
-  log('initiating check for updated resources');
   var p = updateResources();
 
   // B. Check whether we have a currentCache available
   wait.push(getCurrentCacheName().then(function(name) {
     if (!name) {
-      log('no resources are cached');
-      log('activate event will not complete until resources are cached');
+      log('activate - no resources are cached');
+      log('activate - event will not complete until resources are cached');
       //    If not, the cache needs to be populated. Wait on the promise acquired
       //    in A.
       return p;
     }
-    log('cached resources are now available');
   }));
 
-  event.waitUntil(Promise.all(wait));
+  event.waitUntil(Promise.all(wait).then(function() { log('activate - done'); } ));
 });
 
 self.addEventListener('fetch', function(event) {
   log('fetch - ' + event.request.url);
-  log('initiating check for updated resources');
   updateResources();
 
   // Return response from currentCache
@@ -105,7 +100,7 @@ function updateResources() {
     log('update check - not starting because another is already in progress');
     return updatePromise;
   }
-  log('updateResources - start');
+  log('update check: start');
 
   isUpdateCheckInProgress = true;
 
@@ -150,7 +145,7 @@ function updateResources() {
           }).then(function() {
             return setUpdateCacheName(null);
           }).then(function() {
-            log('resources cached, notifying clients');
+            log('update check: resources cached, notifying clients');
             notifyClients('cacheUpdated');
             isUpdateCheckInProgress = false;
           });
