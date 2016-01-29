@@ -38,7 +38,9 @@ self.addEventListener('activate', function(event) {
     }
   }));
 
-  event.waitUntil(Promise.all(wait).then(function() { log('activate - done'); } ));
+  event.waitUntil(Promise.all(wait).then(function() {
+    log('activate - done');
+  }));
 });
 
 self.addEventListener('fetch', function(event) {
@@ -128,7 +130,7 @@ function updateResources() {
         // If different, obliterate updateCache
         if (updateCacheName !== generatedCacheName) {
           if (updateCacheName) {
-            log('obliterating partially downloaded resource cache - ' + updateCacheName);
+            log('obliterating old partial cache - ' + updateCacheName);
             // `CacheStorage.delete` returns a promise but we don't care about the result
             caches.delete(updateCacheName);
           }

@@ -7,12 +7,14 @@ function log(msg) {
 navigator.serviceWorker.addEventListener('message', function(event) {
   if (event.data.msg === 'cacheUpdated') {
     log('SW tells us that an update is available');
-    document.querySelector('#status').textContent = 'SW says an update is available!';
+    document.querySelector('#status').textContent = 'SW informed us of update!';
   }
 });
 
 var toggleVersionButton = document.querySelector('#toggleVersionButton');
-var toggleVersionButtonOutput = document.querySelector('#toggleVersionButtonOutput');
+var toggleVersionButtonOutput =
+          document.querySelector('#toggleVersionButtonOutput');
+
 toggleVersionButton.addEventListener('click', function() {
   toggleVersionButton.disabled = true;
 

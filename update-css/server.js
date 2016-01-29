@@ -17,4 +17,4 @@ module.exports = function(app, route) {
     currentJSONid = (currentJSONid + 1) % currentJSONs.length;
     res.status(201).json(currentJSONs[currentJSONid]);
   });
-}
+};
