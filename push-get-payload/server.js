@@ -6,6 +6,8 @@ var webPush = require('web-push');
 
 webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 
+var payloads = {};
+
 module.exports = function(app, route) {
   app.post(route + 'register', function(req, res) {
     // A real world application would store the subscription info.
@@ -13,13 +15,16 @@ module.exports = function(app, route) {
   });
 
   app.post(route + 'sendNotification', function(req, res) {
-    webPush.sendNotification(req.query.endpoint, 200);
-
     setTimeout(function() {
-      webPush.sendNotification(req.query.endpoint, 200)
+      payloads[req.body.endpoint] = req.body.payload;
+      webPush.sendNotification(req.body.endpoint, req.body.ttl)
       .then(function() {
         res.sendStatus(201);
       });
-    }, req.query.delay * 1000);
+    }, req.body.delay * 1000);
+  });
+
+  app.get(route + 'getPayload', function(req, res) {
+    res.send(payloads[req.query.endpoint]);
   });
 };
