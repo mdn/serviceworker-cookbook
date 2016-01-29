@@ -39,7 +39,7 @@ self.addEventListener('activate', function(event) {
       //    in A.
       return p;
     }
-    log('cached resources are available');
+    log('cached resources are now available');
   }));
 
   event.waitUntil(Promise.all(wait));
@@ -102,7 +102,7 @@ var isUpdateCheckInProgress = false;
 var updatePromise = Promise.resolve();
 function updateResources() {
   if (isUpdateCheckInProgress) {
-    log('updateResources - not starting');
+    log('update check - not starting because another is already in progress');
     return updatePromise;
   }
   log('updateResources - start');
@@ -110,9 +110,11 @@ function updateResources() {
   isUpdateCheckInProgress = true;
 
   // Download current.json
-  //   In a real environment, this call could fail and we should deal
-  //   with errors
-  updatePromise = getCurrentJSON().then(function(json) {
+  updatePromise = fetch('current.json').then(function(res) {
+    // In a real environment, this call could fail and we should deal
+    // with errors
+    return res.json();
+  }).then(function(json) {
     var generatedCacheName = cachePrefix + json.id;
 
     // Compare it against our currentCache
@@ -199,78 +201,6 @@ function notifyClients(msg) {
   self.clients.matchAll().then(function(clientList) {
     clientList.forEach(function(client) {
       client.postMessage({ msg: msg });
-    });
-  });
-}
-
-/*
- * Implementation details
- */
-
-var currentJSONKey = 'currentJSON';
-var currents = [
-  { id: 0, files: [{ name: 'style-0.css', cacheAs: 'style.css' },
-                   { name: 'style-shared.css', cacheAs: 'style-shared.css' },
-                   { name: 'cat.jpg', cacheAs: 'cat.jpg' }] },
-  { id: 1, files: [{ name: 'style-1.css', cacheAs: 'style.css' },
-                   { name: 'style-shared.css', cacheAs: 'style-shared.css' },
-                   { name: 'monalisa.jpg', cacheAs: 'monalisa.jpg' }] },
-];
-
-var isTogglingVersion = false;
-self.addEventListener('message', function(event) {
-  if (!event.data || !event.data.msg) {
-    return;
-  }
-
-  if (event.data.msg === 'toggleVersion') {
-    if (isTogglingVersion) {
-      return;
-    }
-
-    isTogglingVersion = true;
-
-    caches.open(metaCacheName).then(function(cache) {
-      return cache.match(currentJSONKey).then(function(response) {
-        if (!response || !response.ok || !response.json) {
-          var json = JSON.stringify(currents[0]);
-          return cache.put(currentJSONKey,
-                           new Response(json, { status: 200 }));
-        }
-
-        return response.json().then(function(resJSON) {
-          var id = (resJSON.id + 1) % currents.length;
-          var newJSON = JSON.stringify(currents[id]);
-          return cache.put(currentJSONKey,
-                           new Response(newJSON,
-                                        { status: 200 }));
-        });
-      });
-    }).then(function() {
-      return notifyClients('currentJSONUpdated');
-    }).then(function() {
-      isTogglingVersion = false;
-    });
-  }
-});
-
-/**
- * getCurrentJSON
- *
- * In a real production environment, this function would not be necessary.
- * This function should perform the equivalent of `fetch(resource)`
- */
-function getCurrentJSON() {
-  return caches.open(metaCacheName).then(function(cache) {
-    return cache.match(currentJSONKey).then(function(response) {
-      if (!response || !response.ok || !response.json) {
-        return cache.put(currentJSONKey,
-                         new Response(JSON.stringify(currents[0]),
-                                      { status: 200 }))
-        .then(function() { return currents[0]; });
-      }
-
-      return response.json();
     });
   });
 }
