@@ -1,5 +1,5 @@
 body {
-  background-image: url('cat.jpg');
+  background-color: rgb(255, 0, 0);
 }
 
 #styled-inner {

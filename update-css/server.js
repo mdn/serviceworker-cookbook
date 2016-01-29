@@ -1,11 +1,11 @@
 var currentJSONid = 0;
 var currentJSONs = [
   { id: 0, files: [{ name: 'style-0.css', cacheAs: 'style.css' },
-                   { name: 'style-shared.css', cacheAs: 'style-shared.css' },
-                   { name: 'cat.jpg', cacheAs: 'cat.jpg' }] },
+                   { name: 'style-shared.css', cacheAs: 'style-shared.css' }] },
   { id: 1, files: [{ name: 'style-1.css', cacheAs: 'style.css' },
-                   { name: 'style-shared.css', cacheAs: 'style-shared.css' },
-                   { name: 'monalisa.jpg', cacheAs: 'monalisa.jpg' }] },
+                   { name: 'style-shared.css', cacheAs: 'style-shared.css' }] },
+  { id: 2, files: [{ name: 'style-2.css', cacheAs: 'style.css' },
+                   { name: 'style-shared.css', cacheAs: 'style-shared.css' }] },
 ];
 
 module.exports = function(app, route) {

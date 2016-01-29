@@ -16,4 +16,4 @@ Cache CSS files. Maintain a JSON file that can be queried from the service worke
 
 ## Category
 
-Beyond Offline
+Performance
