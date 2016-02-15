@@ -225,4 +225,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);
+gulp.task('build', ['build-dev', 'build:index', 'build:intros', 'build:demos', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);
