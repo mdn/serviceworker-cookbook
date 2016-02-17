@@ -1,4 +1,4 @@
-// [Working example](/serviceworker-cookbook/push-subscription-management/).
+// [Working example](/push-subscription-management_demo.html).
 
 var subscriptionButton = document.getElementById('subscriptionButton');
 
