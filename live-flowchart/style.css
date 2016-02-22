@@ -12,11 +12,15 @@ a {
 
 div.flowchart {
 	margin-right: 3em;
-	width: 500px;
+  width: 1000px;
 }
 
 div.flowchart h1 {
 	margin-left: 15px;
+}
+
+div.flowchart img {
+  width: 100%;
 }
 
 div.playground {
