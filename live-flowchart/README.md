@@ -1,6 +1,6 @@
 # Live Flowchart
 
-This recipe provides a way to learn how to use service workers (SW) through showing [the flow diagram of SW workflow explained on the Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers), and logging on screen the steps taken by a real Web App running service workers.
+This master provides a way to learn how to use service workers (SW) through showing [the flow diagram of SW workflow explained on the Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers), and logging on screen the steps taken by a real Web App running service workers.
 
 ## Difficulty
 Advanced
@@ -9,19 +9,19 @@ Advanced
 
 Register + Unregister
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/register-unregister.png)
+![Screenshot](https://raw.githubusercontent.com/mozilla/serviceworker-cookbook/master/live-flowchart/live-flowchart/register-unregister.png)
 
 Active service worker on page load + unregister
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/active-service-worker-unregister.png)
+![Screenshot](https://raw.githubusercontent.com/mozilla/serviceworker-cookbook/master/live-flowchart/live-flowchart/active-service-worker-unregister.png)
 
 Wrong service worker scriptURL
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/wrong-scriptURL.png)
+![Screenshot](https://raw.githubusercontent.com/mozilla/serviceworker-cookbook/master/live-flowchart/live-flowchart/wrong-scriptURL.png)
 
 Security error
 
-![Screenshot](https://raw.githubusercontent.com/franciov/serviceworker-cookbook/recipe/live-flowchart/live-flowchart/security-error.png)
+![Screenshot](https://raw.githubusercontent.com/mozilla/serviceworker-cookbook/master/live-flowchart/live-flowchart/security-error.png)
 
 ## Features and Usage
 
