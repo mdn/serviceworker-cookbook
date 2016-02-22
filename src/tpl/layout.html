@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  {% if currentRecipe %}
+  <title>ServiceWorker Cookbook - {{ currentRecipe.name }} Recipe</title>
+  {% else %}
   <title>ServiceWorker Cookbook</title>
+  {% endif %}
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="tabzilla.css">
   <link rel="stylesheet" href="bundle.css">
