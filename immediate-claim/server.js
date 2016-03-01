@@ -10,7 +10,7 @@ module.exports = function autoClaim(app, route) {
     // is updated every 10sec
     var nowMinute = new Date();
     nowMinute.setSeconds(Math.floor(nowMinute.getSeconds() / 5) * 5);
-    // Replace {{ vefsion }} service-worker.js
+    // Replace {{ version }} service-worker.js
     var buffer = tpl({
       version: [
         nowMinute.getFullYear(),
