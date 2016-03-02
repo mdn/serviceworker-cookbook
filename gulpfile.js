@@ -204,7 +204,7 @@ gulp.task('build:favicon', ['clean'], function() {
 });
 
 // Start express server after building site
-gulp.task('start-server', ['build'], function startServer(cb) {
+gulp.task('start-server', ['build', 'lint'], function startServer(cb) {
   require('./server.js').ready.then(cb);
 });
 
