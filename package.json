@@ -53,7 +53,7 @@
     "glob": "^7.0.0",
     "request": "^2.64.0",
     "swig": "^1.4.2",
-    "web-push": "^1.0.1"
+    "web-push": "^2.0.0"
   },
   "engines": {
     "node": "4"
