@@ -1,5 +1,6 @@
 var endpoint;
 var key;
+var authSecret;
 
 // Register a Service Worker.
 navigator.serviceWorker.register('service-worker.js')
@@ -23,6 +24,10 @@ navigator.serviceWorker.register('service-worker.js')
   key = rawKey ?
         btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey))) :
         '';
+  var rawAuthSecret = subscription.getKey ? subscription.getKey('auth') : '';
+  authSecret = rawAuthSecret ?
+               btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) :
+               '';
 
   endpoint = subscription.endpoint;
 
@@ -35,6 +40,7 @@ navigator.serviceWorker.register('service-worker.js')
     body: JSON.stringify({
       endpoint: subscription.endpoint,
       key: key,
+      authSecret: authSecret,
     }),
   });
 });
@@ -52,6 +58,7 @@ function askForNotifications(visible) {
     body: JSON.stringify({
       endpoint: endpoint,
       key: key,
+      authSecret: authSecret,
       visible: visible,
       num: notificationNum,
     }),

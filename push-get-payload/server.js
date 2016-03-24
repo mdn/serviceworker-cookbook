@@ -17,7 +17,9 @@ module.exports = function(app, route) {
   app.post(route + 'sendNotification', function(req, res) {
     setTimeout(function() {
       payloads[req.body.endpoint] = req.body.payload;
-      webPush.sendNotification(req.body.endpoint, req.body.ttl)
+      webPush.sendNotification(req.body.endpoint, {
+        TTL: req.body.ttl,
+      })
       .then(function() {
         res.sendStatus(201);
       });
