@@ -22,10 +22,12 @@ module.exports = function(app, route) {
     var promises = [];
 
     var intervalID = setInterval(function() {
-      promises.push(webPush.sendNotification(req.body.endpoint,
-                                             200,
-                                             req.body.key,
-                                             JSON.stringify(req.body.visible)));
+      promises.push(webPush.sendNotification(req.body.endpoint, {
+        TTL: 200,
+        payload: JSON.stringify(req.body.visible),
+        userPublicKey: req.body.key,
+        userAuth: req.body.authSecret,
+      }));
 
       if (num++ === Number(req.body.num)) {
         clearInterval(intervalID);

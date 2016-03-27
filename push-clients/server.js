@@ -14,7 +14,9 @@ module.exports = function(app, route) {
 
   app.post(route + 'sendNotification', function(req, res) {
     setTimeout(function() {
-      webPush.sendNotification(req.query.endpoint, 200)
+      webPush.sendNotification(req.query.endpoint, {
+        TTL: 200,
+      })
       .then(function() {
         res.sendStatus(201);
       });
