@@ -49,6 +49,15 @@ app.use(function corsify(req, res, next) {
   next();
 });
 
+app.use(function setServiceWorkerHeader(req, res, next) {
+  // https://github.com/mozilla/serviceworker-cookbook/issues/201
+  var file = req.url.split('/').pop();
+  if (file === 'service-worker.js' || file === 'worker.js') {
+    res.header('Cache-control', 'public, max-age=0');
+  }
+  next();
+});
+
 glob.sync('./*/server.js').map(function requireRecipe(file) {
   var route = '/' + path.basename(path.dirname(file)) + '/';
   require(file)(app, route);
