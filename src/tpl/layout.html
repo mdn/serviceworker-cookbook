@@ -35,29 +35,27 @@
         <li><a href="index.html">Introduction</a></li>
         <li><a href="https://github.com/mozilla/serviceworker-cookbook/">Contribute on GitHub</a></li>
 
-        {% set curCategory = "" %}
-        {% for recipe in recipes %}
-          {% if recipe.category != curCategory %}
-            <li class="category">{{ recipe.category }}</li>
-          {% endif %}
-
-          <li>
-            <a href="{{ recipe.intro_ref }}">
-              <span class="ball-difficulty-{{ recipe.difficulty }}" title="Difficulty: {{ recipe.difficultyTerm }}">
-                {% if recipe.difficulty === 1 %}
-                B
-                {% elif recipe.difficulty === 2 %}
-                I
-                {% elif recipe.difficulty === 3 %}
-                A
-                {% endif %}
-              </span>
-              {{ recipe.name }}
-            </a>
-          </li>
-
-          {% set curCategory = recipe.category %}
-        {% endfor %}
+          {% for category in categories %}
+            <li class="category"><a href="{{ category.slug }}.html">{{ category.title }}</a></li>
+            {% for recipe in recipes %}
+              {% if recipe.category == category.title %}
+              <li>
+                <a href="{{ recipe.intro_ref }}">
+                  <span class="ball-difficulty-{{ recipe.difficulty }}" title="Difficulty: {{ recipe.difficultyTerm }}">
+                    {% if recipe.difficulty === 1 %}
+                    B
+                    {% elif recipe.difficulty === 2 %}
+                    I
+                    {% elif recipe.difficulty === 3 %}
+                    A
+                    {% endif %}
+                  </span>
+                  {{ recipe.name }}
+                </a>
+              </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
       </ul>
     </div></nav>
     <main>

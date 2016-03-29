@@ -1,0 +1,9 @@
+<div class="text-page">
+  <h1>{{ title }}</h1>
+
+  <h2>Recipes</h2>
+  {% for recipe in recipes %}
+    <h3><a href="{{ recipe.slug }}.html">{{ recipe.title }}</a></h3>
+    <div>{% autoescape false %}{{ recipe.summary }}{% endautoescape %}</div>
+  {% endfor %}
+</div>
