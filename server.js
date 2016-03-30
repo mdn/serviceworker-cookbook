@@ -7,12 +7,20 @@ var app = express();
 
 app.use(bodyParser.json());
 
-app.use(function maskIndex(req, res, next) {
+app.use(function maskDemoIndexes(req, res, next) {
   // Adding this redirect to simplify caching a recipe page,
   // essentially so we don't have to cache "/" and "/index.html"
   // So: "recipe/index.html" -> "recipe/" , "index.html?123" -> "?123"
   if (/\/(.*)\/index\.html\??(.*)$/.test(req.url)) {
     return res.redirect(req.url.replace('index.html', ''));
+  }
+  return next();
+});
+
+app.use(function setHomepageCanonical(req, res, next) {
+  // Better for canonical URL, "index.html" is ugly 
+  if(req.url === '/index.html') {
+    return res.redirect(301, '/');
   }
   return next();
 });
