@@ -9,9 +9,19 @@ var difficulties = {
   'Beginner': 1
 };
 
-var categoryOrder = ['General Usage', 'Offline', 'Beyond Offline', 'Performance', 'Web Push'];
+var categories = module.exports.categories = [
+  { title: 'General Usage', slug: 'general-usage' },
+  { title: 'Offline', slug: 'offline' },
+  { title: 'Beyond Offline', slug: 'beyond-offline' },
+  { title: 'Performance', slug: 'performance' },
+  { title: 'Web Push', slug: 'web-push' }
+];
 
-module.exports = function(recipeSlugs) { 
+var categoryOrder = categories.map(function(category) {
+  return category.title;
+});
+
+module.exports.parse = function(recipeSlugs) {
   var recipes = recipeSlugs.map(function(recipe) {
     var tokens = marked.lexer(fs.readFileSync(recipe + '/README.md', 'utf8'));
     assert(tokens.length > 1, recipe + ': README.md must have contents.');
@@ -85,6 +95,6 @@ module.exports = function(recipeSlugs) {
       return -1;
     }
   });
-  
+
   return recipes;
 };

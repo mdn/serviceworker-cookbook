@@ -24,7 +24,7 @@ var recipeSlugs = glob.sync('./!(dist|node_modules|src|_recipe_template)/').map(
 var srcRecipes = recipeSlugs.map(function makePath(name) {
   return './' + name + '/**';
 });
-var recipes = parseRecipes(recipeSlugs);
+var recipes = parseRecipes.parse(recipeSlugs);
 
 var template = (function() {
   function renderContent(content, options) {
@@ -35,6 +35,7 @@ var template = (function() {
       recipes: recipes,
       ghBase: 'https://github.com/digitarald/serviceworker-cookbook/blob/master/',
       currentRecipe: newOptions.currentRecipe,
+      categories: parseRecipes.categories
     });
   }
 
@@ -127,6 +128,27 @@ gulp.task('build:index', ['clean'], function buildIndex() {
   .then(function(output) {
     return template.writeFile('./dist/index.html', output);
   });
+});
+
+gulp.task('build:categories', ['clean'], function buildCategories() {
+  return Promise.all(parseRecipes.categories.map(function(category) {
+    var categoryRecipes = recipes.filter(function(recipe) {
+      return recipe.category === category.title;
+    }).map(function(recipe) {
+      return {
+        slug: recipe.slug,
+        title: recipe.name,
+        summary: marked(recipe.summary)
+      };
+    });
+
+    return renderFile('./src/tpl/category.html', {
+      recipes: categoryRecipes,
+      title: category.title
+    }).then(function(output) {
+      return template.writeFile('./dist/' + category.slug + '.html', output);
+    });
+  }));
 });
 
 gulp.task('build:intros', ['clean'], function() {
@@ -225,4 +247,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', ['build:index', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);
+gulp.task('build', ['build:index', 'build:categories', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);

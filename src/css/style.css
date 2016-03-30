@@ -130,15 +130,16 @@ body {
   left: 0;
 }
 
-.book nav ul.recipes li a {
+.book nav ul.recipes li:not(.category) a,
+.book nav ul.recipes li.category a {
   display: block;
   padding: 6px 20px;
   color: #56565a;
 }
 
-.book nav ul.recipes li a:hover,
-.book nav ul.recipes li a:active,
-.book nav ul.recipes li a:focus {
+.book nav ul.recipes li:not(.category) a:hover,
+.book nav ul.recipes li:not(.category) a:active,
+.book nav ul.recipes li:not(.category) a:focus {
   background: rgba(111, 190, 74, 0.3); /* #6fbe4a */
 }
 
