@@ -19,7 +19,7 @@ navigator.serviceWorker.register('service-worker.js')
   endpoint = subscription.endpoint;
 
   // Show curl command to send the notification on the page.
-  document.getElementById('curl').textContent = 'curl -X POST ' + endpoint;
+  document.getElementById('curl').textContent = 'curl -H "TTL: 60" -X POST ' + endpoint;
 
   // Send the subscription details to the server using the Fetch API.
   fetch('./register', {
