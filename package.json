@@ -49,6 +49,8 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "es6-promisify": "^4.0.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "^0.6.2",
     "express": "^4.13.3",
     "glob": "^7.0.0",
     "request": "^2.64.0",
