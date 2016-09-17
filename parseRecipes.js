@@ -11,6 +11,7 @@ var difficulties = {
 
 var categories = module.exports.categories = [
   { title: 'General Usage', slug: 'general-usage' },
+  { title: 'Caching strategies', slug: 'caching-strategies' },
   { title: 'Offline', slug: 'offline' },
   { title: 'Beyond Offline', slug: 'beyond-offline' },
   { title: 'Performance', slug: 'performance' },
