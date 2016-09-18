@@ -1,6 +1,6 @@
 var CACHE = 'cache-only';
 
-// On install, cache the static assets, unlikely to be changed.
+// On install, cache some resource.
 self.addEventListener('install', function(evt) {
   console.log('The service worker is being installed.');
   // Open a cache and use `addAll()` with an array of assets to add all of them
@@ -19,6 +19,8 @@ self.addEventListener('fetch', function(evt) {
   evt.respondWith(cacheOnly(evt.request));
 });
 
+// Cache only is as simple as opening the proper cache and search for the
+// requested resource.
 function cacheOnly(request) {
   return caches.open(CACHE).then(function (cache) {
     return cache.match(request);

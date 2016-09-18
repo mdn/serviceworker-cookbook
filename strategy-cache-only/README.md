@@ -1,4 +1,4 @@
-# Cache Only
+# Cache only
 The recipe provides a service worker always answering from cache on `fetch` events.
 
 ## Difficulty

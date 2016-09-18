@@ -1,6 +1,6 @@
 var CACHE = 'cache-and-update';
 
-// On install, cache the static assets, unlikely to be changed.
+// On install, cache some resource.
 self.addEventListener('install', function(evt) {
   console.log('The service worker is being installed.');
   // Open a cache and use `addAll()` with an array of assets to add all of them
@@ -17,16 +17,23 @@ self.addEventListener('install', function(evt) {
 // the from server.
 self.addEventListener('fetch', function(evt) {
   console.log('The service worker is serving the asset.');
+  // You can use `respondWith()` to answer ASAP...
   evt.respondWith(cacheOnly(evt.request));
+  // ...and `waitUntil()` to prevent the worker to be killed until
+  // the cache is updated.
   evt.waitUntil(update(evt.request));
 });
 
+// Cache only is as simple as opening the proper cache and search for the
+// requested resource.
 function cacheOnly(request) {
   return caches.open(CACHE).then(function (cache) {
     return cache.match(request);
   });
 }
 
+// Update consists into open the proper cache, perform a network request and
+// `put()` the new request and response pair.
 function update(request) {
   return caches.open(CACHE).then(function (cache) {
     return fetch(request).then(function (response) {
