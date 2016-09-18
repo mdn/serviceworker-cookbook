@@ -1,17 +1,18 @@
+// On install, cache the static assets, unlikely to be changed.
 self.addEventListener('install', function(evt) {
   console.log('The service worker is being installed.');
-  evt.waitUntil(caches.open('catch-only').then(function (cache) {
-    cache.addAll(['./asset']);
+  // Open a cache and use `addAll()` with an array of assets to add all of them
+  // to the cache. Extend the installation until all the assets are saved.
+  evt.waitUntil(caches.open('cache-only').then(function (cache) {
+    cache.addAll([
+      './controlled.html',
+      './asset'
+    ]);
   }));
 });
 
+// On fetch, use cache only strategy.
 self.addEventListener('fetch', function(evt) {
-  if (isAsset(evt.request.url)) {
-    console.log('The service worker is serving the asset.');
-    evt.respondWith(caches.match(evt.request));
-  }
+  console.log('The service worker is serving the asset.');
+  evt.respondWith(caches.match(evt.request));
 });
-
-function isAsset(url) {
-  return url.endsWith('asset');
-}
