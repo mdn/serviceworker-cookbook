@@ -18,7 +18,7 @@ var fsWriteFile = promisify(fs.writeFile);
 var fsReadFile = promisify(fs.readFile);
 
 var ignore = ['!./dist', '!./dist', '!./dist/**', '!./node_modules', '!./node_modules/**'];
-var recipeSlugs = glob.sync('./!(dist|node_modules|src|_recipe_template)/').map(function toBase(dir) {
+var recipeSlugs = glob.sync('./!(dist|node_modules|src|_recipe_template|imgs)/').map(function toBase(dir) {
   return path.basename(dir);
 });
 var srcRecipes = recipeSlugs.map(function makePath(name) {
