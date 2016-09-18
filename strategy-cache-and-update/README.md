@@ -15,8 +15,8 @@ to update the cache entry ensuring next time the user visit the page she will
 see up to date content.
 
 See
-[cache, update and warn](strategy-cache-update-and-warn.html) for an interesting
-variation.
+[cache, update and refresh](strategy-cache-update-and-refresh.html) for an
+interesting variation.
 
 ## Category
 Caching strategies
