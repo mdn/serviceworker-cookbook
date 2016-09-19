@@ -3,7 +3,7 @@
 // Create a proxy for all requests to the local urls containing a
 // `cookbook-proxy` string.
 self.onfetch = function(event) {
-  if (event.request.url.contains('cookbook-proxy')) {
+  if (event.request.url.includes('cookbook-proxy')) {
     var init = { method: 'GET',
                  mode: event.request.mode,
                  cache: 'default' };

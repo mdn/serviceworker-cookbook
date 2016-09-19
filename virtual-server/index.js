@@ -41,6 +41,7 @@ document.getElementById('add-form').onsubmit = function(event) {
   })
   .then(function(addedQuote) {
     document.getElementById('quotations').appendChild(getRowFor(addedQuote));
+    resizeIframe();
   });
 };
 
@@ -62,11 +63,7 @@ function showQuotations(collection) {
     quote = collection[index];
     table.appendChild(getRowFor(quote));
   }
-
-  // Specifically for the cookbook site :(
-  if (window.parent !== window) {
-    window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
-  }
+  resizeIframe();
 }
 
 // Builds a row for a quote.
@@ -112,4 +109,11 @@ function getDeleteButton(id) {
 // Make the request to the API for deleting the quote.
 function deleteQuote(id) {
   return fetch(ENDPOINT + '/' + id, { method: 'DELETE' });
+}
+
+// Specifically for the cookbook site :(
+function resizeIframe() {
+  if (window.parent !== window) {
+    window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize'));
+  }
 }

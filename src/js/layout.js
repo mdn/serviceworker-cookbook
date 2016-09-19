@@ -1,7 +1,9 @@
 'use strict';
 
 function resizeIframe(iframe) {
-  iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+  var documentElement = iframe.contentWindow.document.documentElement;
+  var height = documentElement.getClientRects()[0].height;
+  iframe.style.height = height + 'px';
 }
 
 (function() {
@@ -40,7 +42,7 @@ window.addEventListener('load', function() {
 });
 
 // Demos that dynamically make the page grow require extra effort in sizing the iframe
-// These demos should trigger a custom event on the parent:  
+// These demos should trigger a custom event on the parent:
 // if (window.parent !== window) { window.parent.document.body.dispatchEvent(new CustomEvent('iframeresize')); }
 (function(iframe)  {
   var callback = function () {
