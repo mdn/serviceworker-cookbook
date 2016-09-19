@@ -4,7 +4,7 @@ responses but at the same time updating the cache entry from network. When
 the network response is ready, the UI updates automatically.
 
 ## Difficulty
-Beginner
+Intermediate
 
 ## Use Case
 You want to instantly show content while retrieving new content in background.
