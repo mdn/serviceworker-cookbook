@@ -62,7 +62,6 @@ function useFallback() {
   }}));
 }
 
-// Query the cache for a matching result
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
     return cache.match(request).then(function (matching) {
