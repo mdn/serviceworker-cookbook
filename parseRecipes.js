@@ -10,11 +10,12 @@ var difficulties = {
 };
 
 var categories = module.exports.categories = [
+  { title: 'Caching strategies', slug: 'caching-strategies' },
+  { title: 'Web Push', slug: 'web-push' },
   { title: 'General Usage', slug: 'general-usage' },
   { title: 'Offline', slug: 'offline' },
   { title: 'Beyond Offline', slug: 'beyond-offline' },
-  { title: 'Performance', slug: 'performance' },
-  { title: 'Web Push', slug: 'web-push' }
+  { title: 'Performance', slug: 'performance' }
 ];
 
 var categoryOrder = categories.map(function(category) {
