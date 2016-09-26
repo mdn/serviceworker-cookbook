@@ -47,3 +47,5 @@ When it's all done, please submit a pull request to the [ServiceWorker Cookbook]
 # Attributions
 
 [MealKeeper Icon](https://www.iconfinder.com/icons/51445/cook_book_recipe_group_icon) by [Shlyapnikova](http://shlyapnikova.deviantart.com/), [Creative Commons (Attribution 3.0 Unported)](http://creativecommons.org/licenses/by/3.0/)
+
+Attribution of pictures in Caching strategies category can be found at [lorempixel.com](http://lorempixel.com).
