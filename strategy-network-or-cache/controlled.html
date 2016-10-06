@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Network or cache: controlled page - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   body {
+     text-align: center;
+   }
+  </style>
+</head>
+<body>
+  <h1>Network or cache</h1>
+  <img src="./asset" alt="sample asset" />
+  <p>This image request originates from a controlled page so the image will
+    be served by the service worker. The service worker will try to retrieve
+    the most updated content from network but if the answer does not arrive
+    before a timeout, it will fall back to the cached content. Try to
+    <a href="https://developers.google.com/web/tools/chrome-devtools/profile/network-performance/network-conditions?hl=en">
+    adjust throttling</a> to GPRS to see the effects of network latency.</p>
+</body>
+</html>
