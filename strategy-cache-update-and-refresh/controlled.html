@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cache, update and refresh: controlled page - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   body {
+     text-align: center;
+   }
+   #update-notice {
+     display: block;
+     padding: 1rem;
+     background-color: #C9E1BF;
+     opacity: 1.0;
+     transition: opacity 200ms cubic-bezier(0.4, 0, 1, 1);
+   }
+   #update-notice[hidden] {
+     opacity: 0.0;
+   }
+  </style>
+</head>
+<body>
+  <h1>Cache first with update notice</h1>
+  <img src="./asset" alt="sample asset" />
+  <p id="update-notice" hidden>New content available. <a href="#" id="update">Update</a></p>
+  <p>This image request originates from a controlled page so the image will
+    be served by the service worker. Even if the content in the server changes,
+    the page will show out of date content since it is served by the cache but
+    the service worker will inform the UI when the new content is
+    available.</p>
+
+<script src="./controlled.js"></script>
+</body>
+</html>
