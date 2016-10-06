@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cache only: non controlled page - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   body {
+     text-align: center;
+   }
+  </style>
+</head>
+<body>
+  <h1>Not controlled, no fallback</h1>
+  <img src="./missing" alt="sample asset">
+  <p>This image request points to an unavailable resource. Since there is no
+  service worker providing a fallback, it will result in a missing image.</p>
+</body>
+</html>
