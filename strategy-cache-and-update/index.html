@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cache and update - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   iframe {
+     display: block;
+     margin: 1rem;
+     box-shadow: 2px 2px 10px 0px #eee inset;
+     width: 50%;
+   }
+   #comparison {
+     display: flex;
+     direction: row;
+     margin-bottom: 2rem;
+   }
+   button {
+     width: 100%;
+     border: none;
+     background-color: #279CD7;
+     color: white;
+     font-size: large;
+     padding: 1em;
+     cursor: pointer;
+   }
+  </style>
+</head>
+<body>
+  <h1>Cache and update</h1>
+  <div id="comparison">
+    <iframe src="./non-controlled.html" id="reference"></iframe>
+    <iframe src="./controlled.html" id="sample"></iframe>
+  </div>
+  <p>The images in these iframes point to the same asset in the server. But the first is controlled by the service worker and the second is not.</p>
+  <p>In the server, the image is updated every 10 seconds, try to click on reload to cause new requests from the controlled and uncontrolled pages.</p>
+  <p><button id="reload">Reload</button></p>
+
+<script src="./index.js"></script>
+</body>
+</html>
