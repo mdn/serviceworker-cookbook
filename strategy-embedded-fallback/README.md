@@ -1,4 +1,4 @@
-# Offline fallback
+# Embedded fallback
 The recipe provides a service worker serving an embedded content fallback in
 case of missing resources.
 
