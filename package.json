@@ -1,7 +1,7 @@
 {
   "name": "serviceworker-cookbook",
   "version": "0.1.0",
-  "description": "It's online. It's offline. It's a Service Worker!",
+  "description": "A collection of Service Worker use cases, with commented sources and playgrounds.",
   "private": true,
   "scripts": {
     "start": "node --harmony server.js",
