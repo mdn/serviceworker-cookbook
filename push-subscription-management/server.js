@@ -23,7 +23,9 @@ if (!process.env.GCM_API_KEY) {
 // `subscriptions` array if the  push service responds with an error.
 // Subscription has been cancelled or expired.
 function sendNotification(endpoint) {
-  webPush.sendNotification(endpoint).then(function() {
+  webPush.sendNotification({
+    endpoint: endpoint
+  }).then(function() {
     console.log('Push Application Server - Notification sent to ' + endpoint);
   }).catch(function() {
     console.log('ERROR in sending Notification, endpoint removed ' + endpoint);

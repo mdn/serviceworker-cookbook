@@ -14,14 +14,20 @@ module.exports = function(app, route) {
 
   app.post(route + 'sendNotification', function(req, res) {
     setTimeout(function() {
-      webPush.sendNotification(req.body.endpoint, {
+      webPush.sendNotification({
+        endpoint: req.body.endpoint,
         TTL: req.body.ttl,
-        payload: req.body.payload,
-        userPublicKey: req.body.key,
-        userAuth: req.body.authSecret,
-      })
+        keys: {
+          p256dh: req.body.key,
+          auth: req.body.authSecret
+        }
+      }, req.body.payload)
       .then(function() {
         res.sendStatus(201);
+      })
+      .catch(function(error) {
+        console.log(error);
+        res.sendStatus(500);
       });
     }, req.body.delay * 1000);
   });

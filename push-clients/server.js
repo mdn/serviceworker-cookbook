@@ -14,11 +14,16 @@ module.exports = function(app, route) {
 
   app.post(route + 'sendNotification', function(req, res) {
     setTimeout(function() {
-      webPush.sendNotification(req.query.endpoint, {
-        TTL: 200,
+      webPush.sendNotification({
+        endpoint: req.query.endpoint,
+        TTL: req.query.ttl,
       })
       .then(function() {
         res.sendStatus(201);
+      })
+      .catch(function(error) {
+        res.sendStatus(500);
+        console.log(error);
       });
     }, 10000);
   });
