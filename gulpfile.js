@@ -101,7 +101,9 @@ gulp.task('build:docs', ['clean'], function buildDocs() {
       base: './'
     })
     .pipe(plugins.docco({
-      template: './src/tpl/docco/docco.jst'
+      template: './src/tpl/docco/docco.jst',
+      css: '' // fix gulp-docco bug passing null to path.basename()
+              // Node 6 now enforces this to be a string.
     }))
     .pipe(template.transform({ currentRecipe: recipe }))
     .pipe(plugins.rename(function(renamePath) {
