@@ -4,9 +4,6 @@ self.addEventListener('message', function(event) {
   var promise = self.clients.matchAll()
   .then(function(clientList) {
     // event.source.id contains the ID of the sender of the message.
-    // `event` in Chrome isn't an ExtendableMessageEvent yet (https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendablemessage-event-interface),
-    // so it doesn't have the `source` property.
-    // https://code.google.com/p/chromium/issues/detail?id=543198
     var senderID = event.source ? event.source.id : 'unknown';
 
     // We'll also print a warning, so users playing with the demo aren't confused.
