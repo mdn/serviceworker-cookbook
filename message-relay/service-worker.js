@@ -24,8 +24,8 @@ self.addEventListener('message', function(event) {
     });
   });
 
-  // If event.waitUntil is defined (not yet in Chrome because of the same issue detailed before),
-  // use it to extend the lifetime of the Service Worker.
+  // If event.waitUntil is defined, use it to extend the
+  // lifetime of the Service Worker.
   if (event.waitUntil) {
     event.waitUntil(promise);
   }
