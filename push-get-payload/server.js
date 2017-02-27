@@ -17,11 +17,16 @@ module.exports = function(app, route) {
   app.post(route + 'sendNotification', function(req, res) {
     setTimeout(function() {
       payloads[req.body.endpoint] = req.body.payload;
-      webPush.sendNotification(req.body.endpoint, {
+      webPush.sendNotification({
+        endpoint: req.body.endpoint,
         TTL: req.body.ttl,
       })
       .then(function() {
         res.sendStatus(201);
+      })
+      .catch(function(error) {
+        res.sendStatus(500);
+        console.log(error);
       });
     }, req.body.delay * 1000);
   });

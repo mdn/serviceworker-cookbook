@@ -22,11 +22,13 @@ module.exports = function(app, route) {
     var promises = [];
 
     var intervalID = setInterval(function() {
-      promises.push(webPush.sendNotification(req.body.endpoint, {
+      promises.push(webPush.sendNotification({
+        endpoint: req.body.endpoint,
         TTL: 200,
-        payload: JSON.stringify(req.body.visible),
-        userPublicKey: req.body.key,
-        userAuth: req.body.authSecret,
+        keys: {
+          p256dh: req.body.key,
+          auth: req.body.authSecret,
+        }
       }));
 
       if (num++ === Number(req.body.num)) {
@@ -35,7 +37,11 @@ module.exports = function(app, route) {
         Promise.all(promises)
         .then(function() {
           res.sendStatus(201);
-        });
+        })
+        .catch(function(error) {
+          res.sendStatus(500);
+          console.log(error);
+        })
       }
     }, 1000);
   });

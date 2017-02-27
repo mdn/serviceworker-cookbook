@@ -13,17 +13,26 @@ module.exports = function(app, route) {
   });
 
   app.post(route + 'sendNotification', function(req, res) {
-    webPush.sendNotification(req.query.endpoint, {
+    webPush.sendNotification({
+      endpoint: req.query.endpoint,
       TTL: 200,
-    });
+    })
+    .catch(logError);
 
     setTimeout(function() {
-      webPush.sendNotification(req.query.endpoint, {
+      webPush.sendNotification({
+        endpoint: req.query.endpoint,
         TTL: 200,
       })
       .then(function() {
         res.sendStatus(201);
-      });
+      })
+      .catch(logError);
     }, req.query.delay * 1000);
+
+    function logError(error) {
+      res.sendStatus(500);
+      console.log(error);
+    }
   });
 };

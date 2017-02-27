@@ -2,8 +2,8 @@ git:
   depth: 10
 language: node_js
 node_js:
+- '6'
 - '4'
-- '0.12'
 deploy:
   provider: heroku
   api_key:
