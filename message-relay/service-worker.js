@@ -4,13 +4,7 @@ self.addEventListener('message', function(event) {
   var promise = self.clients.matchAll()
   .then(function(clientList) {
     // event.source.id contains the ID of the sender of the message.
-    var senderID = event.source ? event.source.id : 'unknown';
-
-    // We'll also print a warning, so users playing with the demo aren't confused.
-    if (!event.source) {
-      console.log('event.source is null; we don\'t know the sender of the ' +
-                  'message');
-    }
+    var senderID = event.source.id;
 
     clientList.forEach(function(client) {
       // Skip sending the message to the client that sent it.
