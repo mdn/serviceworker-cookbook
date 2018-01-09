@@ -11,13 +11,7 @@ var subscriptions = [];
 // user.
 var pushInterval = 10;
 
-// Setting the Google Cloud Messaging API Key.
-if (!process.env.GCM_API_KEY) {
-  console.error('If you want Chrome to work, you need to set the ' +
-                'GCM_API_KEY environment variable to your GCM API key.');
-} else {
-  webPush.setGCMAPIKey(process.env.GCM_API_KEY);
-}
+webPush.setGCMAPIKey(process.env.GCM_API_KEY || null);
 
 // Send notification to the push service. Remove the endpoint from the
 // `subscriptions` array if the  push service responds with an error.

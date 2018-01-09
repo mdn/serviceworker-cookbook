@@ -4,7 +4,7 @@
 // https://tools.ietf.org/html/draft-ietf-webpush-encryption.
 var webPush = require('web-push');
 
-webPush.setGCMAPIKey(process.env.GCM_API_KEY);
+webPush.setGCMAPIKey(process.env.GCM_API_KEY || null);
 
 module.exports = function(app, route) {
   app.post(route + 'register', function(req, res) {
