@@ -220,8 +220,13 @@ h2 {
   color: #e55525;
 }
 
+.demo-wrapper {
+  -webkit-overflow-scrolling: touch;
+}
+
 iframe {
   border: 0;
+  overflow: hidden;
 }
 
 .book main .text-page {
