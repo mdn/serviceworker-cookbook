@@ -1,5 +1,6 @@
-// [Working example](/serviceworker-cookbook/DIR-HERE/).
+// [Working example](/serviceworker-cookbook/local-download/).
 
+// Listen on fetch events for posts to download-file
 self.addEventListener('fetch', function(event) {
     // If the request is going to the download-file endpoint, parse the post data and return a file. 
     // This can be paired with a server side function with the same behavior as a fallback.
