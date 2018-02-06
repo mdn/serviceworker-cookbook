@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mozilla/serviceworker-cookbook.svg?branch=master)](https://travis-ci.org/mozilla/serviceworker-cookbook)
 [![dependencies](https://david-dm.org/mozilla/serviceworker-cookbook.svg)](https://david-dm.org/mozilla/serviceworker-cookbook)
-[![devdependencies](https://david-dm.org/mozilla/serviceworker-cookbook/dev-status.svg)](https://david-dm.org/mozilla/serviceworker-cookbook#info=devDependencies)
+[![devdependencies](https://david-dm.org/mozilla/serviceworker-cookbook/dev-status.svg)](https://david-dm.org/mozilla/serviceworker-cookbook?type=dev)
 
 It's online. It's offline. It's a Service Worker!
 
