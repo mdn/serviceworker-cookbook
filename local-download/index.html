@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Local Download - ServiceWorker Cookbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <form action="download-file" method="POST">  
+  <label for="filename">Choose a name for the file.</label>
+  <input type="text" name="filename" value="textfile.txt" />
+  <textarea name="filebody" id="filebody">
+    Click below to download this message as a text file.
+  </textarea>
+  <input type="submit" id="download" value="Download"/>
+  </form>
+
+  
+<script src="./index.js"></script>
+</body>
+</html>
