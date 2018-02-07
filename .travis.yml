@@ -3,7 +3,6 @@ git:
 language: node_js
 node_js:
 - '6'
-- '4'
 deploy:
   provider: heroku
   api_key:
@@ -13,4 +12,4 @@ deploy:
   on:
     repo: mozilla/serviceworker-cookbook
     branch: master
-    node: '4'
+    node: '6'
