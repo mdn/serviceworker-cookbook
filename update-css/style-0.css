@@ -1,0 +1,7 @@
+body {
+  background-color: rgb(255, 0, 0);
+}
+
+#styled-inner {
+  background-color: rgba(0, 255, 0, 0.9);
+}

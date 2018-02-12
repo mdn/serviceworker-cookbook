@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Cache CSS - ServiceWorker Cookbook</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' href='style.css'>
+  <link rel='stylesheet' href='style-shared.css'>
+</head>
+<body>
+  <div id='styled-inner'>
+    <p>This page uses a Service Worker to make CSS assets available from a local cache; the browser does not have to wait for a response to a network request for the CSS assets before it displays the page.
+    </p>
+
+    <p>This page should have some dramatically obvious styling. If it does not have styling, that means that a Service Worker is not controlling this page. Make sure your browser supports Service Workers and refresh the page.</p>
+
+    <p>If you do see styling, the CSS, image, and font (coming soon) resources have been served from a Service Worker. If you refresh the page, the same resources will be served. On each fetch, the Service Worker queries the "server" for a JSON file that lists the resources to be cached. If a newer JSON file is available than the one that our Service Worker is using, the Service Worker will begin downloading the resources listed in that file. When the Service Worker has finished caching those items, it will notify all the pages that it is controlling that a new set of resources is now cached. If this page gets notified it will change the text of the line below.</p>
+
+    <p>
+      <div id='status'>SW has not informed us of an update</div>
+    </p>
+
+    <p>To make a different JSON file available, click the button below:</p>
+
+    <p>
+      <button id='toggleVersionButton'>Update files on "server"</button>
+      <output id='toggleVersionButtonOutput'></output>
+    </p>
+
+    <p>This example does not poll the server for new CSS files, but that could optionally be accomplished by sending Fetch Events from time to time from this page.
+    </p>
+
+    <p>This page does not auto-refresh the page when it discovers that a new CSS file is available; it simply displays a message to illustrate what is happening.
+    </p>
+
+  </div>
+
+  <script src='./main.js'></script>
+</body>
+</html>
