@@ -213,6 +213,12 @@ gulp.task('build:js', ['clean'], function() {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('build:toolsjs', ['clean'], function() {
+  return gulp
+    .src('tools.js')
+    .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('build:tabzilla', ['clean'], function() {
   return gulp
     .src('node_modules/mozilla-tabzilla/css/*.css')
@@ -249,4 +255,4 @@ gulp.task('test', ['lint']);
 gulp.task('build-dev', ['build:recipes', 'test']);
 
 // Full build for publishing
-gulp.task('build', ['build:index', 'build:categories', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:tabzilla', 'build:favicon']);
+gulp.task('build', ['build:index', 'build:categories', 'build:intros', 'build:demos', 'build:recipes', 'build:docs', 'build:css', 'build:js', 'build:toolsjs', 'build:tabzilla', 'build:favicon']);
