@@ -1,4 +1,4 @@
-var num = 1;
+let num = 1;
 
 // Register event listener for the 'push' event.
 self.addEventListener('push', function(event) {

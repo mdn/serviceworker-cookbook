@@ -32,11 +32,21 @@ if ('serviceWorker' in navigator) {
 
 // Get the `registration` from service worker and create a new
 // subscription using `registration.pushManager.subscribe`. Then
-// register received new subscription by sending a POST request with its
-// endpoint to the server.
+// register received new subscription by sending a POST request with
+// the subscription to the server.
 function subscribe() {
-  navigator.serviceWorker.ready.then(function(registration) {
-    return registration.pushManager.subscribe({ userVisibleOnly: true });
+  navigator.serviceWorker.ready.then(async function(registration) {
+    // Get the server's public key
+    const response = await fetch('./vapidPublicKey');
+    const vapidPublicKey = await response.text();
+    // Chrome doesn't accept the base64-encoded (string) vapidPublicKey yet
+    // urlBase64ToUint8Array() is defined in /tools.js
+    const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+    // Subscribe the user
+    return registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: convertedVapidKey
+    });
   }).then(function(subscription) {
     console.log('Subscribed', subscription.endpoint);
     return fetch('register', {
@@ -45,7 +55,7 @@ function subscribe() {
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
-        endpoint: subscription.endpoint
+        subscription: subscription
       })
     });
   }).then(setUnsubscribeButton);
@@ -66,7 +76,7 @@ function unsubscribe() {
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            endpoint: subscription.endpoint
+            subscription: subscription
           })
         });
       });
