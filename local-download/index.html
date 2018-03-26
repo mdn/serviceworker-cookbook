@@ -14,12 +14,19 @@
 </head>
 <body>
   <form action="download-file" method="POST">  
-  <label for="filename">Choose a name for the file.</label>
-  <input type="text" name="filename" value="textfile.txt" />
-  <textarea name="filebody" id="filebody">
-    Click below to download this message as a text file.
-  </textarea>
-  <input type="submit" id="download" value="Download"/>
+  <label for="filename">
+    Choose a name for the file.
+    <input type="text" name="filename" value="textfile.txt" />
+  </label>
+  <label> 
+    Fill out file contents
+    <textarea name="filebody" id="filebody" rows="12" cols="80">
+Click below to download this message as a text file.
+    </textarea>
+  </label>
+  <div>
+    <input class="button" type="submit" id="download" value="Download this file"/>
+  </div>
   </form>
   <script src="./index.js"></script>
 </body>
