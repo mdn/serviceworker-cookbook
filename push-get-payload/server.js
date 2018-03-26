@@ -37,7 +37,7 @@ module.exports = function(app, route) {
     };
 
     setTimeout(function() {
-      payloads[req.body.endpoint] = payload;
+      payloads[req.body.subscription.endpoint] = payload;
       webPush.sendNotification(subscription, null, options)
       .then(function() {
         res.sendStatus(201);
