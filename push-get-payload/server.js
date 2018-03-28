@@ -14,7 +14,7 @@ if (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
 webPush.setVapidDetails(
   'https://serviceworke.rs/',
   process.env.VAPID_PUBLIC_KEY,
-  process.env.VAPID_PRIVATE_KEY,
+  process.env.VAPID_PRIVATE_KEY
 );
 
 const payloads = {};
