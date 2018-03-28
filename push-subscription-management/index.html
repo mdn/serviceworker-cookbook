@@ -11,14 +11,12 @@
       white-space: pre-wrap;
     }
   </style>
-  <!-- This is needed for Google Chrome support. -->
-  <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-
   <p>This demo shows how to subscribe/unsubscribe to the push notifications.</p>
   <button id='subscriptionButton' disabled=true></button>
   <p>To simulate the subscription expiration under Firefox please set the <code>dom.push.userAgentId</code> in about:config to an empty string. (Note: <A href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222428">bug 1222428</a>)</p>
-  <script src='./index.js'></script>
+  <script src="/tools.js"></script>
+  <script src="./index.js"></script>
 </body>
 </html>

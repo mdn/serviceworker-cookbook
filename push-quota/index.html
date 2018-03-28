@@ -15,8 +15,6 @@
       color: red;
     }
   </style>
-  <!-- This is needed for Google Chrome support. -->
-  <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
 <p>This demo allows you to experiment with the quota management rules enforced by browsers.
@@ -39,6 +37,7 @@ Number of notifications to send: <input id="notification-num" type="number" valu
 Received <span id="sent-invisible">0</span> invisible notifications</p>
 <button id="clear">Clear</button>
 
+<script src="/tools.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>
