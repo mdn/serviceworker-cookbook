@@ -18,11 +18,11 @@ The ServiceWorker API, which has recently made its way into Firefox Developer Ed
 
 This cookbook contains dozens of practical, detailed, and working examples of service worker usage.  These examples are for developers from beginner to expert and illustrate a number of APIs:
 
-- [navigator.serviceWorker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-- [fetch](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch)
-- [cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
-- [push](https://developer.mozilla.org/en-US/docs/Web/API/Simple_Push_API)
-- [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification)
+- [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+- [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+- [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
+- [Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
+- [Notifications](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API)
 - [BackgroundSync](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/sync)
 
 ## How to contribute
