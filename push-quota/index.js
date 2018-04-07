@@ -16,10 +16,11 @@ navigator.serviceWorker.register('service-worker.js')
     // urlBase64ToUint8Array() is defined in /tools.js
     const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
-    // Otherwise, subscribe the user (unlike the other push recipes, here we don't set
-    // the userVisibleOnly property because we don't plan to only send notifications that
-    // have a visible effect for the user).
+    // Otherwise, subscribe the user
+    // We are not strictly honoring userVisibleOnly: we will also be sending invisible pushes,
+    // but otherwise Chrome will not allow us to setup a subscription.
     return registration.pushManager.subscribe({
+      userVisibleOnly: true,
       applicationServerKey: convertedVapidKey
     });
   });

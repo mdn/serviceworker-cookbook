@@ -33,7 +33,7 @@ module.exports = function(app, route) {
   // - 'false': don't show a notification.
   app.post(route + 'sendNotification', function(req, res) {
     const subscription = req.body.subscription;
-    const payload = null;
+    const payload = JSON.stringify(req.body.visible);
     const options = {
       TTL: 200
     };
