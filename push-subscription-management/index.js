@@ -1,41 +1,32 @@
-// [Working example](/push-subscription-management_demo.html).
-
 var subscriptionButton = document.getElementById('subscriptionButton');
 
-// As subscription object is needed in few places let's create a method which
-// returns a promise.
-function getSubscription() {
-  return navigator.serviceWorker.ready
-    .then(function(registration) {
-      return registration.pushManager.getSubscription();
-    });
-}
+// Register a Service Worker.
+navigator.serviceWorker.register('service-worker.js');
 
-// Register service worker and check the initial subscription state.
-// Set the UI (button) according to the status.
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then(function() {
-      console.log('service worker registered');
-      subscriptionButton.removeAttribute('disabled');
-    });
-  getSubscription()
-    .then(function(subscription) {
-      if (subscription) {
-        console.log('Already subscribed', subscription.endpoint);
-        setUnsubscribeButton();
-      } else {
-        setSubscribeButton();
-      }
-    });
-}
+// When the Service Worker is ready, enable the UI (button),
+// and see if we already have a subscription set up.
+navigator.serviceWorker.ready
+.then(function(registration) {
+  console.log('service worker registered');
+  subscriptionButton.removeAttribute('disabled');
+
+  return registration.pushManager.getSubscription();
+}).then(function(subscription) {
+  if (subscription) {
+    console.log('Already subscribed', subscription.endpoint);
+    setUnsubscribeButton();
+  } else {
+    setSubscribeButton();
+  }
+});
 
 // Get the `registration` from service worker and create a new
 // subscription using `registration.pushManager.subscribe`. Then
 // register received new subscription by sending a POST request with
 // the subscription to the server.
 function subscribe() {
-  navigator.serviceWorker.ready.then(async function(registration) {
+  navigator.serviceWorker.ready
+  .then(async function(registration) {
     // Get the server's public key
     const response = await fetch('./vapidPublicKey');
     const vapidPublicKey = await response.text();
@@ -66,7 +57,10 @@ function subscribe() {
 // a POST request to stop sending push messages to
 // unexisting endpoint.
 function unsubscribe() {
-  getSubscription().then(function(subscription) {
+  navigator.serviceWorker.ready
+  .then(function(registration) {
+    return registration.pushManager.getSubscription();
+  }).then(function(subscription) {
     return subscription.unsubscribe()
       .then(function() {
         console.log('Unsubscribed', subscription.endpoint);

@@ -1,5 +1,3 @@
-// [Working example](/serviceworker-cookbook/push-subscription-management/).
-
 // Use the web-push library to hide the implementation details of the communication
 // between the application server and the push service.
 // For details, see https://tools.ietf.org/html/draft-ietf-webpush-protocol and
@@ -59,7 +57,7 @@ module.exports = function(app, route) {
       console.log('Subscription registered ' + subscription.endpoint);
       subscriptions[subscription.endpoint] = subscription;
     }
-    res.type('js').send('{"success":true}');
+    res.sendStatus(201);
   });
 
   // Unregister a subscription by removing it from the `subscriptions` array
@@ -69,6 +67,6 @@ module.exports = function(app, route) {
       console.log('Subscription unregistered ' + subscription.endpoint);
       delete subscriptions[subscription.endpoint];
     }
-    res.type('js').send('{"success":true}');
+    res.sendStatus(201);
   });
 };

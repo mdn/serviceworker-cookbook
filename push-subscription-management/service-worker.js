@@ -1,5 +1,3 @@
-// [Working example](/serviceworker-cookbook/push-subscription-management/).
-
 // Listen to `push` notification event. Define the text to be displayed
 // and show the notification.
 self.addEventListener('push', function(event) {
