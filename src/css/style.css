@@ -181,6 +181,7 @@ nav .recipes-cover {
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 nav ul.recipes {
@@ -199,6 +200,7 @@ nav ul.recipes li {
   left: 0;
   bottom: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: #fff;
 }
 
