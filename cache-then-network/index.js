@@ -8,32 +8,24 @@ var networkStatus = document.getElementById('network-status');
 var getDataButton = document.getElementById('getDataButton');
 var dataElement = document.getElementById('data');
 
-/*
- * Caches are per-origin, so we need to pick a name that no
- * other page on this origin is going to try to use.
- */
+// Caches are per-origin, so we need to pick a name that no
+// other page on this origin is going to try to use.
 var cacheName = 'cache-then-network';
 
 
-/*
- * If network data was received, we don't want an in-flight cache
- * fetch to complete and overwrite the data that we just got from
- * the network. We use this flag to let the cache fetch callbacks
- * know whether a network fetch has already completed.
- */
+// If network data was received, we don't want an in-flight cache
+// fetch to complete and overwrite the data that we just got from
+// the network. We use this flag to let the cache fetch callbacks
+// know whether a network fetch has already completed.
 var gotNetworkData = false;
 
 
-/*
- * For showing elapsed times
- */
+// For showing elapsed times
 var networkFetchStartTime;
 var cacheFetchStartTime;
 
 
-/*
- * UI functions
- */
+// UI functions
 function reset() {
   dataElement.textContent = '';
   cacheStatus.textContent = '';
@@ -64,9 +56,7 @@ function updatePage(data) {
 }
 
 
-/*
- * Callbacks for network and cache fetches
- */
+// Callbacks for network and cache fetches
 function handleFetchCompletion(res) {
   // Simulate a network error by throwing in the callback
   var shouldNetworkError = networkFailInput.checked;
@@ -111,14 +101,12 @@ function handleCacheFetchCompletion(res) {
 }
 
 
-/*
- * This is the heart of the demo. Whenever the user clicks the
- * button, we'll make simultaneous (or nearly-simultaneous) requests
- * of the cache and the network for data. In a real application, this
- * would probably happen on page load rather than as a result of
- * user action, but to make the page more illustrative and allow
- * for user-specified delays, we've got a button.
- */
+// This is the heart of the demo. Whenever the user clicks the
+// button, we'll make simultaneous (or nearly-simultaneous) requests
+// of the cache and the network for data. In a real application, this
+// would probably happen on page load rather than as a result of
+// user action, but to make the page more illustrative and allow
+// for user-specified delays, we've got a button.
 getDataButton.addEventListener('click', function handleClick() {
   disableUI();
 
