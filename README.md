@@ -8,9 +8,9 @@ It's online. It's offline. It's a Service Worker!
 
 Service workers are a new technology to aid developers in:
 
-	- creating realistic, reliable offline experiences
-	- vastly improving performance when online
-	- logically and dynamically caching files for any purpose
+- creating realistic, reliable offline experiences
+- vastly improving performance when online
+- logically and dynamically caching files for any purpose
 
 The ServiceWorker API, which has recently made its way into Firefox Developer Edition, will change the way web and mobile app developers make their websites fast and functional!
 
