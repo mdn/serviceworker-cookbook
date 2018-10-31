@@ -1,6 +1,6 @@
 # Immediate Claim
 
-This recipe shows how to have the service worker immediately take control of the page without waiting for a navigation event.
+A service worker that immediately takes control of the page without waiting for a navigation event.
 
 ## Difficulty
 Beginner

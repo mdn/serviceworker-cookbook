@@ -1,5 +1,5 @@
 # Virtual Server
-This recipe shows a service worker acting like a remote server.
+A service worker acting like a remote server.
 
 ## Difficulty
 Intermediate

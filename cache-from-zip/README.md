@@ -1,5 +1,5 @@
 # Cache from ZIP
-This recipe illustrates how to cache contents from a zipfile.
+Cache contents from a zipfile.
 
 ## Difficulty
 Intermediate

@@ -1,6 +1,6 @@
 # Push Subscription
 
-This recipe shows how to use push notifications with subscription management.
+Use push notifications with subscription management.
 
 ## Difficulty
 Advanced

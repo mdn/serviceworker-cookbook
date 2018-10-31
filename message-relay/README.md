@@ -1,6 +1,6 @@
 # Message Relay
 
-This recipe shows how to communicate between the service worker and a page and shows how to use a service worker to relay messages between pages.
+Communicate between the service worker and a page and relay messages between pages.
 
 ## Difficulty
 Beginner

@@ -1,5 +1,5 @@
 # Dependency Injection
-This recipe shows how a Service Worker can act as a dependency injector, avoiding _hard wiring_ dependencies for high level components.
+A Service Worker acting as a dependency injector, avoiding _hard wiring_ dependencies for high level components.
 
 ## Difficulty
 Advanced

@@ -1,5 +1,5 @@
 # Load balancer
-This recipe shows a Service Worker containing network logic to dynamically select the best content provider accordingly to server availability.
+A Service Worker containing network logic to dynamically select the best content provider accordingly to server availability.
 
 ## Difficulty
 Intermediate

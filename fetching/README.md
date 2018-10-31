@@ -1,6 +1,6 @@
 # Fetching Remote Resources
 
-This recipe shows 2 standard ways of loading a remote resource and one way to use service worker as a proxy middleware.
+2 standard ways of loading a remote resource and one way to use service worker as a proxy middleware.
 
 There are used 3 types of remote resources - unsecure (http), secured with `allow-origin` header, and secured without the header.
 
