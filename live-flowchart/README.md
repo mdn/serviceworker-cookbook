@@ -9,19 +9,19 @@ Advanced
 
 Register + Unregister
 
-![Screenshot](https://cdn.rawgit.com/mozilla/serviceworker-cookbook/master/live-flowchart/register-unregister.png)
+![Screenshot](https://cdn.combinatronics.com/mozilla/serviceworker-cookbook/master/live-flowchart/register-unregister.png)
 
 Active service worker on page load + unregister
 
-![Screenshot](https://cdn.rawgit.com/mozilla/serviceworker-cookbook/master/live-flowchart/active-service-worker-unregister.png)
+![Screenshot](https://cdn.combinatronics.com/mozilla/serviceworker-cookbook/master/live-flowchart/active-service-worker-unregister.png)
 
 Wrong service worker scriptURL
 
-![Screenshot](https://cdn.rawgit.com/mozilla/serviceworker-cookbook/master/live-flowchart/wrong-scriptURL.png)
+![Screenshot](https://cdn.combinatronics.com/mozilla/serviceworker-cookbook/master/live-flowchart/wrong-scriptURL.png)
 
 Security error
 
-![Screenshot](https://cdn.rawgit.com/mozilla/serviceworker-cookbook/master/live-flowchart/security-error.png)
+![Screenshot](https://cdn.combinatronics.com/mozilla/serviceworker-cookbook/master/live-flowchart/security-error.png)
 
 ## Features and Usage
 
