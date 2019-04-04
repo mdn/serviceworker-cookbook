@@ -26,7 +26,7 @@
   "homepage": "https://mozilla.github.com/serviceworker-cookbook/",
   "devDependencies": {
     "browser-sync": "^2.9.6",
-    "del": "^2.0.2",
+    "del": "^4.1.0",
     "eslint": "^3.16.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
