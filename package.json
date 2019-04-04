@@ -46,7 +46,7 @@
     "merge-stream": "^1.0.0",
     "mozilla-tabzilla": "^0.5.1",
     "rename": "^1.0.3",
-    "through2": "^2.0.0"
+    "through2": "^3.0.1"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
