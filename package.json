@@ -42,7 +42,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-swig": "^0.8.0",
     "gulp-uglify": "^2.0.1",
-    "marked": "^0.3.5",
+    "marked": "^0.6.1",
     "merge-stream": "^1.0.0",
     "mozilla-tabzilla": "^0.5.1",
     "rename": "^1.0.3",
