@@ -59,6 +59,6 @@
     "web-push": "^3.2.2"
   },
   "engines": {
-    "node": "6"
+    "node": "11"
   }
 }
