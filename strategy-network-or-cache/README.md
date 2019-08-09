@@ -1,6 +1,6 @@
 # Network or cache
 The service worker in this recipe tries to retrieve the most up to date content
-from the network but if the network is taking too much, it will serve cached
+from the network but if the network is taking too long, it will serve cached
 content instead.
 
 ## Difficulty
