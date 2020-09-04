@@ -43,7 +43,7 @@
 
     "gulp-swig": "^0.9.1",
     "gulp-uglify": "^2.0.1",
-    "marked": "^0.6.1",
+    "marked": "^1.1.1",
     "merge-stream": "^1.0.0",
     "mozilla-tabzilla": "^0.5.1",
     "rename": "^1.0.3",
